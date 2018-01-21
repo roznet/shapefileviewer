@@ -1,10 +1,27 @@
+//  MIT Licence
 //
-//  SVShapeTableViewController.m
-//  VisitedCountries
+//  Created on 29/03/2015.
 //
-//  Created by Brice Rosenzweig on 29/03/2015.
-//  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
+//  Copyright (c) 2015 Brice Rosenzweig.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//  
 
 #import "SVShapeTableViewController.h"
 @import RZExternalUniversal;
@@ -63,9 +80,9 @@
     [panel setMessage:@"Select 3 files with shp, dbg and shx extension and a common base name"];
     [panel setAllowedFileTypes:exts ];
     [panel setDirectoryURL:[NSURL URLWithString:@"~/Downloads"]];
-    
+
     [panel runModal];
-    
+
     NSArray * fs = [panel.URLs arrayByMappingBlock:^(NSURL* obj){
         return obj.path;
     }];
@@ -136,11 +153,11 @@
 
     [self updatePopupForBase:path];
     self.shapeFileMapView = [RZShapeFileMapView shapeFileMapViewFor:self.file];
-    
+
     NSMutableDictionary * dict =[NSMutableDictionary dictionary];
     for (NSDictionary * one in self.file.allShapes) {
         for (NSString * key in one) {
-            
+
             NSDictionary * column = dict[key];
             if (!column) {
                 column = @{ @"values":  [NSMutableDictionary dictionary], @"types": [NSMutableDictionary dictionary]};
@@ -158,20 +175,20 @@
             }else if ([val isKindOfClass:[NSNumber class]]){
                 valtype = @"Number";
             }
-            
+
             if(column[@"types"][valtype]){
                 column[@"types"][valtype] = @([column[@"types"][valtype] integerValue]  +1);
             }else{
                 column[@"types"][valtype] = @(1);
             }
-            
+
         }
     }
     self.values = dict;
     self.array = [RZFilteredSelectedArray array:self.file.allShapes withFilter:nil];
     [self setupTableColumns];
     NSString * missing = [self validateBase:path];
-    
+
     if (self.file.allShapes.count > 0) {
         self.bottomInfo.stringValue = [NSString stringWithFormat:@"%d shapes %@", (int)self.file.allShapes.count, missing];
     }else{
@@ -190,11 +207,11 @@
     if( ![[NSFileManager defaultManager] isReadableFileAtPath:[path stringByAppendingPathExtension:@"dbf"]] ){
         [missing addObject:@"dbf"];
     }
-    
+
     if (missing.count==0) {
         return @"";
     }
-    
+
     return [NSString stringWithFormat:@"Permission to read %@ files required, please select them in the file dialog", [missing componentsJoinedByString:@", "]];
 }
 
@@ -209,12 +226,12 @@
     NSArray * sorted = [allColumns sortedArrayUsingComparator:^(NSString * k1, NSString * k2){
         NSDictionary * d1 = self.values[k1];
         NSDictionary * d2 = self.values[k2];
-        
+
         NSComparisonResult rv = NSOrderedSame;
-        
+
         BOOL isS1 = d1[@"types"][@"String"] != nil;
         BOOL isS2 = d2[@"types"][@"String"] != nil;
-        
+
         if (isS1 && isS2) {
             NSUInteger c1 = [d1[@"values"] allKeys].count;
             NSUInteger c2 = [d2[@"values"] allKeys].count;
@@ -230,10 +247,10 @@
         }else if (isS2 && ! isS1){
             rv = NSOrderedDescending;
         }
-        
+
         return rv;
     }];
-    
+
     for (NSString * key in sorted) {
         NSTableColumn * col = [[NSTableColumn alloc] initWithIdentifier:key];
         [col.headerCell setStringValue:key];
@@ -257,21 +274,21 @@
 #pragma mark - NSTableDelegate
 
 -(NSView*)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
-    
+
     // Get a new ViewCell
-    
+
     NSString * key = tableColumn.identifier;
     id val = @"";
     if (row < self.array.count) {
         NSDictionary * rowDict = self.array[row];
         val = rowDict[key];
     }
-    
+
     NSRect rect = NSMakeRect(0.0, 0.0, 60., 20.);
-    
+
     NSTextField * textField = [[NSTextField alloc] initWithFrame:rect];
     textField.stringValue = [NSString stringWithFormat:@"%@", val ? val : @""];
-    
+
     if ([val isKindOfClass:[NSString class]]) {
         textField.alignment = NSLeftTextAlignment;
         textField.editable = YES;
@@ -281,16 +298,16 @@
         textField.alignment = NSRightTextAlignment;
         textField.editable = NO;
     }
-    
+
     textField.bordered = NO;
     textField.backgroundColor= [NSColor clearColor];
-    
+
     /*
      NSTableCellView * cellView = [[NSTableCellView alloc] initWithFrame:rect];
     cellView.textField = textField;
     [cellView addSubview:textField];
     */
-    
+
     return textField;
 }
 
@@ -327,7 +344,7 @@
     self.mapView.delegate = self.shapeFileMapView;
 
     [self.shapeFileMapView updateForMapView:self.mapView andIndexSet:self.array.selectionIndexes];
-    
+
 }
 
 #pragma mark - NSOutlineDataSource
@@ -347,9 +364,9 @@
     }else{
         NSDictionary * one = self.values[item];
         return one? YES:NO;
-        
+
     }
-    
+
 }
 -(id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item{
     if (item == nil) {
@@ -358,7 +375,7 @@
         NSDictionary * one = self.values[item];
         NSArray * sub = one[@"values"];
         return one? [sub objectAtIndexedSubscript:index]:@"";
-        
+
     }
 }
 
