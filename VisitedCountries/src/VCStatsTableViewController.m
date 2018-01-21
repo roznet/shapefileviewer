@@ -1,10 +1,27 @@
+//  MIT Licence
 //
-//  VCStatsTableViewController.m
-//  VisitedCountries
+//  Created on 05/04/2015.
 //
-//  Created by Brice Rosenzweig on 05/04/2015.
-//  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
+//  Copyright (c) 2015 Brice Rosenzweig.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//  
 
 #import "RZUtils/RZUtils.h"
 #import "VCStatsTableViewController.h"
@@ -43,10 +60,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
+
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
@@ -120,7 +137,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GCCellGrid * cell = [GCCellGrid gridCell:tableView];
     [cell setupForRows:2 andCols:2];
-    
+
     if (indexPath.section == VC_SECTION_ALL) {
         NSString * data = [NSString stringWithFormat:@"%d countries out of %d", (int)self.visitedCount, (int)self.totalCount];
         NSString * pct = [NSString stringWithFormat:@"%.0f%%", (double)self.visitedCount/(double)self.totalCount*100.0];
@@ -134,9 +151,9 @@
         [cell labelForRow:0 andCol:0].attributedText = [VCViewConfig attributedString:info.name attribute:@selector(attribute16)];
         [cell labelForRow:0 andCol:1].attributedText = [VCViewConfig attributedString:data attribute:@selector(attributeBold16)];
         [cell labelForRow:1 andCol:1].attributedText = [VCViewConfig attributedString:pct attribute:@selector(attribute14Gray)];
-        
+
     }
-    
+
     return cell;
 }
 

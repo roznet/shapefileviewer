@@ -1,10 +1,27 @@
+//  MIT Licence
 //
-//  AppDelegate.m
-//  VisitedCountries
+//  Created on 16/03/2015.
 //
-//  Created by Brice Rosenzweig on 16/03/2015.
-//  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
+//  Copyright (c) 2015 Brice Rosenzweig.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//  
 
 #import "VCAppDelegate.h"
 #import "VCTabBarViewController.h"
@@ -20,18 +37,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     RZSimNeedle();
-    
+
     [self setupWorkerThread];
-    
+
     self.worldShape = [RZShapeFile shapeFileWithBase:[RZFileOrganizer bundleFilePath:@"TM_WORLD_BORDERS-0.2"]];
-    
+
     self.db = [FMDatabase databaseWithPath:[RZFileOrganizer writeableFilePath:@"records.db"]];
     [self.db open];
     [VCShapeSetOrganizer ensureDbStructure:self.db];
 
     self.organizer = [VCShapeSetOrganizer organizerWithDatabase:self.db andThread:self.worker];
     [self.organizer loadSelectionName:@"Default" withDefinitionName:@"Countries"];
-        
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
     {
@@ -41,7 +58,7 @@
         self.tabBarController = [[VCTabBarViewController alloc] initWithNibName:nil bundle:nil];
         [self.window setRootViewController:self.tabBarController];
     }
-    
+
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

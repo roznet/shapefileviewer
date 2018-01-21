@@ -1,10 +1,27 @@
+//  MIT Licence
 //
-//  VCCountry.m
-//  VisitedCountries
+//  Created on 26/03/2015.
 //
-//  Created by Brice Rosenzweig on 26/03/2015.
-//  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
+//  Copyright (c) 2015 Brice Rosenzweig.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//  
 
 #import "VCCountry.h"
 #import <CoreLocation/CoreLocation.h>
@@ -23,7 +40,7 @@
     static NSDictionary * map = nil;
     if (map == nil) {
         map =    @{
-                   
+
                    @(1):@"World",
                    @(2):@"Africa",
                    @(14):@"Eastern Africa",
@@ -64,7 +81,7 @@
     if (rv) {
         /*
          COLUMN		TYPE			DESCRIPTION
-         
+
          Shape		Polygon			Country/area border as polygon(s)
          FIPS		String(2)		FIPS 10-4 Country Code
          ISO2		String(2)		ISO 3166-1 Alpha-2 Country Code
@@ -77,7 +94,7 @@
          SUBREGION	Short Integer(3)	Geogrpahical sub-region, UN Statistics
          LON		FLOAT (7,3)		Longitude
          LAT		FLOAT (6,3)		Latitude
-         
+
          */
         rv.name = one[@"NAME"];
         rv.shapeIndex = idx;

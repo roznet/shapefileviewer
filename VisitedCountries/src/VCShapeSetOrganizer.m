@@ -1,10 +1,27 @@
+//  MIT Licence
 //
-//  VCCountriesListOrganizer.m
-//  VisitedCountries
+//  Created on 26/03/2015.
 //
-//  Created by Brice Rosenzweig on 26/03/2015.
-//  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
+//  Copyright (c) 2015 Brice Rosenzweig.
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//  
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//  
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//  
 
 /*
  * VCListOrganizer
@@ -32,7 +49,7 @@
  *   UniqueIdentifierField (ex ISO2)
  *   IconField (ex ISO2)
  *   IconBundle (ex flags.bundle)
- *   
+ *
  * As Json
  *
  {
@@ -69,10 +86,10 @@
     if (rv) {
         rv.worker = th;
         rv.db = db;
-        
+
         [rv loadFromDb];
     }
-    
+
     return rv;
 }
 
@@ -106,14 +123,14 @@
         RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT)");
     }
 
-    
+
 }
 
 -(void)changeSelectionName:(NSString*)name{
-    
+
 }
 -(void)changeSetSelection:(VCShapeSetDefinition*)setSelection{
-    
+
 }
 
 #pragma mark - Definitions
@@ -122,7 +139,7 @@
 
 
 -(void)addDefinition:(VCShapeSetDefinition*)def{
-    
+
 }
 -(VCShapeSetDefinition*)definitionForName:(NSString*)defname{
     return self.definitions[defname];
@@ -165,7 +182,7 @@
     [self chooseSelectionName:selname withDefinitionName:defname];
 }
 -(void)loadSelectionName:(NSString*)selname withDefinitionName:(NSString*)defname{
-    [self chooseSelectionName:selname withDefinitionName:defname];    
+    [self chooseSelectionName:selname withDefinitionName:defname];
 }
 
 @end
