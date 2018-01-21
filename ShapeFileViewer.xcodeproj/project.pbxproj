@@ -10,16 +10,22 @@
 		4205E9CA1B07EF9500BA3EED /* GBR_adm1.shx in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C41B07EF9500BA3EED /* GBR_adm1.shx */; };
 		4205E9CB1B07EF9500BA3EED /* GBR_adm1.shp in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C51B07EF9500BA3EED /* GBR_adm1.shp */; };
 		4205E9CC1B07EF9500BA3EED /* GBR_adm1.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C61B07EF9500BA3EED /* GBR_adm1.dbf */; };
-		420622231D3B679C0013A45E /* dbfopen.c in Sources */ = {isa = PBXBuildFile; fileRef = 4206221B1D3B679C0013A45E /* dbfopen.c */; };
-		420622241D3B679C0013A45E /* RZShapeFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4206221D1D3B679C0013A45E /* RZShapeFile.m */; };
-		420622251D3B679C0013A45E /* RZShapeFileMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4206221F1D3B679C0013A45E /* RZShapeFileMapView.m */; };
-		420622261D3B679C0013A45E /* safileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 420622201D3B679C0013A45E /* safileio.c */; };
-		420622271D3B679C0013A45E /* shpopen.c in Sources */ = {isa = PBXBuildFile; fileRef = 420622221D3B679C0013A45E /* shpopen.c */; };
-		420622281D3B67A80013A45E /* dbfopen.c in Sources */ = {isa = PBXBuildFile; fileRef = 4206221B1D3B679C0013A45E /* dbfopen.c */; };
-		420622291D3B67AB0013A45E /* RZShapeFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4206221D1D3B679C0013A45E /* RZShapeFile.m */; };
-		4206222A1D3B67AF0013A45E /* RZShapeFileMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4206221F1D3B679C0013A45E /* RZShapeFileMapView.m */; };
-		4206222B1D3B67B30013A45E /* safileio.c in Sources */ = {isa = PBXBuildFile; fileRef = 420622201D3B679C0013A45E /* safileio.c */; };
-		4206222C1D3B67B30013A45E /* shpopen.c in Sources */ = {isa = PBXBuildFile; fileRef = 420622221D3B679C0013A45E /* shpopen.c */; };
+		42248BEA2014DF84006ADC90 /* RZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; };
+		42248BEB2014DF84006ADC90 /* RZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248BEF2014E00E006ADC90 /* RZUtilsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489B12014DF52006ADC90 /* RZUtilsOSX.framework */; };
+		42248BF02014E00E006ADC90 /* RZUtilsOSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489B12014DF52006ADC90 /* RZUtilsOSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248BF32014E01C006ADC90 /* RZUtilsUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; };
+		42248BF42014E01C006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248C152014E1D9006ADC90 /* RZExternalUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; };
+		42248C162014E1D9006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248C192014E3E2006ADC90 /* RZExternalUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; };
+		42248C1A2014E3E2006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248C1D2014E3E2006ADC90 /* RZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; };
+		42248C1E2014E3E2006ADC90 /* RZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248C212014E3E2006ADC90 /* RZUtilsUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; };
+		42248C222014E3E2006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		42248C252014E3E2006ADC90 /* RZUtilsTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */; };
+		42248C262014E3E2006ADC90 /* RZUtilsTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		422637B21B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 422637A61B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf */; };
 		422637B31B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj in Resources */ = {isa = PBXBuildFile; fileRef = 422637A71B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj */; };
 		422637B41B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shp in Resources */ = {isa = PBXBuildFile; fileRef = 422637A81B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shp */; };
@@ -66,6 +72,181 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4224899C2014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 423829271EAB534100252217;
+			remoteInfo = RZUtils;
+		};
+		4224899E2014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 423829301EAB534100252217;
+			remoteInfo = RZUtilsTests;
+		};
+		422489A02014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382A451EAB584600252217;
+			remoteInfo = RZUtilsSwift;
+		};
+		422489A22014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382A4D1EAB584600252217;
+			remoteInfo = RZUtilsSwiftTests;
+		};
+		422489A42014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382A6C1EABA4AC00252217;
+			remoteInfo = RZUtilsUniversal;
+		};
+		422489A62014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382A741EABA4AC00252217;
+			remoteInfo = RZUtilsUniversalTests;
+		};
+		422489A82014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382AAA1EAC824900252217;
+			remoteInfo = RZUtilsHealthkit;
+		};
+		422489AA2014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382AB21EAC824900252217;
+			remoteInfo = RZUtilsHealthkitTests;
+		};
+		422489AC2014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382AD01EAC9BC700252217;
+			remoteInfo = RZUtilsTouch;
+		};
+		422489AE2014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382AD81EAC9BC700252217;
+			remoteInfo = RZUtilsTouchTests;
+		};
+		422489B02014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382B6A1EAC9DBD00252217;
+			remoteInfo = RZUtilsOSX;
+		};
+		422489B22014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42382B721EAC9DBD00252217;
+			remoteInfo = RZUtilsOSXTests;
+		};
+		422489B42014DF52006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 428BE85420013D4200E14A61;
+			remoteInfo = RZUtilsTestInfra;
+		};
+		42248BE02014DF6D006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42B263CF1FF8309700E891A1;
+			remoteInfo = RZExternal;
+		};
+		42248BE22014DF6D006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42EBC0201FFAC18A0009B385;
+			remoteInfo = RZExternalTestUtils;
+		};
+		42248BE42014DF6D006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42A007BF20012ADC00019CB3;
+			remoteInfo = RZExternalCpp;
+		};
+		42248BEC2014DF84006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 423829261EAB534100252217;
+			remoteInfo = RZUtils;
+		};
+		42248BF12014E00E006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 42382B691EAC9DBD00252217;
+			remoteInfo = RZUtilsOSX;
+		};
+		42248BF52014E01C006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 42382A6B1EABA4AC00252217;
+			remoteInfo = RZUtilsUniversal;
+		};
+		42248C132014E1D4006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 42248C022014E16A006ADC90;
+			remoteInfo = RZExternalUniversal;
+		};
+		42248C172014E1D9006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 42248C012014E16A006ADC90;
+			remoteInfo = RZExternalUniversal;
+		};
+		42248C1B2014E3E2006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 42248C012014E16A006ADC90;
+			remoteInfo = RZExternalUniversal;
+		};
+		42248C1F2014E3E2006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 423829261EAB534100252217;
+			remoteInfo = RZUtils;
+		};
+		42248C232014E3E2006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 42382A6B1EABA4AC00252217;
+			remoteInfo = RZUtilsUniversal;
+		};
+		42248C272014E3E2006ADC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 42382ACF1EAC9BC700252217;
+			remoteInfo = RZUtilsTouch;
+		};
 		42792C851AC8328E00555013 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 42C875661AB785BF00ED1B9B /* Project object */;
@@ -83,12 +264,30 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		42248BEE2014DF84006ADC90 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				42248BF42014E01C006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */,
+				42248C162014E1D9006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */,
+				42248BEB2014DF84006ADC90 /* RZUtils.framework in Embed Frameworks */,
+				42248BF02014E00E006ADC90 /* RZUtilsOSX.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4255554D1EFFB95000841AF2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				42248C1E2014E3E2006ADC90 /* RZUtils.framework in Embed Frameworks */,
+				42248C1A2014E3E2006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */,
+				42248C262014E3E2006ADC90 /* RZUtilsTouch.framework in Embed Frameworks */,
+				42248C222014E3E2006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,14 +298,8 @@
 		4205E9C41B07EF9500BA3EED /* GBR_adm1.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.shx; path = shapefiles/GBR_adm1.shx; sourceTree = "<group>"; };
 		4205E9C51B07EF9500BA3EED /* GBR_adm1.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.shp; path = shapefiles/GBR_adm1.shp; sourceTree = "<group>"; };
 		4205E9C61B07EF9500BA3EED /* GBR_adm1.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.dbf; path = shapefiles/GBR_adm1.dbf; sourceTree = "<group>"; };
-		4206221B1D3B679C0013A45E /* dbfopen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dbfopen.c; sourceTree = "<group>"; };
-		4206221C1D3B679C0013A45E /* RZShapeFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZShapeFile.h; sourceTree = "<group>"; };
-		4206221D1D3B679C0013A45E /* RZShapeFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZShapeFile.m; sourceTree = "<group>"; };
-		4206221E1D3B679C0013A45E /* RZShapeFileMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RZShapeFileMapView.h; sourceTree = "<group>"; };
-		4206221F1D3B679C0013A45E /* RZShapeFileMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RZShapeFileMapView.m; sourceTree = "<group>"; };
-		420622201D3B679C0013A45E /* safileio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = safileio.c; sourceTree = "<group>"; };
-		420622211D3B679C0013A45E /* shapefil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shapefil.h; sourceTree = "<group>"; };
-		420622221D3B679C0013A45E /* shpopen.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = shpopen.c; sourceTree = "<group>"; };
+		4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RZUtils.xcodeproj; path = RZUtils/RZUtils.xcodeproj; sourceTree = "<group>"; };
+		42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RZExternal.xcodeproj; path = RZExternal/RZExternal.xcodeproj; sourceTree = "<group>"; };
 		422637A61B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TM_WORLD_BORDERS-0.2.dbf"; path = "shapefiles/TM_WORLD_BORDERS-0.2.dbf"; sourceTree = "<group>"; };
 		422637A71B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "TM_WORLD_BORDERS-0.2.prj"; path = "shapefiles/TM_WORLD_BORDERS-0.2.prj"; sourceTree = "<group>"; };
 		422637A81B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TM_WORLD_BORDERS-0.2.shp"; path = "shapefiles/TM_WORLD_BORDERS-0.2.shp"; sourceTree = "<group>"; };
@@ -183,6 +376,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42248BF32014E01C006ADC90 /* RZUtilsUniversal.framework in Frameworks */,
+				42248C152014E1D9006ADC90 /* RZExternalUniversal.framework in Frameworks */,
+				42248BEA2014DF84006ADC90 /* RZUtils.framework in Frameworks */,
+				42248BEF2014E00E006ADC90 /* RZUtilsOSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,7 +394,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42248C212014E3E2006ADC90 /* RZUtilsUniversal.framework in Frameworks */,
 				42C876381AB8DB2800ED1B9B /* libsqlite3.dylib in Frameworks */,
+				42248C252014E3E2006ADC90 /* RZUtilsTouch.framework in Frameworks */,
+				42248C1D2014E3E2006ADC90 /* RZUtils.framework in Frameworks */,
+				42248C192014E3E2006ADC90 /* RZExternalUniversal.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,28 +412,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		420622191D3B67830013A45E /* shared */ = {
+		4224898D2014DF52006ADC90 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4206221A1D3B679C0013A45E /* shapefile */,
+				4224899D2014DF52006ADC90 /* RZUtils.framework */,
+				4224899F2014DF52006ADC90 /* RZUtilsTests.xctest */,
+				422489A12014DF52006ADC90 /* RZUtilsSwift.framework */,
+				422489A32014DF52006ADC90 /* RZUtilsSwiftTests.xctest */,
+				422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */,
+				422489A72014DF52006ADC90 /* RZUtilsUniversalTests.xctest */,
+				422489A92014DF52006ADC90 /* RZUtilsHealthkit.framework */,
+				422489AB2014DF52006ADC90 /* RZUtilsHealthkitTests.xctest */,
+				422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */,
+				422489AF2014DF52006ADC90 /* RZUtilsTouchTests.xctest */,
+				422489B12014DF52006ADC90 /* RZUtilsOSX.framework */,
+				422489B32014DF52006ADC90 /* RZUtilsOSXTests.xctest */,
+				422489B52014DF52006ADC90 /* RZUtilsTestInfra.framework */,
 			);
-			name = shared;
+			name = Products;
 			sourceTree = "<group>";
 		};
-		4206221A1D3B679C0013A45E /* shapefile */ = {
+		42248BDB2014DF6C006ADC90 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4206221B1D3B679C0013A45E /* dbfopen.c */,
-				4206221C1D3B679C0013A45E /* RZShapeFile.h */,
-				4206221D1D3B679C0013A45E /* RZShapeFile.m */,
-				4206221E1D3B679C0013A45E /* RZShapeFileMapView.h */,
-				4206221F1D3B679C0013A45E /* RZShapeFileMapView.m */,
-				420622201D3B679C0013A45E /* safileio.c */,
-				420622211D3B679C0013A45E /* shapefil.h */,
-				420622221D3B679C0013A45E /* shpopen.c */,
+				42248BE12014DF6D006ADC90 /* RZExternal.framework */,
+				42248BE32014DF6D006ADC90 /* RZExternalTestUtils.framework */,
+				42248BE52014DF6D006ADC90 /* RZExternalCpp.framework */,
+				42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */,
 			);
-			name = shapefile;
-			path = ../shared/shapefile;
+			name = Products;
 			sourceTree = "<group>";
 		};
 		42792C731AC8328E00555013 /* shapeview */ = {
@@ -293,7 +501,8 @@
 		42C875651AB785BF00ED1B9B = {
 			isa = PBXGroup;
 			children = (
-				420622191D3B67830013A45E /* shared */,
+				42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */,
+				4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */,
 				42C875701AB785BF00ED1B9B /* VisitedCountries */,
 				42C8758A1AB785BF00ED1B9B /* VisitedCountriesTests */,
 				42792C731AC8328E00555013 /* shapeview */,
@@ -444,10 +653,15 @@
 				42792C6E1AC8328E00555013 /* Sources */,
 				42792C6F1AC8328E00555013 /* Frameworks */,
 				42792C701AC8328E00555013 /* Resources */,
+				42248BEE2014DF84006ADC90 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				42248BED2014DF84006ADC90 /* PBXTargetDependency */,
+				42248BF22014E00E006ADC90 /* PBXTargetDependency */,
+				42248BF62014E01C006ADC90 /* PBXTargetDependency */,
+				42248C182014E1D9006ADC90 /* PBXTargetDependency */,
 			);
 			name = shapeview;
 			productName = shapeview;
@@ -484,6 +698,10 @@
 			buildRules = (
 			);
 			dependencies = (
+				42248C1C2014E3E2006ADC90 /* PBXTargetDependency */,
+				42248C202014E3E2006ADC90 /* PBXTargetDependency */,
+				42248C242014E3E2006ADC90 /* PBXTargetDependency */,
+				42248C282014E3E2006ADC90 /* PBXTargetDependency */,
 			);
 			name = VisitedCountries;
 			productName = VisitedCountries;
@@ -514,7 +732,7 @@
 		42C875661AB785BF00ED1B9B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Brice Rosenzweig";
 				TargetAttributes = {
 					42792C711AC8328E00555013 = {
@@ -550,10 +768,41 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				he,
+				"zh-Hans",
+				ja,
+				nb,
+				es,
+				da,
+				it,
+				sk,
+				sv,
+				cs,
+				ko,
+				"zh-Hant",
+				hu,
+				pl,
+				ru,
+				fr,
+				fi,
+				nl,
+				pt,
+				ca,
 			);
 			mainGroup = 42C875651AB785BF00ED1B9B;
 			productRefGroup = 42C8756F1AB785BF00ED1B9B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 42248BDB2014DF6C006ADC90 /* Products */;
+					ProjectRef = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
+				},
+				{
+					ProductGroup = 4224898D2014DF52006ADC90 /* Products */;
+					ProjectRef = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				42C8756D1AB785BF00ED1B9B /* VisitedCountries */,
@@ -563,6 +812,128 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4224899D2014DF52006ADC90 /* RZUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtils.framework;
+			remoteRef = 4224899C2014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		4224899F2014DF52006ADC90 /* RZUtilsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RZUtilsTests.xctest;
+			remoteRef = 4224899E2014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489A12014DF52006ADC90 /* RZUtilsSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtilsSwift.framework;
+			remoteRef = 422489A02014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489A32014DF52006ADC90 /* RZUtilsSwiftTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RZUtilsSwiftTests.xctest;
+			remoteRef = 422489A22014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtilsUniversal.framework;
+			remoteRef = 422489A42014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489A72014DF52006ADC90 /* RZUtilsUniversalTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RZUtilsUniversalTests.xctest;
+			remoteRef = 422489A62014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489A92014DF52006ADC90 /* RZUtilsHealthkit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtilsHealthkit.framework;
+			remoteRef = 422489A82014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489AB2014DF52006ADC90 /* RZUtilsHealthkitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RZUtilsHealthkitTests.xctest;
+			remoteRef = 422489AA2014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtilsTouch.framework;
+			remoteRef = 422489AC2014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489AF2014DF52006ADC90 /* RZUtilsTouchTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RZUtilsTouchTests.xctest;
+			remoteRef = 422489AE2014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489B12014DF52006ADC90 /* RZUtilsOSX.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtilsOSX.framework;
+			remoteRef = 422489B02014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489B32014DF52006ADC90 /* RZUtilsOSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RZUtilsOSXTests.xctest;
+			remoteRef = 422489B22014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		422489B52014DF52006ADC90 /* RZUtilsTestInfra.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZUtilsTestInfra.framework;
+			remoteRef = 422489B42014DF52006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42248BE12014DF6D006ADC90 /* RZExternal.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZExternal.framework;
+			remoteRef = 42248BE02014DF6D006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42248BE32014DF6D006ADC90 /* RZExternalTestUtils.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZExternalTestUtils.framework;
+			remoteRef = 42248BE22014DF6D006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42248BE52014DF6D006ADC90 /* RZExternalCpp.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZExternalCpp.framework;
+			remoteRef = 42248BE42014DF6D006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RZExternalUniversal.framework;
+			remoteRef = 42248C132014E1D4006ADC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		42792C701AC8328E00555013 /* Resources */ = {
@@ -624,14 +995,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				42792C7A1AC8328E00555013 /* main.m in Sources */,
-				4206222C1D3B67B30013A45E /* shpopen.c in Sources */,
 				42792C781AC8328E00555013 /* AppDelegate.m in Sources */,
 				42792C941AC832E200555013 /* SVShapeTableViewController.m in Sources */,
-				4206222A1D3B67AF0013A45E /* RZShapeFileMapView.m in Sources */,
-				420622291D3B67AB0013A45E /* RZShapeFile.m in Sources */,
-				420622281D3B67A80013A45E /* dbfopen.c in Sources */,
 				427DF7BD1ACE91F7009E8B82 /* SVPreferenceViewController.m in Sources */,
-				4206222B1D3B67B30013A45E /* safileio.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,18 +1021,13 @@
 				42866FF81B069DEC003C99FB /* VCShapeSetSelection.m in Sources */,
 				42C876441ABD703000ED1B9B /* VCAppGlobal.m in Sources */,
 				42F132B61AC3FE1200510A34 /* VCCountry.m in Sources */,
-				420622231D3B679C0013A45E /* dbfopen.c in Sources */,
-				420622241D3B679C0013A45E /* RZShapeFile.m in Sources */,
 				42866FEF1B053A67003C99FB /* VCShape.m in Sources */,
 				42C875771AB785BF00ED1B9B /* VCAppDelegate.m in Sources */,
 				42C875741AB785BF00ED1B9B /* main.m in Sources */,
 				42866FF51B0696EF003C99FB /* VCShapeCountry.m in Sources */,
 				42792C1B1AC80FCB00555013 /* VCViewConfig.m in Sources */,
-				420622271D3B679C0013A45E /* shpopen.c in Sources */,
 				42C876471ABD748900ED1B9B /* VCCountriesTableViewController.m in Sources */,
 				42866FFB1B07E8AE003C99FB /* VCShapeBundleDefinitions.m in Sources */,
-				420622251D3B679C0013A45E /* RZShapeFileMapView.m in Sources */,
-				420622261D3B679C0013A45E /* safileio.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,6 +1043,46 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		42248BED2014DF84006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZUtils;
+			targetProxy = 42248BEC2014DF84006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248BF22014E00E006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZUtilsOSX;
+			targetProxy = 42248BF12014E00E006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248BF62014E01C006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZUtilsUniversal;
+			targetProxy = 42248BF52014E01C006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248C182014E1D9006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZExternalUniversal;
+			targetProxy = 42248C172014E1D9006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248C1C2014E3E2006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZExternalUniversal;
+			targetProxy = 42248C1B2014E3E2006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248C202014E3E2006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZUtils;
+			targetProxy = 42248C1F2014E3E2006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248C242014E3E2006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZUtilsUniversal;
+			targetProxy = 42248C232014E3E2006ADC90 /* PBXContainerItemProxy */;
+		};
+		42248C282014E3E2006ADC90 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RZUtilsTouch;
+			targetProxy = 42248C272014E3E2006ADC90 /* PBXContainerItemProxy */;
+		};
 		42792C861AC8328E00555013 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 42792C711AC8328E00555013 /* shapeview */;
@@ -717,6 +1118,7 @@
 		42792C8D1AC8328E00555013 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = shapeview/shapeview.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -739,6 +1141,7 @@
 		42792C8E1AC8328E00555013 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = shapeview/shapeview.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -802,17 +1205,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -846,17 +1258,26 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

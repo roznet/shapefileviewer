@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RZShapeFile.h"
-#import "RZUtils/RZUtils.h"
+@import RZExternalUniversal;
+@import RZUtils;
 #import "VCShapeSetOrganizer.h"
 
 @interface VCAppDelegate : UIResponder <UIApplicationDelegate>

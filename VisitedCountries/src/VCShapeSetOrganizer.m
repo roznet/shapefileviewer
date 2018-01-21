@@ -133,7 +133,7 @@
 
 #pragma mark - Selections
 
--(void)executeDbBlock:(void (^)())block{
+-(void)executeDbBlock:(void (^)(void))block{
     if (self.db) {
         if (self.worker) {
             dispatch_async(self.worker, block);

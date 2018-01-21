@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
 //
 
-#import "RZShapeFile.h"
+@import RZExternalUniversal;
 #import "VCShapeSetOrganizer.h"
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 @interface VCAppGlobal : RZAppConfig
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RZShapeFile.h"
+@import RZExternalUniversal;
 #import "VCShapeSetDefinition.h"
 
 @interface VCShape : NSObject

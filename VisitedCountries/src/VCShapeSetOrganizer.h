@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RZShapeFile.h"
-#import "RZUtils/RZUtils.h"
+@import RZExternalUniversal;
+@import RZUtils;
 #import "VCShapeSetSelection.h"
 
 

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RZUtils/RZUtils.h"
-#import "RZShapeFile.h"
+@import RZUtils;
+@import RZExternalUniversal;
 
 @interface VCShapeSetDefinition : NSObject
 @property (nonatomic,retain) NSString * definitionName;

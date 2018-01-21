@@ -7,10 +7,9 @@
 //
 
 #import "SVShapeTableViewController.h"
-#import "RZShapeFile.h"
+@import RZExternalUniversal;
 #import <MapKit/MapKit.h>
 #import "SVPreferenceViewController.h"
-#import "RZShapeFileMapView.h"
 #import "RZUtils/RZUtils.h"
 #import "RZUtilsOSX/RZUtilsOSX.h"
 #import "RZUtilsUniversal/RZUtilsUniversal.h"

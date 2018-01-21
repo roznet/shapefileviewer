@@ -7,12 +7,11 @@
 //
 
 #import "VCMapViewController.h"
-#import "shapefil.h"
-#import "RZUtils/RZUtils.h"
-#import "RZShapeFile.h"
+@import RZUtils;
+@import RZExternalUniversal;
+
 #import <MapKit/MapKit.h>
 #import "VCAppGlobal.h"
-#import "RZShapeFileMapView.h"
 
 @interface VCMapViewController ()
 @property (retain, nonatomic) MKMapView *mapView;
