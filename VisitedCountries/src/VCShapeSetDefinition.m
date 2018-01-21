@@ -1,0 +1,136 @@
+//
+//  VCShapeSetDefinition.m
+//  VisitedCountries
+//
+//  Created by Brice Rosenzweig on 14/05/2015.
+//  Copyright (c) 2015 Brice Rosenzweig. All rights reserved.
+//
+
+#import "VCShapeSetDefinition.h"
+#import "VCShape.h"
+#import "RZUtils/RZUtils.h"
+
+/*
+* VCShapeSetDefinition
+*   SetName (ex Countries,French Department)
+*   ShapeFileBase (file name)
+*   NameField (ex NAME)
+*   GroupField ( ex Continent, Region, etc)
+*   UniqueIdentifierField (ex ISO2)
+*   IconField (ex ISO2)
+*   IconBundle (ex flags.bundle)
+*/
+
+@interface VCShapeSetDefinition ()
+@property (nonatomic,retain) NSString * customClassName;
+@property (nonatomic,retain) RZShapeFile * shapefile;
+
+@end
+
+@implementation VCShapeSetDefinition
+
++(VCShapeSetDefinition*)shapeSetDefinitionWithDict:(NSDictionary*)dict{
+    VCShapeSetDefinition * rv = RZReturnAutorelease([[VCShapeSetDefinition alloc] init]);
+    if (rv) {
+        rv.definitionName = dict[@"setName"];
+        rv.nameField = dict[@"nameField"];
+        rv.groupField = dict[@"groupField"];
+        rv.uniqueIdentifierField = dict[@"uniqueIdentifierField"];
+        rv.iconField = dict[@"iconField"];
+        rv.iconBundle = dict[@"iconBundle"];
+        rv.customClassName = dict[@"customClassName"];
+        rv.shapefileBaseName = dict[@"shapefileBaseName"];
+        [rv setupFile];
+    }
+    return rv;
+}
+
++(VCShapeSetDefinition*)shapeSetDefinitionWithResultSet:(FMResultSet*)res{
+    VCShapeSetDefinition * rv = RZReturnAutorelease([[VCShapeSetDefinition alloc] init]);
+    if (rv) {
+        rv.nameField = [res stringForColumn:@"nameField"];
+        rv.groupField = [res stringForColumn:@"groupField"];
+        rv.uniqueIdentifierField = [res stringForColumn:@"uniqueIdentifierField"];
+        rv.iconField = [res stringForColumn:@"iconField"];
+        rv.iconBundle = [res stringForColumn:@"iconBundle"];
+        rv.customClassName = [res stringForColumn:@"customClassName"];
+        rv.definitionName = [res stringForColumn:@"definitionName"];
+        rv.shapefileBaseName = [res stringForColumn:@"shapefileBaseName"];
+        [rv setupFile];
+    }
+    return rv;
+}
+
+#if ! __has_feature(objc_arc)
+// dealloc
+#endif
+
++(void)ensureDbStructure:(FMDatabase*)db{
+    if (![db tableExists:@"vc_sets_definitions"]) {
+        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets_definitions (definitionName TEXT UNIQUE, nameField TEXT,  groupField TEXT, uniqueIdentifierField TEXT, iconField TEXT, iconBundle TEXT, customClassName TEXT, shapefileBaseName TEXT)");
+        
+    }
+}
+
+-(void)saveToDb:(FMDatabase*)db{
+    [db beginTransaction];
+    RZEXECUTEUPDATE(db, @"INSERT OR REPLACE INTO vc_sets_definitions (definitionName, nameField,  groupField, uniqueIdentifierField, iconField, iconBundle, customClassName, shapefileBaseName) VALUES (?,?,?,?,?,?,?,?)",
+                    self.definitionName,
+                    self.nameField,
+                    self.groupField,
+                    self.uniqueIdentifierField,
+                    self.iconField,
+                    self.iconBundle,
+                    self.customClassName,
+                    self.shapefileBaseName);
+    [db commit];
+    
+}
+#pragma mark - ShapeFile
+
+-(void)setupFile{
+    NSString * path = [self shapefilePath];
+    if (path) {
+        self.shapefile = [RZShapeFile shapeFileWithBase:path];
+    }
+}
+
+-(NSString*)shapefilePath{
+    NSString * rv = nil;
+    NSString * shp = [self.shapefileBaseName stringByAppendingPathExtension:@"shp"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:shp]) {
+        rv = self.shapefileBaseName;
+    }
+    if (rv == nil && [RZFileOrganizer writeableFilePathIfExists:shp]) {
+        rv = [RZFileOrganizer writeableFilePath:self.shapefileBaseName];
+    }
+    if (rv == nil && [RZFileOrganizer bundleFilePathIfExists:shp]) {
+        rv = [RZFileOrganizer bundleFilePath:self.shapefileBaseName];
+    }
+    
+    return rv;
+}
+
+-(NSArray*)shapesInFile{
+    NSMutableArray * rv = nil;
+    if (self.shapefile) {
+        NSArray * shapes = [self.shapefile allShapes];
+        rv = [NSMutableArray arrayWithCapacity:shapes.count];
+        NSUInteger idx = 0;
+        Class cls = self.customClassName ? NSClassFromString(self.customClassName) : [VCShape class];
+        for (NSDictionary * vals in shapes) {
+            id obj = [cls shapeWithValues:vals atIndex:idx++ withDefs:self];
+            [rv addObject:obj];
+        }
+    }
+    return  rv;
+}
+
+-(NSIndexSet*)indexSetForShapeMatching:(shapeMatchingFunc)match{
+    NSIndexSet * rv = nil;
+    if (self.shapefile) {
+        rv = [self.shapefile indexSetForShapeMatching:match];
+    }
+    return rv;
+}
+@end
