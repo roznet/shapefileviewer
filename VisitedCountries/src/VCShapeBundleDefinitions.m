@@ -80,7 +80,7 @@
     return defs;
 }
 
-+(NSDictionary*)definitionsDictionary{
++(NSDictionary<NSString*,VCShapeSetDefinition*>*)definitionsDictionary{
     static NSMutableDictionary * rv = nil;
     if (rv==nil) {
         NSArray * all = [VCShapeBundleDefinitions definitions];
@@ -102,7 +102,10 @@
     }
     return rv;
 }
-
++(VCShapeSetDefinition*)definitionForName:(NSString*)name{
+    
+    return [VCShapeBundleDefinitions definitionsDictionary][name];
+}
 +(NSString*)definitionNameFor:(vcShapeBundleDefinition)def{
     return [VCShapeBundleDefinitions definitions][def][@"setName"];
 }

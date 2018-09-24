@@ -55,6 +55,7 @@
 		42866FF81B069DEC003C99FB /* VCShapeSetSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = 42866FF71B069DEC003C99FB /* VCShapeSetSelection.m */; };
 		42866FFB1B07E8AE003C99FB /* VCShapeBundleDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42866FFA1B07E8AE003C99FB /* VCShapeBundleDefinitions.m */; };
 		42AB58CB1ABEE2BF00E35672 /* VCFilteredArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42AB58CA1ABEE2BF00E35672 /* VCFilteredArrayTests.m */; };
+		42B16F6E211E3B12005AF360 /* VCSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B16F6D211E3B12005AF360 /* VCSelectionTableViewController.m */; };
 		42C875741AB785BF00ED1B9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C875731AB785BF00ED1B9B /* main.m */; };
 		42C875771AB785BF00ED1B9B /* VCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C875761AB785BF00ED1B9B /* VCAppDelegate.m */; };
 		42C8757A1AB785BF00ED1B9B /* VCMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C875791AB785BF00ED1B9B /* VCMapViewController.m */; };
@@ -68,6 +69,7 @@
 		42C8764A1ABD769700ED1B9B /* VCTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C876491ABD769700ED1B9B /* VCTabBarViewController.m */; };
 		42F132B31AC3FDC300510A34 /* VCShapeSetOrganizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F132B21AC3FDC300510A34 /* VCShapeSetOrganizer.m */; };
 		42F132B61AC3FE1200510A34 /* VCCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F132B51AC3FE1200510A34 /* VCCountry.m */; };
+		42F75E562159410400A567FE /* VCShapeSetChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F75E552159410400A567FE /* VCShapeSetChoice.m */; };
 		42F957EB1AD181B300D6B080 /* VCStatsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F957EA1AD181B300D6B080 /* VCStatsTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -343,6 +345,8 @@
 		42866FF91B07E8AE003C99FB /* VCShapeBundleDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCShapeBundleDefinitions.h; path = src/VCShapeBundleDefinitions.h; sourceTree = "<group>"; };
 		42866FFA1B07E8AE003C99FB /* VCShapeBundleDefinitions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCShapeBundleDefinitions.m; path = src/VCShapeBundleDefinitions.m; sourceTree = "<group>"; };
 		42AB58CA1ABEE2BF00E35672 /* VCFilteredArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCFilteredArrayTests.m; sourceTree = "<group>"; };
+		42B16F6C211E3B11005AF360 /* VCSelectionTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VCSelectionTableViewController.h; path = src/VCSelectionTableViewController.h; sourceTree = "<group>"; };
+		42B16F6D211E3B12005AF360 /* VCSelectionTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VCSelectionTableViewController.m; path = src/VCSelectionTableViewController.m; sourceTree = "<group>"; };
 		42C8756E1AB785BF00ED1B9B /* VisitedCountries.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisitedCountries.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C875721AB785BF00ED1B9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C875731AB785BF00ED1B9B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -367,6 +371,8 @@
 		42F132B21AC3FDC300510A34 /* VCShapeSetOrganizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCShapeSetOrganizer.m; path = src/VCShapeSetOrganizer.m; sourceTree = "<group>"; };
 		42F132B41AC3FE1200510A34 /* VCCountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCCountry.h; path = src/VCCountry.h; sourceTree = "<group>"; };
 		42F132B51AC3FE1200510A34 /* VCCountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCCountry.m; path = src/VCCountry.m; sourceTree = "<group>"; };
+		42F75E542159410400A567FE /* VCShapeSetChoice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VCShapeSetChoice.h; path = src/VCShapeSetChoice.h; sourceTree = "<group>"; };
+		42F75E552159410400A567FE /* VCShapeSetChoice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VCShapeSetChoice.m; path = src/VCShapeSetChoice.m; sourceTree = "<group>"; };
 		42F957E91AD181B300D6B080 /* VCStatsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCStatsTableViewController.h; path = src/VCStatsTableViewController.h; sourceTree = "<group>"; };
 		42F957EA1AD181B300D6B080 /* VCStatsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCStatsTableViewController.m; path = src/VCStatsTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -614,6 +620,8 @@
 				42792C1A1AC80FCB00555013 /* VCViewConfig.m */,
 				42F957E91AD181B300D6B080 /* VCStatsTableViewController.h */,
 				42F957EA1AD181B300D6B080 /* VCStatsTableViewController.m */,
+				42B16F6C211E3B11005AF360 /* VCSelectionTableViewController.h */,
+				42B16F6D211E3B12005AF360 /* VCSelectionTableViewController.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -635,6 +643,8 @@
 		42F132B71AC3FE1B00510A34 /* Organizer */ = {
 			isa = PBXGroup;
 			children = (
+				42F75E542159410400A567FE /* VCShapeSetChoice.h */,
+				42F75E552159410400A567FE /* VCShapeSetChoice.m */,
 				42F132B11AC3FDC300510A34 /* VCShapeSetOrganizer.h */,
 				42F132B21AC3FDC300510A34 /* VCShapeSetOrganizer.m */,
 				42F132B41AC3FE1200510A34 /* VCCountry.h */,
@@ -1015,6 +1025,7 @@
 			files = (
 				42866FF21B053B04003C99FB /* VCShapeSetDefinition.m in Sources */,
 				42F957EB1AD181B300D6B080 /* VCStatsTableViewController.m in Sources */,
+				42B16F6E211E3B12005AF360 /* VCSelectionTableViewController.m in Sources */,
 				42F132B31AC3FDC300510A34 /* VCShapeSetOrganizer.m in Sources */,
 				42C8757A1AB785BF00ED1B9B /* VCMapViewController.m in Sources */,
 				42C8764A1ABD769700ED1B9B /* VCTabBarViewController.m in Sources */,
@@ -1026,6 +1037,7 @@
 				42C875741AB785BF00ED1B9B /* main.m in Sources */,
 				42866FF51B0696EF003C99FB /* VCShapeCountry.m in Sources */,
 				42792C1B1AC80FCB00555013 /* VCViewConfig.m in Sources */,
+				42F75E562159410400A567FE /* VCShapeSetChoice.m in Sources */,
 				42C876471ABD748900ED1B9B /* VCCountriesTableViewController.m in Sources */,
 				42866FFB1B07E8AE003C99FB /* VCShapeBundleDefinitions.m in Sources */,
 			);

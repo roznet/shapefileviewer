@@ -28,10 +28,12 @@
 @import RZUtils;
 #import "VCShapeSetSelection.h"
 
+@class VCShapeSetChoice;
 
 @interface VCShapeSetOrganizer : RZParentObject
 
 @property (nonatomic,retain) VCShapeSetSelection * setSelection;
+@property (nonatomic,readonly) NSArray<VCShapeSetChoice*> * validChoices;
 
 +(VCShapeSetOrganizer*)organizerWithDatabase:(FMDatabase*)db andThread:(dispatch_queue_t)th;
 

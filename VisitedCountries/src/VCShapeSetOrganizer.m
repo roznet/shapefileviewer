@@ -68,6 +68,7 @@
 #import "VCShapeSetOrganizer.h"
 #import "VCCountry.h"
 #import "VCShapeBundleDefinitions.h"
+#import "VCShapeSetChoice.h"
 
 @interface VCShapeSetOrganizer ()
 
@@ -75,6 +76,10 @@
 @property (nonatomic,retain) FMDatabase * db;
 
 @property (nonatomic,retain) NSDictionary * definitions;
+
+@property (nonatomic,retain) VCShapeSetChoice * currentChoice;
+
+@property (nonatomic,retain) NSArray<VCShapeSetChoice*> * validChoices;
 
 @end
 
@@ -95,8 +100,38 @@
 
 -(void)loadFromDb{
     self.definitions = [VCShapeBundleDefinitions definitionsDictionary];
-    self.setSelection = [VCShapeSetSelection shapeSelectionWithName:@"Countries" andDefinitions:self.definitions[@"Countries"]];
+    
+    [self loadCurrentSelectionAndDefinitionName];
+    
+    self.setSelection = [VCShapeSetSelection shapeSelectionWithName:self.currentChoice.selectionName andDefinitions:self.currentChoice
+                         .definition];
 }
+
+-(void)loadCurrentSelectionAndDefinitionName{
+    FMResultSet * res = [self.db executeQuery:@"SELECT * FROM vc_sets WHERE current = 1 ORDER BY modified DESC LIMIT 1 "];
+    if( [res next]){
+        self.currentChoice = [VCShapeSetChoice choiceFor:res];
+    }else{
+        // none with current = 0, set first one to 1;
+        res = [self.db executeQuery:@"SELECT * FROM vc_sets ORDER BY modified DESC LIMIT 1"];
+        if( [res next]){
+            self.currentChoice = [VCShapeSetChoice choiceFor:res];
+        }
+        [self.currentChoice saveAsCurrent:self.db];
+    }
+    NSMutableArray * choices = [NSMutableArray
+                                array];
+    res = [self.db executeQuery:@"SELECT * FROM vc_sets"];
+    while( [res next]){
+        [choices addObject:[VCShapeSetChoice choiceFor:res]];
+    }
+    [choices sortUsingComparator:^(VCShapeSetChoice * c1, VCShapeSetChoice * c2){
+        return [c2.modified compare:c1.modified];
+    }];
+    self.validChoices = choices;
+}
+
+
 #pragma mark - Properties
 
 -(NSArray*)list{
@@ -119,8 +154,10 @@
 
 +(void)ensureDbStructure:(FMDatabase*)db{
     [VCShapeSetSelection ensureDbStructure:db];
+    
     if (![db tableExists:@"vc_sets"]) {
-        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT)");
+        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT, current INT DEFAULT 0, INT DEFAULT 1, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP )");
+        RZEXECUTEUPDATE(db, @"INSERT INTO vc_sets (definitionName, selectionName) VALUES( 'Countries', 'Default')");
     }
 
 

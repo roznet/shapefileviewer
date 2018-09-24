@@ -27,11 +27,13 @@
 #import "VCMapViewController.h"
 #import "VCCountriesTableViewController.h"
 #import "VCStatsTableViewController.h"
+#import "VCSelectionTableViewController.h"
 
 @interface VCTabBarViewController ()
 @property (nonatomic,retain) VCMapViewController * mapViewController;
 @property (nonatomic,retain) VCCountriesTableViewController * countriesController;
 @property (nonatomic,retain) VCStatsTableViewController * statsController;
+@property (nonatomic,retain) VCSelectionTableViewController * selectionController;
 
 @end
 
@@ -43,20 +45,24 @@
     self.mapViewController = [[VCMapViewController alloc] initWithNibName:nil bundle:nil];
     self.countriesController = [[VCCountriesTableViewController alloc] initWithNibName:nil bundle:nil];
     self.statsController = [[VCStatsTableViewController alloc] initWithNibName:nil bundle:nil];
+    self.selectionController = [[VCSelectionTableViewController alloc] initWithNibName:nil bundle:nil];
 
     UINavigationController * mapNav = [[UINavigationController alloc] initWithRootViewController:self.mapViewController];
     UINavigationController * countriesNav = [[UINavigationController alloc] initWithRootViewController:self.countriesController];
     UINavigationController * statsNav = [[UINavigationController alloc] initWithRootViewController:self.statsController];
+    UINavigationController * selectNav = [[UINavigationController alloc] initWithRootViewController:self.selectionController];
 
     UITabBarItem * mapItem = [[UITabBarItem alloc] initWithTitle:@"Map" image:[UIImage imageNamed:@"881-globe"] tag:0];
     UITabBarItem * countriesItem = [[UITabBarItem alloc] initWithTitle:@"Countries" image:[UIImage imageNamed:@"729-top-list"] tag:1];
     UITabBarItem * statsItem = [[UITabBarItem alloc] initWithTitle:@"Stats" image:[UIImage imageNamed:@"859-bar-chart"] tag:2];
+    UITabBarItem * selectItem = [[UITabBarItem alloc] initWithTitle:@"Users" image:[UIImage imageNamed:@"779-users"] tag:3];
 
     mapNav.tabBarItem = mapItem;
     countriesNav.tabBarItem = countriesItem;
     statsNav.tabBarItem = statsItem;
+    selectNav.tabBarItem = selectItem;
 
-    self.viewControllers = @[ countriesNav, mapNav, statsNav];
+    self.viewControllers = @[ mapNav, countriesNav, statsNav, selectNav];
     self.delegate = self;
 }
 
