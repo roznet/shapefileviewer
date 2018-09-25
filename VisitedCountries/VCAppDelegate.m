@@ -47,7 +47,6 @@
     [VCShapeSetOrganizer ensureDbStructure:self.db];
 
     self.organizer = [VCShapeSetOrganizer organizerWithDatabase:self.db andThread:self.worker];
-    [self.organizer loadSelectionName:@"Default" withDefinitionName:@"Countries"];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)

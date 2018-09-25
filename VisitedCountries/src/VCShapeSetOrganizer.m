@@ -105,6 +105,8 @@
     
     self.setSelection = [VCShapeSetSelection shapeSelectionWithName:self.currentChoice.selectionName andDefinitions:self.currentChoice
                          .definition];
+    
+    [self loadCurrentChoice];
 }
 
 -(void)loadCurrentSelectionAndDefinitionName{
@@ -131,7 +133,6 @@
     self.validChoices = choices;
 }
 
-
 #pragma mark - Properties
 
 -(NSArray*)list{
@@ -156,7 +157,7 @@
     [VCShapeSetSelection ensureDbStructure:db];
     
     if (![db tableExists:@"vc_sets"]) {
-        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT, current INT DEFAULT 0, INT DEFAULT 1, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP )");
+        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT, current INT DEFAULT 0, valid INT DEFAULT 1, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP )");
         RZEXECUTEUPDATE(db, @"INSERT INTO vc_sets (definitionName, selectionName) VALUES( 'Countries', 'Default')");
     }
 
@@ -197,29 +198,24 @@
     }
 }
 
--(BOOL)chooseSelectionName:(NSString*)selname withDefinitionName:(NSString*)defname{
+-(BOOL)loadCurrentChoice{
     [self executeDbBlock:^(){
-        VCShapeSetDefinition * def = [self definitionForName:defname];
+        VCShapeSetDefinition * def = [self.currentChoice definition];
+        NSString * selectionName= self.currentChoice.selectionName;
+        NSString * definitionName = self.currentChoice.definitionName;
         if (def) {
-            FMResultSet * res = [self.db executeQuery:@"SELECT * FROM vc_sets WHERE definitionName = ? AND selectionName = ?",defname,selname];
+            FMResultSet * res = [self.db executeQuery:@"SELECT * FROM vc_sets WHERE definitionName = ? AND selectionName = ?",definitionName,selectionName];
             if ([res next]) {
-                self.setSelection = [VCShapeSetSelection shapeSelectionWithName:selname andDefinitions:def];
+                self.setSelection = [VCShapeSetSelection shapeSelectionWithName:selectionName
+                                                                 andDefinitions:def];
                 [self.setSelection loadFromDb:self.db];
             }else{
-                self.setSelection = [VCShapeSetSelection shapeSelectionWithName:selname andDefinitions:def];
-                RZEXECUTEUPDATE(self.db, @"INSERT INTO vc_sets (definitionName,selectionName) VALUES (?,?)", defname,selname);
+                self.setSelection = [VCShapeSetSelection shapeSelectionWithName:selectionName andDefinitions:def];
+                RZEXECUTEUPDATE(self.db, @"INSERT INTO vc_sets (definitionName,selectionName) VALUES (?,?)", definitionName,selectionName);
             }
         }
     }];
     return TRUE;
-}
-
-
--(void)newSelectionName:(NSString*)selname withDefinitionName:(NSString*)defname{
-    [self chooseSelectionName:selname withDefinitionName:defname];
-}
--(void)loadSelectionName:(NSString*)selname withDefinitionName:(NSString*)defname{
-    [self chooseSelectionName:selname withDefinitionName:defname];
 }
 
 @end

@@ -42,9 +42,6 @@
 -(VCShapeSetDefinition*)definitionForName:(NSString*)defname;
 -(NSArray*)allDefinitionNames;
 
--(void)newSelectionName:(NSString*)selname withDefinitionName:(NSString*)defname;
--(void)loadSelectionName:(NSString*)selname withDefinitionName:(NSString*)defname;
-
 -(NSIndexSet*)indexSetForSelection;
 -(void)setIndexSetForSelection:(NSIndexSet*)selection;
 
