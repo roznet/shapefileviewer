@@ -24,11 +24,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem
+                                              alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
 }
 
 #pragma mark - Table view data source
@@ -55,6 +59,17 @@
     return cell;
 }
 
+
+-(void)add:(UIBarButtonItem*)button{
+    
+}
+
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    VCShapeSetChoice * choice = [[[VCAppGlobal organizer] validChoices] objectAtIndex:indexPath.row];
+    [[VCAppGlobal organizer] changeCurrentChoice:choice];
+    [self.tableView reloadData];
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

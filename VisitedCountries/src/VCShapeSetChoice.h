@@ -15,11 +15,10 @@
 @property (nonatomic,retain) NSString * definitionName;
 
 @property (nonatomic,retain) NSDate * modified;
-@property (nonatomic,readonly) VCShapeSetDefinition * definition;
 
 +(VCShapeSetChoice*)choiceFor:(FMResultSet*)res;
 -(void)saveAsCurrent:(FMDatabase*)db;
-
+-(BOOL)isEqualToChoice:(VCShapeSetChoice*)other;
 
 @end
 

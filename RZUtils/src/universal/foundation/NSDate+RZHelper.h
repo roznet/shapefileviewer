@@ -34,6 +34,7 @@
 +(NSDate*)dateForFitTimestamp:(NSUInteger)timesamp;
 +(NSDate*)dateForDashedDate:(NSString*)dashedString;
 +(NSDate*)dateForGarminModernString:(NSString*)garminString;
++(NSDate*)dateForSQLiteFormat:(NSString*)sqliteFormat;
 
 -(NSString*)formatAsRFC3339;
 -(NSString*)dateFormatFromToday;

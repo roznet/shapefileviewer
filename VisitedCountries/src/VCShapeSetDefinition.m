@@ -128,7 +128,7 @@
     return rv;
 }
 
--(NSArray*)shapesInFile{
+-(NSArray<VCShape*>*)shapesInFile{
     NSMutableArray * rv = nil;
     if (self.shapefile) {
         NSArray * shapes = [self.shapefile allShapes];

@@ -7,6 +7,7 @@
 //
 
 #import "VCShapeSetChoice.h"
+@import RZUtils;
 
 @implementation VCShapeSetChoice
 
@@ -15,13 +16,15 @@
     VCShapeSetChoice * rv = [[VCShapeSetChoice alloc] init];
     rv.selectionName = [res stringForColumn:@"selectionName"];
     rv.definitionName = [res stringForColumn:@"definitionName"];
-    rv.modified = [res dateForColumn:@"modified"];
+    rv.modified = [NSDate dateForSQLiteFormat:[res stringForColumn:@"modified"]];
 
     return rv;
 }
 
--(VCShapeSetDefinition*)definition{
-    return [VCShapeBundleDefinitions definitionForName:self.definitionName];
+-(BOOL)isEqualToChoice:(VCShapeSetChoice*)other{
+    
+    return [self.selectionName isEqualToString:other.selectionName] &&
+    [self.definitionName isEqualToString:other.definitionName];
 }
 
 -(void)saveToDb:(FMDatabase*)db{

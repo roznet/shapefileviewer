@@ -30,7 +30,7 @@
 
 @interface VCShapeSetSelection : NSObject
 
-@property (nonatomic,retain) NSArray * list;
+@property (nonatomic,retain) NSArray<VCShape*> * list;
 @property (nonatomic,retain) NSIndexSet * selection;
 
 +(VCShapeSetSelection*)shapeSelectionWithName:(NSString*)name andDefinitionName:(NSString*)defsName;

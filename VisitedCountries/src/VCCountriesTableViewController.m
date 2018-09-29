@@ -83,7 +83,7 @@
 
 }
 -(void)notifyCallBack:(id)theParent info:(RZDependencyInfo *)theInfo{
-    if (/* DISABLES CODE */ (false)) {
+    if (true) {
         self.array = [RZFilteredSelectedArray array:[[VCAppGlobal organizer] list] withFilter:nil];
 
         [self.array setSelectionIndexes:[[VCAppGlobal organizer] indexSetForSelection]];

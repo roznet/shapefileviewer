@@ -73,7 +73,8 @@
 }
 
 -(void)notifyCallBack:(id)theParent info:(RZDependencyInfo *)theInfo{
-    self.shapeFileMapView = [RZShapeFileMapView shapeFileMapViewFor:[VCAppGlobal worldShape]];
+    self.shapeFileMapView = [RZShapeFileMapView shapeFileMapViewFor:[[VCAppGlobal organizer] shapeFile
+                                                                     ]];
     self.shapeFileMapView.fillColor = [UIColor darkGrayColor];
     self.shapeFileMapView.alpha = 0.4;
 

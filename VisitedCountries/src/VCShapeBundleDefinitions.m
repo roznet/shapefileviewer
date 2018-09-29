@@ -25,6 +25,14 @@
 
 #import "VCShapeBundleDefinitions.h"
 
+@interface VCShapeBundleDefinitions ( )
++(vcShapeBundleDefinition)bundleDefinitionForName:(NSString*)name;
++(NSString*)definitionNameFor:(vcShapeBundleDefinition)def;
++(VCShapeSetDefinition*)definitionFor:(vcShapeBundleDefinition)def;
++(VCShapeSetDefinition*)definitionForName:(NSString*)name;
++(RZShapeFile*)shapeFileForName:(NSString*)name;
+
+@end
 
 @implementation VCShapeBundleDefinitions
 
@@ -102,6 +110,16 @@
     }
     return rv;
 }
++(RZShapeFile*)shapeFileForName:(NSString*)name{
+    
+    NSString * baseName = [VCShapeBundleDefinitions definitionForName:name].shapefileBaseName;
+    if( baseName){
+        return [RZShapeFile shapeFileWithBase:[RZFileOrganizer bundleFilePath:baseName]];
+    }
+    
+    return nil;
+}
+
 +(VCShapeSetDefinition*)definitionForName:(NSString*)name{
     
     return [VCShapeBundleDefinitions definitionsDictionary][name];

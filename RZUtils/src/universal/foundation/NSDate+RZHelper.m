@@ -191,6 +191,11 @@
     return [[NSDate babolatDateFormatter] dateFromString:babolatTimeString];
 }
 
++(NSDate*)dateForSQLiteFormat:(NSString*)sqliteFormat{
+    return [[NSDate babolatDateFormatter] dateFromString:sqliteFormat];
+}
+
+
 +(NSDate*)dateForGarminModernString:(NSString*)garminString{
     NSDate * rv = [[NSDate garminModernDateFormatter] dateFromString:garminString];
     if (rv == nil) {

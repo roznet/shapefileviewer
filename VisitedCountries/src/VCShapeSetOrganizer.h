@@ -32,20 +32,24 @@
 
 @interface VCShapeSetOrganizer : RZParentObject
 
-@property (nonatomic,retain) VCShapeSetSelection * setSelection;
+@property (nonatomic,readonly) VCShapeSetSelection * setSelection;
+@property (nonatomic,readonly) VCShapeSetDefinition * setDefinition;
+
 @property (nonatomic,readonly) NSArray<VCShapeSetChoice*> * validChoices;
 
 +(VCShapeSetOrganizer*)organizerWithDatabase:(FMDatabase*)db andThread:(dispatch_queue_t)th;
 
 
--(void)addDefinition:(VCShapeSetDefinition*)def;
 -(VCShapeSetDefinition*)definitionForName:(NSString*)defname;
 -(NSArray*)allDefinitionNames;
+-(RZShapeFile*)shapeFile;
+
+-(BOOL)changeCurrentChoice:(VCShapeSetChoice*)newChoice;
 
 -(NSIndexSet*)indexSetForSelection;
 -(void)setIndexSetForSelection:(NSIndexSet*)selection;
 
--(NSArray*)list;
+-(NSArray<VCShape*>*)list;
 
 +(void)ensureDbStructure:(FMDatabase*)db;
 

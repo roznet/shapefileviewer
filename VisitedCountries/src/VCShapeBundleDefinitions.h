@@ -37,9 +37,5 @@ typedef NS_ENUM(NSUInteger, vcShapeBundleDefinition) {
 
 @interface VCShapeBundleDefinitions : NSObject
 
-+(vcShapeBundleDefinition)bundleDefinitionForName:(NSString*)name;
-+(NSString*)definitionNameFor:(vcShapeBundleDefinition)def;
-+(VCShapeSetDefinition*)definitionFor:(vcShapeBundleDefinition)def;
-+(VCShapeSetDefinition*)definitionForName:(NSString*)name;
 +(NSDictionary<NSString*,VCShapeSetDefinition*>*)definitionsDictionary;
 @end

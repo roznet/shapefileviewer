@@ -75,12 +75,13 @@
 @property (nonatomic,retain) dispatch_queue_t worker;
 @property (nonatomic,retain) FMDatabase * db;
 
-@property (nonatomic,retain) NSDictionary * definitions;
+@property (nonatomic,retain) NSDictionary<NSString*,VCShapeSetDefinition*> * definitions;
+@property (nonatomic,retain) NSArray<VCShapeSetChoice*> * validChoices;
 
 @property (nonatomic,retain) VCShapeSetChoice * currentChoice;
 
-@property (nonatomic,retain) NSArray<VCShapeSetChoice*> * validChoices;
-
+@property (nonatomic,retain) VCShapeSetSelection * setSelection;
+//@property (nonatomic,readonly) VCShapeSetDefinition * setDefinition;
 @end
 
 @implementation VCShapeSetOrganizer
@@ -103,8 +104,7 @@
     
     [self loadCurrentSelectionAndDefinitionName];
     
-    self.setSelection = [VCShapeSetSelection shapeSelectionWithName:self.currentChoice.selectionName andDefinitions:self.currentChoice
-                         .definition];
+    self.setSelection = [VCShapeSetSelection shapeSelectionWithName:self.currentChoice.selectionName andDefinitions:self.setDefinition];
     
     [self loadCurrentChoice];
 }
@@ -123,7 +123,7 @@
     }
     NSMutableArray * choices = [NSMutableArray
                                 array];
-    res = [self.db executeQuery:@"SELECT * FROM vc_sets"];
+    res = [self.db executeQuery:@"SELECT * FROM vc_sets ORDER BY modified DESC"];
     while( [res next]){
         [choices addObject:[VCShapeSetChoice choiceFor:res]];
     }
@@ -164,26 +164,19 @@
 
 }
 
--(void)changeSelectionName:(NSString*)name{
-
-}
--(void)changeSetSelection:(VCShapeSetDefinition*)setSelection{
-
-}
-
 #pragma mark - Definitions
 
-
-
-
--(void)addDefinition:(VCShapeSetDefinition*)def{
-
-}
 -(VCShapeSetDefinition*)definitionForName:(NSString*)defname{
     return self.definitions[defname];
 }
--(NSArray*)allDefinitionNames{
+-(NSArray<NSString*>*)allDefinitionNames{
     return self.definitions.allKeys;
+}
+-(RZShapeFile*)shapeFile{
+    return self.setDefinition.shapefile;
+}
+-(VCShapeSetDefinition*)setDefinition{
+    return self.definitions[self.currentChoice.definitionName];
 }
 
 #pragma mark - Selections
@@ -198,9 +191,28 @@
     }
 }
 
+
+-(BOOL)changeCurrentChoice:(VCShapeSetChoice*)newChoice{
+    if( [newChoice isEqualToChoice:self.currentChoice] ){
+        return true;
+    }else{
+        for (VCShapeSetChoice * one in self.validChoices) {
+            if( [one isEqualToChoice:newChoice]){
+                self.currentChoice = newChoice;
+                [self loadCurrentChoice];
+                
+                return true;
+            }
+        }
+    }
+    
+    return false;
+    
+}
+
 -(BOOL)loadCurrentChoice{
     [self executeDbBlock:^(){
-        VCShapeSetDefinition * def = [self.currentChoice definition];
+        VCShapeSetDefinition * def = self.setDefinition;
         NSString * selectionName= self.currentChoice.selectionName;
         NSString * definitionName = self.currentChoice.definitionName;
         if (def) {
@@ -213,6 +225,7 @@
                 self.setSelection = [VCShapeSetSelection shapeSelectionWithName:selectionName andDefinitions:def];
                 RZEXECUTEUPDATE(self.db, @"INSERT INTO vc_sets (definitionName,selectionName) VALUES (?,?)", definitionName,selectionName);
             }
+            [self notify];
         }
     }];
     return TRUE;

@@ -26,6 +26,7 @@
 #import <Foundation/Foundation.h>
 @import RZUtils;
 @import RZExternalUniversal;
+@class VCShape;
 
 @interface VCShapeSetDefinition : NSObject
 @property (nonatomic,retain) NSString * definitionName;
@@ -37,11 +38,12 @@
 @property (nonatomic,retain) NSString * iconBundle;
 
 @property (nonatomic,retain) NSString * shapefileBaseName;
+@property (nonatomic,readonly) RZShapeFile * shapefile;
 
 +(VCShapeSetDefinition*)shapeSetDefinitionWithDict:(NSDictionary*)dict;
 +(VCShapeSetDefinition*)shapeSetDefinitionWithResultSet:(FMResultSet*)res;
 
--(NSArray*)shapesInFile;
+-(NSArray<VCShape*>*)shapesInFile;
 -(NSIndexSet*)indexSetForShapeMatching:(shapeMatchingFunc)match;
 
 +(void)ensureDbStructure:(FMDatabase*)db;
