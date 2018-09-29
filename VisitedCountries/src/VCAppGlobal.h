@@ -31,7 +31,7 @@
 
 +(dispatch_queue_t)worker;
 +(FMDatabase*)db;
-+(RZShapeFile*)worldShape;
+//+(RZShapeFile*)worldShape;
 +(VCShapeSetOrganizer*)organizer;
 
 @end

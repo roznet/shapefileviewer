@@ -10,6 +10,7 @@
 #import "VCAppGlobal.h"
 
 #import "VCShapeSetChoice.h"
+#import "VCEditChoiceViewController.h"
 
 @import RZUtils;
 @import RZUtilsUniversal;
@@ -61,7 +62,8 @@
 
 
 -(void)add:(UIBarButtonItem*)button{
-    
+    VCEditChoiceViewController * vc = [[VCEditChoiceViewController alloc] initWithNibName:@"VCEditChoiceViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

@@ -40,6 +40,8 @@
 		424F92CB1B0930D60075C5F1 /* states.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 424F92C51B0930D60075C5F1 /* states.dbf */; };
 		424F92CC1B0930D60075C5F1 /* states.shx in Resources */ = {isa = PBXBuildFile; fileRef = 424F92C61B0930D60075C5F1 /* states.shx */; };
 		424F92CD1B0930D60075C5F1 /* states.shp in Resources */ = {isa = PBXBuildFile; fileRef = 424F92C71B0930D60075C5F1 /* states.shp */; };
+		426FA64F2160106C00CC7049 /* VCEditChoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 426FA64D2160106C00CC7049 /* VCEditChoiceViewController.m */; };
+		426FA6502160106C00CC7049 /* VCEditChoiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 426FA64E2160106C00CC7049 /* VCEditChoiceViewController.xib */; };
 		42792C1B1AC80FCB00555013 /* VCViewConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 42792C1A1AC80FCB00555013 /* VCViewConfig.m */; };
 		42792C781AC8328E00555013 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42792C771AC8328E00555013 /* AppDelegate.m */; };
 		42792C7A1AC8328E00555013 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42792C791AC8328E00555013 /* main.m */; };
@@ -316,6 +318,9 @@
 		424F92C51B0930D60075C5F1 /* states.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = states.dbf; path = shapefiles/states.dbf; sourceTree = "<group>"; };
 		424F92C61B0930D60075C5F1 /* states.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = states.shx; path = shapefiles/states.shx; sourceTree = "<group>"; };
 		424F92C71B0930D60075C5F1 /* states.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = states.shp; path = shapefiles/states.shp; sourceTree = "<group>"; };
+		426FA64C2160106C00CC7049 /* VCEditChoiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VCEditChoiceViewController.h; path = src/VCEditChoiceViewController.h; sourceTree = "<group>"; };
+		426FA64D2160106C00CC7049 /* VCEditChoiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = VCEditChoiceViewController.m; path = src/VCEditChoiceViewController.m; sourceTree = "<group>"; };
+		426FA64E2160106C00CC7049 /* VCEditChoiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = VCEditChoiceViewController.xib; path = src/VCEditChoiceViewController.xib; sourceTree = "<group>"; };
 		42792C191AC80FCB00555013 /* VCViewConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VCViewConfig.h; path = src/VCViewConfig.h; sourceTree = "<group>"; };
 		42792C1A1AC80FCB00555013 /* VCViewConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VCViewConfig.m; path = src/VCViewConfig.m; sourceTree = "<group>"; };
 		42792C721AC8328E00555013 /* Shapefile Explorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shapefile Explorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -622,6 +627,9 @@
 				42F957EA1AD181B300D6B080 /* VCStatsTableViewController.m */,
 				42B16F6C211E3B11005AF360 /* VCSelectionTableViewController.h */,
 				42B16F6D211E3B12005AF360 /* VCSelectionTableViewController.m */,
+				426FA64C2160106C00CC7049 /* VCEditChoiceViewController.h */,
+				426FA64D2160106C00CC7049 /* VCEditChoiceViewController.m */,
+				426FA64E2160106C00CC7049 /* VCEditChoiceViewController.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -984,6 +992,7 @@
 				4205E9CB1B07EF9500BA3EED /* GBR_adm1.shp in Resources */,
 				422637B51B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shx in Resources */,
 				422637B31B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj in Resources */,
+				426FA6502160106C00CC7049 /* VCEditChoiceViewController.xib in Resources */,
 				422637BC1B07820E005461E3 /* JPN_adm1.shp in Resources */,
 				424F92CD1B0930D60075C5F1 /* states.shp in Resources */,
 				424F92CC1B0930D60075C5F1 /* states.shx in Resources */,
@@ -1025,6 +1034,7 @@
 			files = (
 				42866FF21B053B04003C99FB /* VCShapeSetDefinition.m in Sources */,
 				42F957EB1AD181B300D6B080 /* VCStatsTableViewController.m in Sources */,
+				426FA64F2160106C00CC7049 /* VCEditChoiceViewController.m in Sources */,
 				42B16F6E211E3B12005AF360 /* VCSelectionTableViewController.m in Sources */,
 				42F132B31AC3FDC300510A34 /* VCShapeSetOrganizer.m in Sources */,
 				42C8757A1AB785BF00ED1B9B /* VCMapViewController.m in Sources */,
@@ -1260,7 +1270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1308,7 +1318,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
