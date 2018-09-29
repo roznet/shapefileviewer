@@ -35,7 +35,7 @@
 
 -(void)saveAsCurrent:(FMDatabase*)db{
     RZEXECUTEUPDATE(db, @"UPDATE vc_sets SET current = 0" );
-    FMResultSet * res = [db executeQuery:@"SELECT * FROM vc_sets WHERE selectionName = ? AND definitionName = ?"];
+    FMResultSet * res = [db executeQuery:@"SELECT * FROM vc_sets WHERE selectionName = ? AND definitionName = ?", self.selectionName, self.definitionName];
     if( [res next] ){
         RZEXECUTEUPDATE(db, @"UPDATE vc_sets SET current = 1, modified = CURRENT_TIMESTAMP WHERE selectionName = ? AND definitionName = ?", self.selectionName, self.definitionName);
     }else{
