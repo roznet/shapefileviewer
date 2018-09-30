@@ -78,6 +78,17 @@
     return rv;
 }
 
+-(BOOL)isEqual:(id)object{
+    return [object isKindOfClass:[self class]] ? [self isEqualToDefinition:object] : false;
+}
+-(BOOL)isEqualToDefinition:(VCShapeSetDefinition*)other{
+    return [self.definitionName isEqualToString:other.definitionName] && [self.nameField isEqualToString:other.nameField] && [self.shapefileBaseName isEqualToString:other.shapefileBaseName];
+}
+
+-(NSString*)description{
+    return [NSString stringWithFormat:@"<%@:%@,%@,%@>", NSStringFromClass(self.class), self.definitionName, self.nameField, self.shapefileBaseName];
+}
+
 #if ! __has_feature(objc_arc)
 // dealloc
 #endif

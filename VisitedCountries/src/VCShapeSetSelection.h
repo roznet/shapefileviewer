@@ -43,4 +43,7 @@
 
 -(void)setSelectionForShapeMatching:(shapeMatchingFunc)match;
 
+-(BOOL)isEqual:(id)object;
+-(BOOL)isEqualToSelection:(VCShapeSetSelection*)object;
+
 @end

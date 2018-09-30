@@ -41,7 +41,7 @@
 
 
 -(VCShapeSetDefinition*)definitionForName:(NSString*)defname;
--(NSArray*)allDefinitionNames;
+-(NSArray<NSString*>*)allDefinitionNames;
 -(RZShapeFile*)shapeFile;
 
 -(BOOL)changeCurrentChoice:(VCShapeSetChoice*)newChoice;

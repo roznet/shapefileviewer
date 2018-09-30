@@ -86,7 +86,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
         //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        NSLog(@"delete %@", indexPath);
+        VCShapeSetChoice * choiceToDelete = [[[VCAppGlobal organizer] validChoices] objectAtIndex:indexPath.row];
+        NSLog(@"delete %@", choiceToDelete.selectionName);
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   

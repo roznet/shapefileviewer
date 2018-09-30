@@ -81,7 +81,7 @@
 @property (nonatomic,retain) VCShapeSetChoice * currentChoice;
 
 @property (nonatomic,retain) VCShapeSetSelection * setSelection;
-//@property (nonatomic,readonly) VCShapeSetDefinition * setDefinition;
+
 @end
 
 @implementation VCShapeSetOrganizer
@@ -102,28 +102,21 @@
 -(void)loadFromDb{
     self.definitions = [VCShapeBundleDefinitions definitionsDictionary];
     
-    [self loadCurrentSelectionAndDefinitionName];
+    [self loadInitialSelectionAndDefinitionName];
     
     self.setSelection = [VCShapeSetSelection shapeSelectionWithName:self.currentChoice.selectionName andDefinitions:self.setDefinition];
     
     [self loadCurrentChoice];
 }
 
--(void)loadCurrentSelectionAndDefinitionName{
-    FMResultSet * res = [self.db executeQuery:@"SELECT * FROM vc_sets WHERE current = 1 ORDER BY modified DESC LIMIT 1 "];
+-(void)loadInitialSelectionAndDefinitionName{
+    FMResultSet * res = [self.db executeQuery:@"SELECT * FROM vc_sets WHERE valid = 1 ORDER BY timestamp DESC LIMIT 1 "];
     if( [res next]){
         self.currentChoice = [VCShapeSetChoice choiceFor:res];
-    }else{
-        // none with current = 0, set first one to 1;
-        res = [self.db executeQuery:@"SELECT * FROM vc_sets ORDER BY modified DESC LIMIT 1"];
-        if( [res next]){
-            self.currentChoice = [VCShapeSetChoice choiceFor:res];
-        }
-        [self.currentChoice saveAsCurrent:self.db];
     }
     NSMutableArray * choices = [NSMutableArray
                                 array];
-    res = [self.db executeQuery:@"SELECT * FROM vc_sets ORDER BY modified DESC"];
+    res = [self.db executeQuery:@"SELECT * FROM vc_sets WHERE valid = 1 ORDER BY timestamp DESC"];
     while( [res next]){
         [choices addObject:[VCShapeSetChoice choiceFor:res]];
     }
@@ -157,11 +150,12 @@
     [VCShapeSetSelection ensureDbStructure:db];
     
     if (![db tableExists:@"vc_sets"]) {
-        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT, current INT DEFAULT 0, valid INT DEFAULT 1, modified TIMESTAMP DEFAULT CURRENT_TIMESTAMP )");
-        RZEXECUTEUPDATE(db, @"INSERT INTO vc_sets (definitionName, selectionName) VALUES( 'Countries', 'Default')");
+        RZEXECUTEUPDATE(db, @"CREATE TABLE vc_sets (definitionName TEXT, selectionName TEXT, valid INT DEFAULT 1, timestamp REAL )");
+        RZEXECUTEUPDATE(db, @"INSERT INTO vc_sets (definitionName, selectionName, timestamp) VALUES( 'Countries', 'Default', ?)", [NSDate date]);
     }
-
-
+    if( ![db columnExists:@"timestamp" inTableWithName:@"vc_sets"] ){
+        RZEXECUTEUPDATE(db, @"ALTER TABLE vc_sets ADD COLUMN timestamp REAL");
+    }
 }
 
 #pragma mark - Definitions
@@ -196,18 +190,44 @@
     if( [newChoice isEqualToChoice:self.currentChoice] ){
         return true;
     }else{
+        // Init with new one, in case it doesnot exists yet
+        self.currentChoice = newChoice;
+        
+        BOOL found = false;
+        
         for (VCShapeSetChoice * one in self.validChoices) {
             if( [one isEqualToChoice:newChoice]){
                 self.currentChoice = newChoice;
-                [self loadCurrentChoice];
-                
-                return true;
+                one.modified = newChoice.modified;
+                found = true;
             }
         }
+        
+        if( ! found ){
+            self.validChoices = [self.validChoices arrayByAddingObject:self.currentChoice];
+        }
+        
+        self.validChoices = [self.validChoices sortedArrayUsingComparator:^(VCShapeSetChoice * c1, VCShapeSetChoice * c2){
+            return [c2.modified compare:c1.modified];
+        }];
+        
+        [self loadCurrentChoice];
+        [self markCurrentChoiceAsLatest];
     }
     
     return false;
     
+}
+
+-(void)markCurrentChoiceAsLatest{
+    [self executeDbBlock:^(){
+        VCShapeSetDefinition * def = self.setDefinition;
+        NSString * selectionName= self.currentChoice.selectionName;
+        NSString * definitionName = self.currentChoice.definitionName;
+        if (def) {
+            RZEXECUTEUPDATE(self.db, @"UPDATE vc_sets SET timestamp = ? WHERE definitionName = ? AND selectionName = ?", self.currentChoice.modified, definitionName,selectionName);
+        }
+    }];
 }
 
 -(BOOL)loadCurrentChoice{
@@ -223,7 +243,7 @@
                 [self.setSelection loadFromDb:self.db];
             }else{
                 self.setSelection = [VCShapeSetSelection shapeSelectionWithName:selectionName andDefinitions:def];
-                RZEXECUTEUPDATE(self.db, @"INSERT INTO vc_sets (definitionName,selectionName) VALUES (?,?)", definitionName,selectionName);
+                RZEXECUTEUPDATE(self.db, @"INSERT INTO vc_sets (definitionName,selectionName,timestamp) VALUES (?,?,?)", definitionName,selectionName,self.currentChoice.modified);
             }
             [self notify];
         }

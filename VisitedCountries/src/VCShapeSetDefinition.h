@@ -48,4 +48,7 @@
 
 +(void)ensureDbStructure:(FMDatabase*)db;
 
+-(BOOL)isEqual:(id)object;
+-(BOOL)isEqualToDefinition:(VCShapeSetDefinition*)other;
+
 @end

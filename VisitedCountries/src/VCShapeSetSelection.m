@@ -62,6 +62,20 @@
 // dealloc
 #endif
 
+-(BOOL)isEqual:(id)object{
+    if( [object isKindOfClass:self.class]){
+        return [self isEqualToSelection:object];
+    }
+    return false;
+}
+-(BOOL)isEqualToSelection:(VCShapeSetSelection*)object{
+    return [self.selectionName isEqualToString:object.selectionName] && [self.definitionName isEqualToString:object.definitionName] && [self.selection isEqualToIndexSet:object.selection];
+}
+
+-(NSString*)description{
+    return [NSString stringWithFormat:@"<%@:%@,%@[%@]>", NSStringFromClass(self.class),self.selectionName, self.definitionName, @(self.selection.count)];
+}
+
 #pragma mark - database
 
 +(void)ensureDbStructure:(FMDatabase*)db{

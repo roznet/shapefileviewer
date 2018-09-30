@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "RZUtils/RZUtils.h"
+
+@import RZExternalUniversal;
+@import RZUtils;
+
+#import "VCShapeSetChoice.h"
 #import "VCShapeSetOrganizer.h"
-#import "RZShapeFile.h"
+
 #import "VCShapeSetDefinition.h"
 #import "VCShape.h"
 #import "VCShapeCountry.h"
@@ -33,19 +37,20 @@
     [super tearDown];
 }
 
--(NSIndexSet*)myCountrySelectionLong:(BOOL)a inSelection:(VCShapeSetSelection*)selection{
-    NSArray * countries = a ?
+-(NSIndexSet*)myCountrySelectionLong:(NSUInteger)which inSelection:(VCShapeSetSelection*)selection{
     
-     @[ @"CHINA", @"UNITED KINGDOM", @"UNITED STATES", @"FRANCE", @"AUSTRALIA",
-     @"JAPAN", @"GERMANY", @"SWITZERLAND", @"MOROCCO",@"TUNISIA", @"NEW ZEALAND",
-     @"MEXICO", @"SPAIN", @"CZECH", @"CANADA", @"ITALY", @"BELGIUM", @"KOREA, REP",
-     @"VIET NAM",
-     @"MALAYSIA", @"INDONESIA", @"THAILAND", @"PHILIPPINES", @"NETHERLAND", @"TURKEY"]
+    NSArray * defs = @[
+                       @[ @"CHINA", @"UNITED KINGDOM", @"UNITED STATES", @"FRANCE", @"AUSTRALIA",
+                          @"JAPAN", @"GERMANY", @"SWITZERLAND", @"MOROCCO",@"TUNISIA", @"NEW ZEALAND",
+                          @"MEXICO", @"SPAIN", @"CZECH", @"CANADA", @"ITALY", @"BELGIUM", @"KOREA, REP",
+                          @"VIET NAM",
+                          @"MALAYSIA", @"INDONESIA", @"THAILAND", @"PHILIPPINES", @"NETHERLAND", @"TURKEY"],
+                       @[ @"CHINA", @"UNITED KINGDOM", @"UNITED STATES", @"FRANCE", @"AUSTRALIA",
+                          @"MALAYSIA", @"INDONESIA", @"THAILAND", @"PHILIPPINES", @"RUSSIA", @"KENYA"],
+
+                       ];
     
-    :
-    @[ @"CHINA", @"UNITED KINGDOM", @"UNITED STATES", @"FRANCE", @"AUSTRALIA",
-       @"MALAYSIA", @"INDONESIA", @"THAILAND", @"PHILIPPINES", @"RUSSIA", @"KENYA"];
-    /**/
+    NSArray * countries = defs[ MIN(defs.count-1, which)];
     
     [selection setSelectionForShapeMatching:^(NSDictionary*dict){
         BOOL rv = false;
@@ -60,13 +65,13 @@
     return selection.selection;
 }
 
--(NSIndexSet*)myFranceSelectionLong:(BOOL)a inSelection:(VCShapeSetSelection*)selection{
-    NSArray * countries = a ?
+-(NSIndexSet*)myFranceSelectionLong:(NSUInteger)which inSelection:(VCShapeSetSelection*)selection{
+    NSArray * defs = @[
+                       @[ @"Alsace", @"Corse"],
+                       @[ @"Alsace", @"Corse", @"Champagne", @"Lorraine", @"Aquitaine"],
+                       ];
+    NSArray * countries = defs[MIN(defs.count-1,which) ];
     
-    @[ @"Alsace", @"Corse"]
-    
-    :
-    @[ @"Alsace", @"Corse", @"Champagne", @"Lorraine", @"Aquitaine"];
     /**/
     
     [selection setSelectionForShapeMatching:^(NSDictionary*dict){
@@ -91,35 +96,52 @@
     FMDatabase * db = [FMDatabase databaseWithPath:[RZFileOrganizer writeableFilePath:@"test_sets.db"]];
     [db open];
     [VCShapeSetOrganizer ensureDbStructure:db];
+    
+    
 
     VCShapeSetOrganizer * organizer = [VCShapeSetOrganizer organizerWithDatabase:db andThread:nil];
+    NSUInteger startChoicesCount = [organizer validChoices].count;
+
+    [organizer changeCurrentChoice:[VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test"]];
+    XCTAssertEqual([organizer validChoices].count, startChoicesCount+1);
+    XCTAssertEqualObjects([organizer validChoices][0], [VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test"]);
     
-    [organizer newSelectionName:@"Test" withDefinitionName:@"Countries"];
     NSIndexSet * sel = [self myCountrySelectionLong:true inSelection:organizer.setSelection];
     [organizer setIndexSetForSelection:sel];
     NSUInteger count = organizer.setSelection.selection.count;
     
-    [organizer newSelectionName:@"Test2" withDefinitionName:@"Countries"];
+    [organizer changeCurrentChoice:[VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test2"]];
+    XCTAssertEqual([organizer validChoices].count, startChoicesCount+2 );
+    XCTAssertEqualObjects([organizer validChoices][0], [VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test2"]);
+
     sel = [self myCountrySelectionLong:false inSelection:organizer.setSelection];
     [organizer setIndexSetForSelection:sel];
     NSUInteger count2 = organizer.setSelection.selection.count;
     XCTAssertNotEqual(count2, count);
 
-    [organizer loadSelectionName:@"Test" withDefinitionName:@"Countries"];
+    [organizer changeCurrentChoice:[VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test"]];
+    XCTAssertEqual([organizer validChoices].count, startChoicesCount+2 );
     XCTAssertEqual(count, organizer.setSelection.selection.count);
     
-    [organizer newSelectionName:@"Test" withDefinitionName:@"France"];
+    [organizer changeCurrentChoice:[VCShapeSetChoice choiceForDefinition:@"France" andName:@"Test"]];
+    XCTAssertEqual([organizer validChoices].count, startChoicesCount+3 );
+    XCTAssertEqualObjects([organizer validChoices][0], [VCShapeSetChoice choiceForDefinition:@"France" andName:@"Test"]);
+
     sel = [self myFranceSelectionLong:false inSelection:organizer.setSelection];
     [organizer setIndexSetForSelection:sel];
     NSUInteger count3 = organizer.setSelection.selection.count;
     
-    [organizer loadSelectionName:@"Test" withDefinitionName:@"Countries"];
+    [organizer changeCurrentChoice:[VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test"]];
     XCTAssertEqual(count, organizer.setSelection.selection.count);
-    
-    [organizer loadSelectionName:@"Test" withDefinitionName:@"France"];
-    XCTAssertEqual(count3, organizer.setSelection.selection.count);
+    XCTAssertEqualObjects([organizer validChoices][0], [VCShapeSetChoice choiceForDefinition:@"Countries" andName:@"Test"]);
 
-    
+    [organizer changeCurrentChoice:[VCShapeSetChoice choiceForDefinition:@"France" andName:@"Test"]];
+    XCTAssertEqual(count3, organizer.setSelection.selection.count);
+    XCTAssertEqualObjects([organizer validChoices][0], [VCShapeSetChoice choiceForDefinition:@"France" andName:@"Test"]);
+
+    VCShapeSetOrganizer * reload = [VCShapeSetOrganizer organizerWithDatabase:db andThread:nil];
+    XCTAssertEqualObjects(reload.validChoices, organizer.validChoices);
+    XCTAssertEqualObjects(reload.setSelection, organizer.setSelection);
     
 }
 

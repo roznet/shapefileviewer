@@ -17,6 +17,7 @@
 @property (nonatomic,retain) NSDate * modified;
 
 +(VCShapeSetChoice*)choiceFor:(FMResultSet*)res;
++(VCShapeSetChoice*)choiceForDefinition:(NSString*)defName andName:(NSString*)selName;
 -(void)saveAsCurrent:(FMDatabase*)db;
 -(BOOL)isEqualToChoice:(VCShapeSetChoice*)other;
 
