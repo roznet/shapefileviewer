@@ -67,6 +67,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [[VCAppGlobal organizer] attach:self];
+    [self.tableView reloadData];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

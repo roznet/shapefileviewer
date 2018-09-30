@@ -36,6 +36,23 @@
                                               alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add:)];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[VCAppGlobal organizer] attach:self];
+    [self.tableView reloadData];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[VCAppGlobal organizer] detach:self];
+}
+
+-(void)notifyCallBack:(id)theParent info:(RZDependencyInfo *)theInfo{
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [self.tableView reloadData];
+    });
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

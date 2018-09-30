@@ -36,9 +36,17 @@
 
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+    [self viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
 -(void)save:(UIBarButtonItem*)item{
     self.choice.selectionName = self.nameTextField.text;
-    NSLog(@"save %@ %@", self.choice.selectionName, self.choice.definitionName);
+    if( self.choice.selectionName && self.choice.definitionName && self.choice.selectionName.length > 0){
+        [[VCAppGlobal organizer] changeCurrentChoice:self.choice];
+        NSLog(@"save %@ %@", self.choice.selectionName, self.choice.definitionName);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 /*

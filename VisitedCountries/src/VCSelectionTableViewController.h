@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@import RZUtils;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface VCSelectionTableViewController : UITableViewController
+@interface VCSelectionTableViewController : UITableViewController<RZChildObject>
 
 @end
 
