@@ -155,28 +155,45 @@
     FMResultSet * res = [db executeQuery:@"SELECT * FROM countries"];
     NSUInteger failed = 0;
     NSUInteger total = 0;
+    NSMutableDictionary * map = [NSMutableDictionary dictionary];
+    NSMutableDictionary * mis = [NSMutableDictionary dictionary];
     while ([res next]) {
         
         NSString * location = [res stringForColumn:@"location"];
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([res doubleForColumn:@"latitude"], [res doubleForColumn:@"longitude"]);
         if ([location containsString:@", "]) {
             total++;
-            
+    
             NSArray * split = [location componentsSeparatedByString:@", "];
             NSString * dbLocation = split.lastObject;
             NSIndexSet * set = [file indexSetForShapeContaining:coord];
             NSArray * found = [info objectsAtIndexes:set];
             XCTAssertGreaterThan(found.count, 0, @"%@", location);
             if( found.count > 0){
+                NSString * foundName = found[0][@"ISO2"];
+                NSNumber * prev = map[foundName];
+                if( prev ){
+                    map[foundName] = @( prev.doubleValue+1);
+                }else{
+                    map[foundName] = @1;
+                }
                 XCTAssertEqualObjects(dbLocation, found[0][@"ISO2"], @"%@", location);
             }else{
                 failed ++;
+                NSNumber * prev = mis[location];
+                if( prev ){
+                    mis[location] = @( prev.doubleValue+1);
+                }else{
+                    mis[location] = @1;
+                }
             }
         }
     }
     if( failed ){
         NSLog( @"Failed %@/%@", @(failed),@(total) );
+        NSLog(@"%@", mis);
     }
+    NSLog(@"%@", map);
 }
 
 
