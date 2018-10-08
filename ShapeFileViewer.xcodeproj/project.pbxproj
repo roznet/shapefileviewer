@@ -10,6 +10,7 @@
 		4205E9CA1B07EF9500BA3EED /* GBR_adm1.shx in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C41B07EF9500BA3EED /* GBR_adm1.shx */; };
 		4205E9CB1B07EF9500BA3EED /* GBR_adm1.shp in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C51B07EF9500BA3EED /* GBR_adm1.shp */; };
 		4205E9CC1B07EF9500BA3EED /* GBR_adm1.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C61B07EF9500BA3EED /* GBR_adm1.dbf */; };
+		420A5A3B216BB0AA008A7C49 /* countries.db in Resources */ = {isa = PBXBuildFile; fileRef = 420A5A2E216BB0AA008A7C49 /* countries.db */; };
 		42248BEA2014DF84006ADC90 /* RZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; };
 		42248BEB2014DF84006ADC90 /* RZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		42248BEF2014E00E006ADC90 /* RZUtilsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489B12014DF52006ADC90 /* RZUtilsOSX.framework */; };
@@ -302,6 +303,7 @@
 		4205E9C41B07EF9500BA3EED /* GBR_adm1.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.shx; path = shapefiles/GBR_adm1.shx; sourceTree = "<group>"; };
 		4205E9C51B07EF9500BA3EED /* GBR_adm1.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.shp; path = shapefiles/GBR_adm1.shp; sourceTree = "<group>"; };
 		4205E9C61B07EF9500BA3EED /* GBR_adm1.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.dbf; path = shapefiles/GBR_adm1.dbf; sourceTree = "<group>"; };
+		420A5A2E216BB0AA008A7C49 /* countries.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = countries.db; sourceTree = "<group>"; };
 		4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RZUtils.xcodeproj; path = RZUtils/RZUtils.xcodeproj; sourceTree = "<group>"; };
 		42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RZExternal.xcodeproj; path = RZExternal/RZExternal.xcodeproj; sourceTree = "<group>"; };
 		422637A61B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TM_WORLD_BORDERS-0.2.dbf"; path = "shapefiles/TM_WORLD_BORDERS-0.2.dbf"; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 		42C8758A1AB785BF00ED1B9B /* VisitedCountriesTests */ = {
 			isa = PBXGroup;
 			children = (
+				420A5A2E216BB0AA008A7C49 /* countries.db */,
 				42AB58CA1ABEE2BF00E35672 /* VCFilteredArrayTests.m */,
 				42C8758D1AB785BF00ED1B9B /* VisitedCountriesTests.m */,
 				42C8758B1AB785BF00ED1B9B /* Supporting Files */,
@@ -1003,6 +1006,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				420A5A3B216BB0AA008A7C49 /* countries.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

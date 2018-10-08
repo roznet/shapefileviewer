@@ -145,6 +145,40 @@
     
 }
 
+-(void)testReverseLocate{
+    FMDatabase * db = [FMDatabase databaseWithPath:[RZFileOrganizer bundleFilePath:@"countries.db" forClass:[self class]]];
+    [db open];
+    
+    NSString * baseName = @"TM_WORLD_BORDERS-0.2";
+    RZShapeFile * file = [RZShapeFile shapeFileWithBase:[RZFileOrganizer bundleFilePath:baseName]];
+    NSArray * info = [file allShapes];
+    FMResultSet * res = [db executeQuery:@"SELECT * FROM countries"];
+    NSUInteger failed = 0;
+    NSUInteger total = 0;
+    while ([res next]) {
+        
+        NSString * location = [res stringForColumn:@"location"];
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([res doubleForColumn:@"latitude"], [res doubleForColumn:@"longitude"]);
+        if ([location containsString:@", "]) {
+            total++;
+            
+            NSArray * split = [location componentsSeparatedByString:@", "];
+            NSString * dbLocation = split.lastObject;
+            NSIndexSet * set = [file indexSetForShapeContaining:coord];
+            NSArray * found = [info objectsAtIndexes:set];
+            XCTAssertGreaterThan(found.count, 0, @"%@", location);
+            if( found.count > 0){
+                XCTAssertEqualObjects(dbLocation, found[0][@"ISO2"], @"%@", location);
+            }else{
+                failed ++;
+            }
+        }
+    }
+    if( failed ){
+        NSLog( @"Failed %@/%@", @(failed),@(total) );
+    }
+}
+
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
