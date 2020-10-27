@@ -26,7 +26,7 @@
 #import "GCCellEntryListViewController.h"
 #import "GCCellGrid.h"
 #import "RZViewConfig.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 @interface GCCellEntryListViewController ()
 
@@ -110,7 +110,7 @@
         [cell labelForRow:0 andCol:0].attributedText = choice;
     }
 
-    id sub = (self.subtext && self.selected < self.subtext.count) ? (self.subtext)[self.selected] : nil;
+    id sub = (self.subtext && indexPath.row < self.subtext.count) ? self.subtext[indexPath.row] : nil;
     if (sub && [sub isKindOfClass:[NSString class]]) {
         [cell labelForRow:1 andCol:0].text = sub;
     }else if(sub && [sub isKindOfClass:[NSAttributedString class]]){
@@ -118,7 +118,23 @@
     }
     [cell setIconImage:[RZViewConfig checkMarkImage:(indexPath.row == _selected)]];
     cell.iconPosition = gcIconPositionLeft;
-
+    if( self.cellBackgroundColor ){
+        cell.backgroundColor = self.cellBackgroundColor;
+    }
+    if( self.textPrimaryColor){
+        [cell labelForRow:0 andCol:0].textColor = self.textPrimaryColor;
+    }
+    if( self.textSecondaryColor && self.subtext ){
+        [cell labelForRow:1 andCol:0].textColor = self.textSecondaryColor;
+    }
+    if( self.selectedTextColor && indexPath.row == _selected){
+        [cell labelForRow:0 andCol:0].textColor = self.selectedTextColor;
+        if( [choice isKindOfClass:[NSAttributedString class]] ){
+            NSMutableAttributedString * changed = RZReturnAutorelease([[NSMutableAttributedString alloc] initWithAttributedString:choice]);
+            [changed addAttribute:NSForegroundColorAttributeName value:self.selectedTextColor range:NSMakeRange(0,changed.length)];
+            [cell labelForRow:0 andCol:0].attributedText = changed;
+        }
+    }
     return cell;
 }
 
@@ -129,6 +145,9 @@
 {
     _selected = indexPath.row;
     [_entryFieldDelegate cellWasChanged:self];
+    if( self.entryFieldCompletion ){
+        self.entryFieldCompletion(self);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 

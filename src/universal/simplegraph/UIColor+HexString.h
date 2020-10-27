@@ -31,14 +31,16 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-#import "RZUtils/RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 @interface RZColor (HexString)
 
 + (RZColor *)colorWithHexValue:(NSUInteger)rgbValue andAlpha:(double)alpha;
++ (RZColor *)colorWithHexLight:(NSUInteger)rgbValue dark:(NSUInteger)rgbValue andAlpha:(double)alpha;
 +(RZColor*)colorWithHexString:(NSString*)hexString;
 
--(NSArray*)rgbComponents;
+-(NSArray<NSNumber*>*)rgbComponents;
+-(NSArray<NSNumber*>*)rgbaComponents;
 +(RZColor*)colorWithRgbComponents:(NSArray*)array andAlpha:(double)alpha;
-
+-(NSDictionary*)rgbComponentColorSetJsonFormat;
 @end

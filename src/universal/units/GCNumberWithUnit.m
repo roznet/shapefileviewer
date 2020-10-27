@@ -23,8 +23,8 @@
 //  SOFTWARE.
 //  
 
-#import "RZMacros.h"
-#import "GCNumberWithUnit.h"
+#import <RZUtils/RZMacros.h>
+#import <RZUtils/GCNumberWithUnit.h>
 
 #define GC_CODER_VALUE      @"value"
 #define GC_CODER_UNIT       @"unit"
@@ -32,6 +32,9 @@
 
 @implementation GCNumberWithUnit
 
++(BOOL)supportsSecureCoding{
+    return YES;
+}
 
 -(instancetype)init{
     return [super init];
@@ -40,7 +43,7 @@
     self = [self init];
     if (self) {
         self.value = [aDecoder decodeDoubleForKey:GC_CODER_VALUE];
-        self.unit = [GCUnit unitForKey:[aDecoder decodeObjectForKey:GC_CODER_UNIT]];
+        self.unit = [GCUnit unitForKey:[aDecoder decodeObjectOfClass:[NSString class] forKey:GC_CODER_UNIT]];
     }
     return self;
 }

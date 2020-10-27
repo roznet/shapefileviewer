@@ -25,6 +25,7 @@
 
 #import "RZTestDetailsViewController.h"
 #import "RZUtils/RZUtils.h"
+@import WebKit;
 
 @implementation RZTestDetailsViewController
 
@@ -47,14 +48,14 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	UIWebView *contentView	= [[UIWebView alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+	WKWebView *contentView	= [[WKWebView alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
 	NSString * content = [_record detailAsHTML];
 
 	[contentView loadHTMLString:content  baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] resourcePath]]];
 	[self setView:contentView];
     RZRelease(contentView);
     self.navigationItem.rightBarButtonItems = @[
-                                                RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Rerun",nil) style:UIBarButtonItemStylePlain target:self action:@selector(runTests:)]),
+                                                RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Rerun",@"Test Infra") style:UIBarButtonItemStylePlain target:self action:@selector(runTests:)]),
                                                 ];
 
 }

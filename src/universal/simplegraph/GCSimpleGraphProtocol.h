@@ -29,13 +29,14 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-#import "GCViewGradientColors.h"
+#import <RZUtilsUniversal/GCViewGradientColors.h>
 #import <RZUtils/RZUtils.h>
 
 typedef NS_ENUM(NSUInteger, gcGraphType) {
     gcGraphLine,
     gcGraphStep,
-    gcScatterPlot
+    gcScatterPlot,
+    gcGraphBezier
 };
 
 @protocol GCSimpleGraphDataSource <NSObject>
@@ -71,6 +72,7 @@ typedef NS_ENUM(NSUInteger, gcGraphType) {
 @optional
 
 -(GCViewGradientColors*)gradientColors:(NSUInteger)idx;
+-(GCViewGradientColors*)gradientColorsFill:(NSUInteger)idx;
 -(CGPoint)zoomPercentage;
 -(CGPoint)offsetPercentage;
 -(NSString*)emptyGraphLabel;
@@ -81,6 +83,11 @@ typedef NS_ENUM(NSUInteger, gcGraphType) {
 -(RZColor*)useForegroundColor;
 -(RZColor*)axisColor;
 -(BOOL)xAxisIsVertical;
+
+/// Factor to multiply the derivative in computing the control point. Defaults to 0.1, higher number will result in bigger wiggle around the points
+-(double)bezierCubicDerivativeFactor;
+/// Compute the derivative over four point   (p_i - p_i-2) and (p_i+1 - p_i-1) or two (p_i-1-p_i-2) and (p_i+1-p_i)
+-(BOOL)bezierFourPointsDerivative;
 
 @end
 

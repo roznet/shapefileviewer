@@ -35,9 +35,8 @@ extern NSString * NSStringFromCGPoint(CGPoint point);
 
 @interface NSBezierPath (QuartzHelper)
 
-+ (NSBezierPath *)bezierPathWithCGPath:(CGPathRef)CGPath;
--(CGPathRef)CGPath;
 -(void)addLineToPoint:(CGPoint)point;
+-(void)addCurveToPoint:(CGPoint)point controlPoint1:(CGPoint)controlPoint1 controlPoint2:(CGPoint)controlPoint2;
 
 @end
 #endif

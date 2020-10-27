@@ -26,7 +26,7 @@
 #import "RZRemoteDownload.h"
 #import "RZWebURL.h"
 #import "RZLog.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 static NSUInteger _totalDataUsage = 0;
 
@@ -275,6 +275,19 @@ static NSURLRequestCachePolicy _cachePolicy = NSURLRequestReloadIgnoringLocalAnd
 }
 
 -(void)processStart{
+    if( [self.downloadDelegate respondsToSelector:@selector(authorizeRequest:completionHandler:)]){
+        [self.downloadDelegate authorizeRequest:(NSMutableURLRequest *)self.request completionHandler:^(NSError*error){
+            if( error ){
+                [self dataTaskDidFailWithError:error];
+            }else{
+                [self processStartDataTask];
+            }
+        }];
+    }else{
+        [self processStartDataTask];
+    }
+}
+-(void)processStartDataTask{
     self.lastError = nil;
 
     self.task = [[self sharedSession] dataTaskWithRequest:self.request completionHandler:^(NSData*data,NSURLResponse*response,NSError*error){
@@ -287,7 +300,7 @@ static NSURLRequestCachePolicy _cachePolicy = NSURLRequestReloadIgnoringLocalAnd
     if (self.task) {
         [self.task resume];
     }else{
-        RZLog(RZLogError, @"failed to create connection");
+        RZLog(RZLogError, @"Failed to create connection");
         [_downloadDelegate downloadFailed:self];
     }
 
@@ -325,7 +338,7 @@ static NSURLRequestCachePolicy _cachePolicy = NSURLRequestReloadIgnoringLocalAnd
     if ([response isKindOfClass:[NSHTTPURLResponse class]]){
         httpResponse = (NSHTTPURLResponse*)response;
         contentType = httpResponse.allHeaderFields[@"Content-Type"];
-        if ([contentType hasPrefix:@"application/x-zip-compressed"]) {
+        if ([contentType hasPrefix:@"application/x-zip-compressed"] || [contentType hasPrefix:@"application/octet-stream"]) {
             dataOnly = true;
         }
     }

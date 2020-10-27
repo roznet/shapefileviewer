@@ -23,10 +23,11 @@
 //  SOFTWARE.
 //  
 
-#import "GCUnit.h"
-#import "RZMacros.h"
+#import <RZUtils/GCUnit.h>
+#import <RZUtils/RZMacros.h>
 #include <math.h>
 #import "NSDictionary+RZHelper.h"
+#import "GCUnitCalendarUnit.h"
 
 #define GCUNITFORKEY(my_unit_key) +(GCUnit*)my_unit_key{ return [GCUnit unitForKey:@#my_unit_key]; }
 
@@ -62,11 +63,13 @@ void buildUnitSystemCache(){
                           @"strideyd"   : @"stride",
                           @"pound"      : @"kilogram",
                           @"feetperhour": @"meterperhour",
+                          @"footelevation": @"meterelevation",
                           };
 
         // Meter -> yard or foot ambiguous, default should be yard
         NSMutableDictionary * tempImperial = [NSMutableDictionary dictionaryWithDictionary:[_unitsMetrics dictionarySwappingKeysForObjects]];
         tempImperial[@"meter"] = @"yard";
+        tempImperial[@"celsius"] = @"fahrenheit";
         _unitsImperial = [NSDictionary dictionaryWithDictionary:tempImperial];
         RZRetain(_unitsMetrics);
         RZRetain(_unitsImperial);
@@ -83,24 +86,27 @@ void registerDouble( NSArray * defs){
 void registerSimple( NSArray * defs){
     GCUnit * unit = RZReturnAutorelease([[GCUnit alloc] initWithArray:defs]);
     unit.format = GCunitDoubleTwoDigitFormat;
+    unit.referenceUnitKey = unit.key;  // make sure can convert to itself...
     _unitsRegistry[defs[0]] = unit;
 }
 
 void registerSimpl0( NSArray * defs){
     GCUnit * unit = RZReturnAutorelease([[GCUnit alloc] initWithArray:defs]);
     unit.format = GCUnitIntegerFormat;
-    unit.referenceUnit = unit.key;  // make sure can convert to itself...
+    unit.referenceUnitKey = unit.key;  // make sure can convert to itself...
     _unitsRegistry[defs[0]] = unit;
 }
 
 void registerSimpl1( NSArray * defs){
     GCUnit * unit = RZReturnAutorelease([[GCUnit alloc] initWithArray:defs]);
     unit.format = GCUnitDoubleOneDigitFormat;
+    unit.referenceUnitKey = unit.key;  // make sure can convert to itself...
     _unitsRegistry[defs[0]] = unit;
 }
 void registerSimpl3( NSArray * defs){
     GCUnit * unit = RZReturnAutorelease([[GCUnit alloc] initWithArray:defs]);
     unit.format = GCunitDoubleThreeDigitFormat;
+    unit.referenceUnitKey = unit.key;  // make sure can convert to itself...
     _unitsRegistry[defs[0]] = unit;
 }
 
@@ -193,14 +199,9 @@ void registerTofD(NSString * name){
 }
 
 void registerCalUnit( NSString * name, NSCalendarUnit calUnit){
-    GCUnitCalendarUnit * unit = [[GCUnitCalendarUnit alloc] init];
-    unit.calendarUnit = calUnit;
-    unit.key = name;
-    unit.abbr = @"";
-    unit.display = @"";
+    GCUnitCalendarUnit * unit = [GCUnitCalendarUnit calendarUnit:calUnit calendar:nil referenceDate:nil];
 
     _unitsRegistry[name] = unit;
-    RZRelease(unit);
 }
 
 #pragma mark
@@ -232,6 +233,9 @@ void registerUnits(){
             registerSimpl0( @[ @"rpm", @"Revolutions per Minute", @"rpm"]);
             registerSimple( @[ @"te", @"Training Effect", @""]);
             registerSimpl3( @[ @"if", @"Intensity Factor", @""]);
+            
+            registerLinea0(@[ @"mmHg", @"mmHg", @"mmHg"], @"mmHg", 1., 0.);
+            registerLinea0(@[ @"cmHg", @"cmHg", @"cmHg"], @"cmHg", 10., 0.);
         }
         registerSimple( @[ @"percent", @"Percent", @"%"]);
         registerSimpl0( @[ @"dimensionless", @"Dimensionless", @""]);
@@ -299,6 +303,9 @@ void registerUnits(){
         registerLinea1( @[ @"centimeter",@"Centimeters",@"cm"],  @"meter", 0.01,          0.0);
         registerLinea1( @[ @"millimeter",@"Millimeter",@"mm"],   @"meter", 0.001,         0.0);
         registerLinea0( @[ @"floor",     @"Floor",      @"floors"],    @"meter", 3.0,           0.0);
+        // special meterelevation that will not have coumpounding
+        registerLinea0( @[ @"meterelevation",     @"Meters",     @"m" ],  @"meter", 1.0,           0.0);
+        registerLinear( @[ @"footelevation",      @"Feet",       @"ft"],  @"meter", GCUNIT_FOOT,   0.0);
 
         //mass
         registerLinear( @[ @"kilogram", @"Kilograms", @"kg"],  @"kilogram", 1.0, 0.0);
@@ -306,8 +313,9 @@ void registerUnits(){
         registerLinear( @[ @"gram",     @"Gram",      @""],    @"kilogram", 0.001, 0.0);
 
         // temperature
-        registerLinea0( @[ @"celcius",    @"°Celsius",    @"°C"], @"fahrenheit", 1.8,      32.0);
-        registerLinea0( @[ @"fahrenheit", @"°Fahrenheit", @"°F"], @"fahrenheit", 1.,     0.0);
+        registerLinea0( @[ @"celcius",    @"°Celsius",    @"°C"], @"celsius", 1.,        0.0);
+        registerLinea0( @[ @"celsius",    @"°Celsius",    @"°C"], @"celsius", 1.,        0.0);
+        registerLinea0( @[ @"fahrenheit", @"°Fahrenheit", @"°F"], @"celsius", 5./9.,     -32.*5./9.);
 
         // dates
         registerDate(@"date",      NSDateFormatterMediumStyle, NSDateFormatterNoStyle, nil);
@@ -379,7 +387,7 @@ void registerUnits(){
     [_abbr release];
     [_fractionUnit release];
     [_compoundUnit release];
-    [_referenceUnit release];
+    [_referenceUnitKey release];
 
     [super dealloc];
 }
@@ -500,7 +508,7 @@ void registerUnits(){
     double x_knob_max = x_knob_min;
     NSMutableArray * rv = [NSMutableArray arrayWithCapacity:x_nKnobs];
 
-    while (x_knob_min + x_knobSize * x_nKnobs < x_max) {
+    while ((x_knob_min + x_knobSize * x_nKnobs) < x_max) {
         x_nKnobs++;
     }
     [rv addObject:@(extend ? x_knob_min : x_min)];
@@ -518,6 +526,10 @@ void registerUnits(){
 
 #pragma mark - Access
 
+-(GCUnit*)referenceUnit{
+    return self.referenceUnitKey ? [GCUnit unitForKey:self.referenceUnitKey] : nil;
+}
+
 +(GCUnit*)unitForKey:(NSString *)aKey{
     if (!_unitsRegistry) {
         registerUnits();
@@ -525,6 +537,17 @@ void registerUnits(){
     return aKey ? _unitsRegistry[aKey] : nil;
 }
 
++(nonnull GCUnit*)unitForAny:(nonnull NSString*)aKey{
+    if (!_unitsRegistry) {
+        registerUnits();
+    }
+    GCUnit * exist = _unitsRegistry[aKey];
+    if( ! exist ){
+        registerSimple( @[ aKey, aKey, aKey]);
+        exist = _unitsRegistry[aKey];
+    }
+    return exist;
+}
 -(BOOL)matchString:(NSString*)aStr{
     return [_abbr isEqualToString:aStr] || [_key isEqualToString:aStr] || [_display isEqualToString:aStr];
 }
@@ -564,7 +587,7 @@ void registerUnits(){
 
 
 -(BOOL)canConvertTo:(GCUnit*)otherUnit{
-    return _referenceUnit != nil && otherUnit.referenceUnit && [otherUnit.referenceUnit isEqualToString:_referenceUnit];
+    return _referenceUnitKey != nil && otherUnit.referenceUnitKey && [otherUnit.referenceUnitKey isEqualToString:_referenceUnitKey];
 }
 -(NSArray<GCUnit*>*)compatibleUnits{
     if (!_unitsRegistry) {
@@ -573,7 +596,7 @@ void registerUnits(){
     NSMutableArray<GCUnit*>*rv = [NSMutableArray arrayWithObject:self];
     for (NSString * key in _unitsRegistry) {
         GCUnit * other = _unitsRegistry[key];
-        if( [other.referenceUnit isEqualToString:self.referenceUnit] && ![other.key isEqualToString:self.key]){
+        if( [other.referenceUnitKey isEqualToString:self.referenceUnitKey] && ![other.key isEqualToString:self.key]){
             [rv addObject:other];
         }
     }
@@ -582,7 +605,7 @@ void registerUnits(){
 
 -(GCUnit*)commonUnit:(GCUnit*)otherUnit{
     GCUnit * rv = self;
-    if (_referenceUnit != nil && otherUnit.referenceUnit && [otherUnit.referenceUnit isEqualToString:_referenceUnit]) {
+    if (_referenceUnitKey != nil && otherUnit.referenceUnitKey && [otherUnit.referenceUnitKey isEqualToString:_referenceUnitKey]) {
         double thisInv = [self isKindOfClass:[GCUnitInverseLinear class]] ? -1. : 1.;
         double otherInv= [otherUnit isKindOfClass:[GCUnitInverseLinear class]] ? -1. : 1.;
 
@@ -970,6 +993,7 @@ GCUNITFORKEY(secpermile);
 GCUNITFORKEY(min100m);
 GCUNITFORKEY(second);
 GCUNITFORKEY(celcius);
+GCUNITFORKEY(celsius);
 GCUNITFORKEY(percent);
 GCUNITFORKEY(minperkm);
 GCUNITFORKEY(sec100yd);
@@ -1016,7 +1040,7 @@ GCUNITFORKEY(kilometer);
     if (rv) {
         rv.multiplier = aMult;
         rv.offset = aOffset;
-        rv.referenceUnit = ref;
+        rv.referenceUnitKey = ref;
     }
     return rv;
 }
@@ -1047,7 +1071,7 @@ GCUNITFORKEY(kilometer);
     if (rv) {
         rv.multiplier = aMult;
         rv.offset = aOffset;
-        rv.referenceUnit = ref;
+        rv.referenceUnitKey = ref;
     }
     return rv;
 }
@@ -1240,82 +1264,6 @@ GCUNITFORKEY(kilometer);
     return [super axisKnobs:nKnobs min:x_min max:x_max extendToKnobs:extend];
 }
 
-
-
-@end
-
-#pragma mark -
-@implementation GCUnitCalendarUnit
-#if ! __has_feature(objc_arc)
--(void)dealloc{
-    [_dateFormatter release];
-    [_calendar release];
-    [super dealloc];
-}
-#endif
-
--(double)axisKnobSizeFor:(double)range numberOfKnobs:(NSUInteger)n{
-    if (_calendarUnit == NSCalendarUnitWeekOfYear || _calendarUnit == NSCalendarUnitMonth) {
-        double oneday = 24.*60.*60.;
-        return ceil(range/n/oneday)* oneday;
-    }else if(_calendarUnit == NSCalendarUnitYear){
-        double onemonth = 24.*60.*60.*365./12.;
-        return ceil(range/n/onemonth)* onemonth;
-    }
-    return [super axisKnobSizeFor:range numberOfKnobs:n];
-}
-
--(NSArray*)axisKnobs:(NSUInteger)nKnobs min:(double)x_min max:(double)x_max extendToKnobs:(BOOL)extend{
-
-    if (nKnobs > 0) {// don't bother for edge case
-        double oneday = 24.*60.*60.;
-
-        if (self.calendarUnit==NSCalendarUnitWeekOfYear){
-            NSMutableArray * rv = [NSMutableArray arrayWithCapacity:7];
-            for (NSUInteger i = 0; i<8; i++) {
-                [rv addObject:@(oneday*i)];
-            }
-            return rv;
-        }
-    }
-    return [super axisKnobs:nKnobs min:x_min max:x_max extendToKnobs:extend];
-}
-
-
-
--(NSString*)formatDouble:(double)aDbl addAbbr:(BOOL)addAbbr{
-    if (!_dateFormatter) {
-        [self setDateFormatter:RZReturnAutorelease([[NSDateFormatter alloc] init])];
-        _dateFormatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
-
-    }
-    if (!_calendar) {
-        self.calendar = [NSCalendar currentCalendar];
-    }
-    double oneday = 24.*60.*60.;
-    double onemonth = oneday*365./12.;
-    double day = aDbl/oneday;
-    if (_calendarUnit == NSCalendarUnitYear) {
-        double month = aDbl/onemonth;
-        NSUInteger monthIdx = floor(month)+1;
-        NSDateComponents * comp = RZReturnAutorelease([[NSDateComponents alloc] init]);
-        comp.month = monthIdx;
-        _dateFormatter.dateFormat = @"MMM";
-        return [_dateFormatter stringFromDate:[_calendar dateFromComponents:comp]];
-    }else if (_calendarUnit == NSCalendarUnitWeekOfYear){
-        NSUInteger firstWeekday = _calendar.firstWeekday;
-        double weekday = aDbl/oneday;
-        NSDateComponents * comp = RZReturnAutorelease([[NSDateComponents alloc] init]);
-        NSUInteger weekdayIdx = floor(weekday)+firstWeekday;
-        comp.weekday = weekdayIdx;
-        comp.weekdayOrdinal = 1;
-        _dateFormatter.dateFormat = @"EEE";
-        NSString * s = [_dateFormatter stringFromDate:[_calendar dateFromComponents:comp]];
-        return s;
-    }
-
-    return [NSString stringWithFormat:@"%.0f", day];
-}
 
 
 @end

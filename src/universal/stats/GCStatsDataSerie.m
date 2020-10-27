@@ -23,13 +23,13 @@
 //  SOFTWARE.
 //  
 
-#import "GCStatsDataSerie.h"
+#import <RZUtils/GCStatsDataSerie.h>
 #import "GCStatsFunctions.h"
 #import "NSDate+RZHelper.h"
 #import "GCStatsDateBuckets.h"
 #import "GCStatsDataPointMulti.h"
 #import "RZFileOrganizer.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 #import "RZLog.h"
 #import "NSDateComponents+RZHelper.h"
 
@@ -84,17 +84,21 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 #define GC_CODER_VERSION @"version"
 
 @interface GCStatsDataSerie ()
-@property (nonatomic,retain) NSMutableArray * dataPoints;
+@property (nonatomic,retain) NSMutableArray<GCStatsDataPoint*> * dataPoints;
 
 @end
 
 @implementation GCStatsDataSerie
 @synthesize dataPoints;
 
++(BOOL)supportsSecureCoding{
+    return YES;
+}
+
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [self init];
     if (self) {
-        self.dataPoints = [aDecoder decodeObjectForKey:GC_CODER_DATA_POINTS];
+        self.dataPoints = [aDecoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [GCStatsDataPoint class], nil] forKey:GC_CODER_DATA_POINTS];
     }
     return self;
 }
@@ -124,7 +128,7 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     if (rv) {
         NSMutableArray * tmp = [NSMutableArray arrayWithCapacity:other.count];
         for (GCStatsDataPoint * p in other) {
-            [tmp addObject:p];
+            [tmp addObject:[p duplicate]];
         }
         rv.dataPoints = tmp;
     }
@@ -174,12 +178,22 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     [dataPoints addObject:[GCStatsDataPointNoValue dataPointWithX:x andY:0.]];
 }
 
+-(void)addDataPointNoValueWithDate:(NSDate*)x{
+    [dataPoints addObject:[GCStatsDataPointNoValue dataPointWithDate:x andValue:0.]];
+}
+-(void)addDataPointNoValueWithDate:(NSDate*)aDate since:(NSDate*)first{
+    [dataPoints addObject:[GCStatsDataPointNoValue dataPointWithDate:aDate sinceDate:first andValue:0.]];
+}
+
 -(void)addDataPointWithPoint:(GCStatsDataPoint*)point andValue:(double)value{
     [dataPoints addObject:[GCStatsDataPoint dataPointWithPoint:point andValue:value]];
 }
 
 -(void)removeAllPoints{
     [dataPoints removeAllObjects];
+}
+-(void)removePointAtIndex:(NSUInteger)idx{
+    [dataPoints removeObjectAtIndex:idx];
 }
 
 #pragma mark - Sorting
@@ -237,18 +251,40 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 
 #pragma mark - Descriptions
 
--(NSString*)description{
-    NSMutableString * s = [NSMutableString stringWithFormat:@"DataSerie(%d points)\n", (int)dataPoints.count];
-    for (NSUInteger i=0; i<5; i++) {
+-(NSString*)descriptionFrom:(NSUInteger)from to:(NSUInteger)to{
+    NSMutableString * s = [NSMutableString stringWithFormat:@"DataSerie(%d points)[%d..%d]\n", (int)dataPoints.count, (int)from, (int)to];
+    for (NSUInteger i=from; i<to; i++) {
         if (i<dataPoints.count) {
             [s appendFormat:@"  [%d]%@\n", (int)i, [dataPoints[i] description]];
         }
     }
-    if (dataPoints.count>5) {
-        if (dataPoints.count >6) {
-            [s appendString:@"  ...\n"];
+    return s;
+}
+
+
+-(NSString*)description{
+    NSMutableString * s = [NSMutableString stringWithFormat:@"DataSerie(%d points)\n", (int)dataPoints.count];
+    if( dataPoints.count < 6){
+        for (NSUInteger i=0; i<dataPoints.count; i++) {
+            if (i<dataPoints.count) {
+                [s appendFormat:@"  [%d]%@\n", (int)i, [dataPoints[i] description]];
+            }
         }
-        [s appendFormat:@"  [%d]%@\n", (int)(dataPoints.count-1),[dataPoints.lastObject description]];
+    }else{
+        NSUInteger n = dataPoints.count;
+        NSUInteger indexes[] = { 0, 1, 2, n/4, n/2, 3*n/4, n-1 };
+        size_t nn = sizeof(indexes)/sizeof(NSUInteger);
+        for( size_t i = 0; i < nn; i++){
+            NSUInteger index = indexes[i];
+            // if diff with previous is > 1: non contiguous, print ellipses
+            if( i > 0 && (index - indexes[i-1]) > 1 ){
+                [s appendString:@"  ...\n"];
+            }
+            // if diff with prev is 0, index arithmetic yield same index don't print twice
+            if( i == 0 || (index-indexes[i-1]) != 0){
+                [s appendFormat:@"  [%d]%@\n", (int)index, [dataPoints[index] description]];
+            }
+        }
     }
     return s;
 }
@@ -277,19 +313,38 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 }
 
 -(NSString*)asCSVString:(BOOL)asDate{
-    NSMutableString * rv = [NSMutableString stringWithString:@"i;x;y\n"];
-
-    NSUInteger n=self.dataPoints.count;
-    for (NSUInteger i=0; i<n; i++) {
-        GCStatsDataPoint * point = self.dataPoints[i];
-        if (asDate) {
-            [rv appendFormat:@"%d,%@,%f\n", (int)i, point.date, point.y_data];
-        }else{
-            [rv appendFormat:@"%d,%f,%f\n", (int)i, point.x_data, point.y_data];
+    BOOL hasMulti = false;
+    for (GCStatsDataPoint * point in self.dataPoints) {
+        if( [point isKindOfClass:[GCStatsDataPointMulti class]]){
+            hasMulti = true;
+            break;
         }
     }
+    
+    NSMutableArray * lines = [NSMutableArray array];
+    
+    [lines addObject:hasMulti ? @"i,x,y,z" : @"i,x,y" ];
 
-    return rv;
+    NSUInteger i = 0;
+    for (GCStatsDataPoint * point in self.dataPoints) {
+        NSMutableString * line = nil;
+        if (asDate) {
+            line = [NSMutableString stringWithFormat:@"%d,%@,%f", (int)i, [point.date formatAsRFC3339], point.y_data];
+        }else{
+            line = [NSMutableString stringWithFormat:@"%d,%f,%f", (int)i, point.x_data, point.y_data];
+        }
+        if( hasMulti ){
+            if( [point isKindOfClass:[GCStatsDataPointMulti class]] ){
+                GCStatsDataPointMulti * multi = (GCStatsDataPointMulti*)point;
+                [line appendFormat:@",%f", multi.z_data];
+            }else{
+                [line appendFormat:@","];
+            }
+        }
+        [lines addObject:line];
+    }
+    
+    return [lines componentsJoinedByString:@"\n"];
 }
 
 #pragma mark - Access
@@ -318,6 +373,9 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     }else{
         for (NSUInteger i=0; rv && i<self.count; i++) {
             rv = rv && [[self dataPointAtIndex:i] isEqualToPoint:[other dataPointAtIndex:i]];
+            if( rv == false){
+                NSLog(@"%@ %@ %@", @(i), [self dataPointAtIndex:i], [other dataPointAtIndex:i]);
+            }
         }
     }
     return rv;
@@ -353,7 +411,13 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     indexes.left = currentIndex;
     indexes.right = currentIndex;
     indexes.cnt = 0;
-
+    // if only 1 point, don't bother
+    if( self.dataPoints.count < 2){
+        indexes.left = 0;
+        indexes.right = 0;
+        return indexes;
+    }
+    
     double curr_x = [dataPoints[indexes.left] x_data];
     // easy edge case
     NSUInteger n = dataPoints.count;
@@ -741,6 +805,10 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     for (NSUInteger idx = 0; idx < count; idx++) {
         GCStatsDataPoint * point = dataPoints[idx];
 
+        if( !point.hasValue ){
+            continue;
+        }
+        
         BOOL isPos = point.y_data > 0;
         BOOL isNeg = point.y_data < 0;
 
@@ -822,16 +890,17 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 
     NSMutableArray * averages = [NSMutableArray arrayWithCapacity:1];
 
-    NSUInteger idx = 0;
     NSUInteger n = dataPoints.count;
     if (n > 0) {
 
         GCStatsDataPoint * current_sum = [GCStatsDataPoint dataPointWithPoint:dataPoints[0] andValue:0.];
         double current_count = 0;
 
-        for (idx=0; idx<n; idx++) {
-            [current_sum addPoint:dataPoints[idx]];
-            current_count += 1;
+        for (GCStatsDataPoint * point in self.dataPoints) {
+            if( point.hasValue ){
+                [current_sum addPoint:point];
+                current_count += 1;
+            }
         }
         if (divide) {
             [current_sum divideByDouble:current_count];
@@ -855,6 +924,10 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
         n    = 0.;
 
         for (GCStatsDataPoint * point in dataPoints) {
+            if( ! point.hasValue ){
+                continue;
+            }
+            
             double x = point.x_data;
             double y = point.y_data;
             if (isinf(x)||isinf(y)||isnan(x)||isnan(y)) {
@@ -887,7 +960,7 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 //   idx_offset: [
 //   idx_this:   |
 
--(GCStatsDataSerie*)deltaYSerieForDeltaX:(double)dx scalingFactor:(double)scaling{
+-(GCStatsDataSerie*)deltaYSerieForDeltaX:(double)dx scalingFactor:(double)scaling simpleDifference:(BOOL)diffOnly{
     NSUInteger count = self.count;
 
     // Needs at least 2 points
@@ -910,24 +983,33 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 
     for (idx_x1=1; idx_x1<count; idx_x1++) {
         GCStatsDataPoint * p_x1 = this.dataPoints[idx_x1];
-
-        while (idx_x0 < idx_x1 && (p_x1.x_data - [this.dataPoints[idx_x0+1]  x_data]) > dx ) {
+                
+        if( dx == 0. || p_x1.x_data - this.dataPoints[idx_x0+1].x_data <= dx){
+            started = true;
+        }
+        
+        while (idx_x0 < idx_x1 && (p_x1.x_data - this.dataPoints[idx_x0+1].x_data) > dx ) {
             idx_x0++;
             p_x0 = this.dataPoints[idx_x0];
-            started = true;
         }
 
         if (started && idx_x0!=idx_x1) {
             double delta_y = p_x1.y_data-p_x0.y_data;
             double delta_x = p_x1.x_data-p_x0.x_data;
 
-            double final = delta_y/delta_x * scaling;
+            double final = diffOnly ? delta_y : delta_y/delta_x * scaling;
             [rv_points addObject:[GCStatsDataPoint dataPointWithX:p_x1.x_data andY:final]];
         }
     }
     GCStatsDataSerie * rv = RZReturnAutorelease([[GCStatsDataSerie alloc] init]);
     rv.dataPoints = rv_points;
     return rv;
+}
+-(GCStatsDataSerie*)deltaYSerieForDeltaX:(double)dx scalingFactor:(double)scaling{
+    return [self deltaYSerieForDeltaX:dx scalingFactor:scaling simpleDifference:NO];
+}
+-(GCStatsDataSerie*)differenceSerieForLag:(double)dx{
+    return [self deltaYSerieForDeltaX:dx scalingFactor:1.0 simpleDifference:YES];
 }
 
 //  --x-x-x-x--x--x----xx------x
@@ -957,36 +1039,72 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 
     while (idx_this < this.count) {
         GCStatsDataPoint * point = p_this[idx_this++];
-        double x_to = point.x_data-offset;
-        double x_from = x_to-unit;
-        for (idx_sample=0; idx_sample<samples.count; idx_sample++) {
-            GCStatsDataPoint * sample = samples[idx_sample];
-            if (sample.x_data < x_from) {
-                runningSum -= sample.y_data;
-            }else{
-                break;
+        if( point.hasValue ){
+            double x_to = point.x_data-offset;
+            double x_from = x_to-unit;
+            for (idx_sample=0; idx_sample<samples.count; idx_sample++) {
+                GCStatsDataPoint * sample = samples[idx_sample];
+                if (sample.x_data < x_from) {
+                    runningSum -= sample.y_data;
+                }else{
+                    break;
+                }
             }
-        }
-        [samples removeObjectsInRange:NSMakeRange(0, idx_sample)];
-        for (; idx_other<p_other.count; idx_other++) {
-            GCStatsDataPoint * one = p_other[idx_other];
-            if (one.x_data<x_from) {
-                continue;
-            }else if (one.x_data <= x_to) {
-                [samples addObject:one];
-                runningSum += one.y_data;
-            }else{
-                break;
+            [samples removeObjectsInRange:NSMakeRange(0, idx_sample)];
+            for (; idx_other<p_other.count; idx_other++) {
+                GCStatsDataPoint * one = p_other[idx_other];
+                if (one.x_data<x_from) {
+                    continue;
+                }else if (one.x_data <= x_to) {
+                    [samples addObject:one];
+                    runningSum += one.y_data;
+                }else{
+                    break;
+                }
             }
+            [rv_points addObject:[GCStatsDataPoint dataPointWithPoint:point
+                                                             andValue:avg&&samples.count!=0.?runningSum/samples.count:runningSum]];
         }
-        [rv_points addObject:[GCStatsDataPoint dataPointWithPoint:point
-                                                         andValue:avg&&samples.count!=0.?runningSum/samples.count:runningSum]];
     }
     GCStatsDataSerie * rv = RZReturnAutorelease([[GCStatsDataSerie alloc] init]);
     rv.dataPoints = rv_points;
     return rv;
 
 }
+
+-(GCStatsDataSerie*)movingFunctionForUnit:(double)unit function:(double(^)(NSArray<GCStatsDataPoint*>*))fct{
+
+    GCStatsDataSerie * dup = [GCStatsDataSerie dataSerieWithPoints:dataPoints];
+    [dup sortByX];
+    if (fabs(unit)<1.e-8) { // 1 or 0 = same serie
+        return dup;
+    }
+
+    NSMutableArray * samples = [NSMutableArray arrayWithCapacity:dataPoints.count];
+    NSMutableArray * smoothed = [NSMutableArray arrayWithCapacity:dataPoints.count];
+    
+    for (GCStatsDataPoint * point in dup.dataPoints) {
+        // remove point if out of range
+        double left_x = point.x_data - unit;
+        NSUInteger i=0;
+        for (i=0; i<samples.count; i++) {
+            GCStatsDataPoint * sample = samples[i];
+            if (sample.x_data >= left_x ) {
+                break;
+            }
+        }
+        [samples removeObjectsInRange:NSMakeRange(0, i)];
+        [samples addObject:point];
+        double value = fct(samples);
+
+        [smoothed addObject:[GCStatsDataPoint dataPointWithPoint:point andValue:value]];
+    }
+
+    GCStatsDataSerie * rv = RZReturnAutorelease([[GCStatsDataSerie alloc] init]);
+    rv.dataPoints = smoothed;
+    return rv;
+}
+
 
 -(GCStatsDataSerie*)movingAverageOrSumForUnit:(double)unit average:(BOOL)avg{
 
@@ -1524,101 +1642,50 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 }
 
 
--(void)fill:(size_t)range valuesForUnit:(double)unit into:(double*)values fillMethod:(gcStatsFillMethod)fill{
-    GCStatsDataPoint * first_p = (self.dataPoints)[0];
-    size_t last_i   = 0;
-    double first_x  = first_p.x_data;
-
-    BOOL inconsistentPoint=false;
-
+-(void)fill:(size_t)range valuesForUnit:(double)unit into:(double*)values firstx:(double*)firstx{
     NSUInteger n = (self.dataPoints).count;
-
-    double accrued = 0.;
-
-    for (NSUInteger idx_p = 1;idx_p <= n;idx_p++) {
-        GCStatsDataPoint * from_p = (self.dataPoints)[idx_p-1];
-        GCStatsDataPoint * to_p   = idx_p < n ? (self.dataPoints)[idx_p] : nil;
-
-        double from_x  = from_p.x_data-first_x;
-        double to_x    = to_p ? to_p.x_data-first_x : from_x;
-
-        size_t from_i = MIN(from_x/unit,MAX_FILL_POINTS-1);
-        size_t to_i   = MIN(to_x/unit,MAX_FILL_POINTS-1);
-
-        if (from_i!=last_i) {
-            inconsistentPoint = true;
+    if( n < 2){
+        return;
+    }
+    
+    GCStatsDataPoint * first_p = self.dataPoints.firstObject;
+    double first_x  = unit * (int)(first_p.x_data/unit);
+    if( firstx ){
+        *firstx = first_x;
+    }
+    NSUInteger p_idx = 0;
+    GCStatsDataPoint * from_p = self.dataPoints[p_idx];
+    GCStatsDataPoint * to_p = p_idx + 1 < n ? self.dataPoints[p_idx+1] : nil;
+    
+    for(size_t v_idx = 0; v_idx < range; v_idx++){
+        double v_x = first_x + unit*v_idx;
+        // Find the two index of point with value surrounding v_x
+        while( to_p != nil && to_p.x_data < v_x){
+            do {
+                p_idx ++;
+                if( p_idx < n && self.dataPoints[p_idx].hasValue){
+                    from_p =  self.dataPoints[p_idx] ;
+                }
+            } while (p_idx < n && !self.dataPoints[p_idx].hasValue );
+            NSUInteger n_idx = p_idx;
+            do {
+                n_idx++;
+                to_p = n_idx < n ? self.dataPoints[n_idx] : nil;
+            } while (to_p && !to_p.hasValue);
         }
-
-        last_i = to_i;
-
-        if (to_p == nil) {
-            // last point allocated to last
-            values[from_i] += from_p.y_data * (unit - accrued)/unit;
-        }else if ( to_i==from_i) {
-            // didn't cross to next point yet, weighted allocation to current i
-            //      f     t
-            // I: --|aa---|---
-            // P: ----X-X-----
-            //        f t
-            values[from_i] += from_p.y_data * (to_x-from_x)/unit;
-            accrued += (to_x-from_x);
+        // If we have next point and x_data are not equal (otherwise div by 0...)
+        // If multiple points with the same x (x_data equal), then the
+        // value from the last from_p will be used. Not bad choice, for example
+        // if many point at 0 distance with different times, then use the last one
+        if( to_p && fabs(to_p.x_data - from_p.x_data) > 1.e-10){
+            values[v_idx] = from_p.y_data + (to_p.y_data-from_p.y_data)*(v_x-from_p.x_data)/(to_p.x_data-from_p.x_data);
         }else{
-            // got to next
-            //
-            //    f     t
-            // I: |aaa--|-----|-----|-----|
-            // P:  --X-----X----------
-            //       f     t
-            //
-            //    f     s     s     t
-            // I: |aaa--|-----|-----|-----|
-            // P:  --X----------------X---
-            //       f                t
-
-            for (size_t step_i = from_i; step_i<to_i; step_i++) {
-                size_t next_i = step_i+1;
-                double next_x = unit*next_i;
-
-                double step_x = step_i == from_i ? from_x : unit*step_i;
-
-                double step_v = from_p.y_data * (next_x-step_x)/unit;
-                // fill steps to far from last with zero (else with last value)
-                // could impose limit: fill w zero when more than L since last
-                if (step_i!=from_i && fill == gcStatsZero) {
-                    step_v = 0.;
-                }
-                values[step_i] += step_v;
-                last_i = step_i;
-
-                if (next_i < range && next_i == to_i) {
-                    values[to_i] += from_p.y_data * (to_x-next_x)/unit;
-                    last_i = to_i;
-                    accrued = (to_x-next_x);
-                }
-            }
+            values[v_idx] = from_p.y_data;
         }
-    }
-    /*
-    if (false) {
-        NSMutableString * csv = [NSMutableString string];
-        for (NSUInteger i=0; i<n; i++) {
-            [csv appendFormat:@"%d,%f,%f\n", (int)i, [self.dataPoints[i] x_data], [self.dataPoints[i] y_data]];
-        }
-        [csv appendString:@"\n"];
-        for (size_t i=0; i<range; i++) {
-            [csv appendFormat:@"%d,%f,%f\n", (int)i, unit*i, values[i]];
-        }
-        NSString * fn = [RZFileOrganizer writeableFilePath:@"fill.csv"];
-        NSError * e=nil;
-        [csv writeToFile:fn atomically:YES encoding:NSUTF8StringEncoding error:&e];
-    }
-    */
-    if (inconsistentPoint) {
-        RZLog(RZLogError, @"Inconsistent x");
     }
 }
 
--(GCStatsDataSerie*)filledSerieForUnit:(double)unit fillMethod:(gcStatsFillMethod)fill;{
+-(GCStatsDataSerie*)filledSerieForUnit:(double)unit{
     if (self.dataPoints.count < 2) {
         return nil;
     }
@@ -1631,11 +1698,11 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     range  = MIN(range, MAX_FILL_POINTS); // no more than ~8 hours = 3600*8 = 28800 double 225k/array
 
     double * values  = calloc(range, sizeof(double));
-
-    [self fill:range valuesForUnit:unit into:values fillMethod:(gcStatsFillMethod)fill];
+    double first_x = 0.;
+    [self fill:range valuesForUnit:unit into:values firstx:&first_x];
     GCStatsDataSerie * rv = RZReturnAutorelease([[GCStatsDataSerie alloc] init]);
     for (size_t n=0; n<range; n++) {
-        [rv addDataPointWithX:first_p.x_data+unit*n andY:values[n]];
+        [rv addDataPointWithX:first_x+unit*n andY:values[n]];
     }
 
     free(values);
@@ -1710,7 +1777,16 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     return rv;
 }
 
--(GCStatsDataSerie*)movingBestByUnitOf:(double)unit fillMethod:(gcStatsFillMethod)fill select:(gcStatsSelection)select{
+-(GCStatsDataSerie*)movingBestByUnitOf:(double)unit fillMethod:(gcStatsFillMethod)fill select:(gcStatsSelection)select statistic:(gcStats)statistic{
+    return [self movingBestByUnitOf:unit fillMethod:fill select:select statistic:statistic fillStatistics:statistic];
+}
+
+-(GCStatsDataSerie*)movingBestByUnitOf:(double)unit
+                            fillMethod:(gcStatsFillMethod)fill
+                                select:(gcStatsSelection)select
+                             statistic:(gcStats)statistic
+                        fillStatistics:(gcStats)fillStatistic{
+
 
     if (self.dataPoints.count < 2) {
         return nil;
@@ -1723,47 +1799,145 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 
     GCStatsDataPoint * last_p  = (self.dataPoints).lastObject;
 
-
     size_t range = ((last_p.x_data - first_p.x_data)/unit)+1;
     range  = MIN(range, MAX_FILL_POINTS); // no more than ~8 hours = 3600*8 = 28800 double 225k/array
 
     double * values  = calloc(range, sizeof(double));
     double * rolling = calloc(range, sizeof(double));
     double * best    = calloc(range, sizeof(double));
+    double * nonzero = calloc(range, sizeof(double));
     size_t * bestidx = nil;
+    
+    [self fill:range valuesForUnit:unit into:values firstx:&first_x];
+    //Update First_x with the one used by fill
 
-    [self fill:range valuesForUnit:unit into:values fillMethod:fill];
-
-    //for debugging
+    //for debugging,
+    // bestidx will keep the locate of the reached min or max
+    // debugidx if != -1 will dump all the number contributing to that specific
+    // index max or min
     bestidx = calloc(range, sizeof(size_t));
-
+    BOOL debug_trace = false;
+    size_t debugidx = -1;
+    
     // populate per unit data:
+    //   rolling    n:0    1    2    3    4
+    //   values i:0   +0   +0   +0   +0   +0
+    //            1   +1-0 +1   +1   +1   +1
+    //            2   +2-1 +2-0 +2   +2   +2
+    //            3   +3-2 +3-1 +3-0 +3   +3
+    //            4   +4-3 +4-2 +4-1 +4-0 +4
+
+    //
     for (size_t i=0; i<range; i++) {
         for (size_t n=0; n<range; n++) {
             if (i<=n) {
-                rolling[n] += values[i]/(n+1);
+                if( values[i] > 0){
+                    nonzero[n] += 1;
+                }
+                switch (statistic) {
+                    case gcStatsWeightedMean:
+                        // We haven't reach n values yet, add i_th
+                        if( debug_trace && n == debugidx ){
+                            RZLog(RZLogInfo,@"add: rolling[%lu] += values[%lu] / (n+1) = %f / %lu = %f + %f / %lu = %f ", n, i,  values[i], n+1, rolling[n], values[i], n+1, rolling[n] + (values[i]/(n+1)));
+                        }
+                        rolling[n] += values[i]/(n+1);
+                        break;
+                    case gcStatsSum:
+                        // We haven't reach n values yet, add i_th
+                        if( debug_trace && n == debugidx ){
+                            RZLog(RZLogInfo,@"add: rolling[%lu] += values[%lu] = %f + %f = %f ", n, i, rolling[n], values[i], rolling[n] + values[i]);
+                        }
+
+                        rolling[n] += values[i];
+                        break;
+                }
             }else{
-                rolling[n] = rolling[n] - values[i-n-1]/(n+1) + values[i]/(n+1);
+                if( values[i] > 0){
+                    nonzero[n] += 1;
+                }
+                if( values[i-n-1] && nonzero[n] > 0){
+                    nonzero[n] -= 1;
+                }
+                switch (statistic) {
+                    case gcStatsWeightedMean:
+                    {
+                        // We have reach n values, add i_th, but remove i_th - (n_th+1)
+                        double add = values[i]/(n+1) - values[i-n-1]/(n+1);
+                        // Don't add <0 numbers
+                        rolling[n] = MAX(rolling[n] + add,0.0);
+                        break;
+                    }
+                    case gcStatsSum:
+                    {
+                        // We have reach n values, add i_th, but remove i_th - (n_th+1)
+                        if( debug_trace && n == debugidx ){
+                            RZLog(RZLogInfo,@"add: rolling[%lu] += values[%lu] - values[%lu] = %f + %f - %f = %f ", n, i, i-n, rolling[n], values[i], values[i-n], rolling[n] + values[i] -values[i-n]);
+                        }
+                        double add = values[i] - values[i-n];
+                        // Don't add <0 numbers
+                        rolling[n] = MAX(rolling[n] + add,0.0);
+                        break;
+                    }
+                        
+                }
             }
+
+            // We have reach n values, start recording best, initialize with current value
             if (i==n) {
                 best[n]=rolling[n];
                 if (bestidx) {
                     bestidx[n]=i;
                 }
             }else if(i>n){
-                if ( (select==gcStatsMax && best[n]<rolling[n]) || (select==gcStatsMin && best[n]>rolling[n])) {
-                    best[n]=rolling[n];
-                    if (bestidx) {
-                        bestidx[n] = i-n;
+                // we now have n values, check if last n better than previous best according to
+                // the appropriate select rule.
+                if (select==gcStatsRatioMin || select==gcStatsRatioMax){
+                    // for speed if n: distance, rolling[n]: time, speed is best if dist/time is higher
+                    if( rolling[n] != 0.0 && best[n] != 0.0){
+                        // for speed if n: distance, rolling[n]: time, speed is best if dist/time is higher
+                        double rollingInvRatio = (unit * (1.0+n))/rolling[n];
+                        double bestInvRatio = (unit * (1.0+n))/best[n];
+                        
+                        // Example: n: meters, rolling[n]: seconds, ratio: n+1*stride / rolling[n] = distance/time (mps) gcStatsRatioMax: highest mps
+                        
+                        if( ( select==gcStatsRatioMin && bestInvRatio > rollingInvRatio ) ||
+                           ( select==gcStatsRatioMax && bestInvRatio < rollingInvRatio ) ){
+                            best[n]=rolling[n];
+                            if (bestidx) {
+                                bestidx[n] = i-n;
+                            }
+                        }
+                    }
+                }else{
+                    if ( (select==gcStatsMax && best[n]<rolling[n]) ||
+                        (select==gcStatsMin && best[n]>rolling[n]) )
+                    {
+                        if( debug_trace && n == debugidx ){
+                            RZLog(RZLogInfo,@"found: best[%lu]=%f rolling[%lu]=%f index=[%lu-%lu]", n,best[n],n,rolling[n], i-n, i);
+                        }
+                        best[n]=rolling[n];
+                        if (bestidx) {
+                            bestidx[n] = i-n;
+                        }
                     }
                 }
             }
         }
     }
+#if TARGET_IPHONE_SIMULATOR
+    size_t bad_count = 0;
+    for(size_t n=1;n<range;n++){
+        // For debugging should not happen
+        if ( (select==gcStatsMax && best[n]<best[n-1]) || (select==gcStatsMin && best[n]>best[n-1])) {
+            bad_count++;
+        }
+    }
+#endif
+
     GCStatsDataSerie * rv = RZReturnAutorelease([[GCStatsDataSerie alloc] init]);
     if (bestidx) {
         for (size_t n=0; n<range; n++) {
-            [rv addDataPointWithX:first_x+unit*n y:best[n] andZ:first_p.x_data+bestidx[n]*unit];
+            [rv addDataPointWithX:first_x+unit*n y:best[n] andZ:first_x+bestidx[n]*unit];
         }
         free(bestidx);
     }else{
@@ -1775,6 +1949,7 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
     free(best);
     free(values);
     free(rolling);
+    free(nonzero);
 
     return rv;
 }
@@ -1791,7 +1966,7 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
 
     NSUInteger safeguard = 0;
 
-    BOOL operandSupportsDisjoint = (operand != gcStatsOperandMultiply);
+    BOOL operandSupportsDisjoint = (operand != gcStatsOperandMultiply && operand != gcStatsOperandMinus);
 
     while ((s_idx<self.count||o_idx<other.count) && safeguard < maxCount) {
         safeguard++;
@@ -1814,6 +1989,9 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2){
                             break;
                         case gcStatsOperandPlus:
                             [newpoint addPoint:o_point];
+                            break;
+                        case gcStatsOperandMinus:
+                            [newpoint minusPoint:o_point];
                             break;
                         case gcStatsOperandMultiply:
                             [newpoint multiplyPoint:o_point];

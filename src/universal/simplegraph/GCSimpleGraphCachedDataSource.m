@@ -25,8 +25,8 @@
 
 
 #import "GCSimpleGraphCachedDataSource.h"
-#import "GCStatsDataSerie.h"
-#import "RZMacros.h"
+#import <RZUtils/GCStatsDataSerie.h>
+#import <RZUtils/RZMacros.h>
 
 @implementation GCSimpleGraphDataHolder;
 @synthesize dataSerie,graphType,color,yUnit,lineWidth,gradientColors,gradientFunction,gradientDataSerie,range,currentPoint,highlightCurrent,legend;
@@ -38,10 +38,16 @@
         info.dataSerie = aData;
         info.yUnit = aUnit;
         info.range = [aData range];
-        if (aType == gcGraphLine || aType == gcGraphStep) {
-            info.lineWidth = 1.;
-        }else{
-            info.lineWidth = 4.;
+        switch (aType) {
+            case gcGraphLine:
+            case gcGraphStep:
+            case gcGraphBezier:
+                info.lineWidth = 1.;
+                break;
+                
+            case gcScatterPlot:
+                info.lineWidth = 4.;
+                break;
         }
     }
     return info;
@@ -51,6 +57,7 @@
     [gradientFunction release];
     [gradientDataSerie release];
     [gradientColors release];
+    [_gradientColorsFill release];
 
     [dataSerie release];
     [color release];
@@ -83,6 +90,7 @@
 
 +(GCSimpleGraphCachedDataSource*)graphDataSourceWithTitle:(NSString*)title andXUnit:(GCUnit*)xUnit{
     GCSimpleGraphCachedDataSource * rv = RZReturnAutorelease([[GCSimpleGraphCachedDataSource alloc] init]);
+    
     if (rv) {
         rv.title = title;
         rv.xUnit = xUnit;
@@ -105,6 +113,16 @@
 
 -(NSUInteger)nDataSeries{
     return _series.count;
+}
+
+-(BOOL)requiresLegend{
+    BOOL rv = false;
+    for (GCSimpleGraphDataHolder*holder in self.series) {
+        if( holder.legend != nil){
+            rv = true;
+        }
+    }
+    return rv;
 }
 
 -(GCStatsDataSerie*)dataSerie:(NSUInteger)idx{
@@ -157,6 +175,9 @@
 
 -(GCViewGradientColors*)gradientColors:(NSUInteger)idx{
     return [_series[idx] gradientColors];
+}
+-(GCViewGradientColors*)gradientColorsFill:(NSUInteger)idx{
+    return [_series[idx] gradientColorsFill];
 }
 -(id<GCStatsFunction>)gradientFunction:(NSUInteger)idx{
     return [_series[idx] gradientFunction];

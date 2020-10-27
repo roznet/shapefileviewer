@@ -24,7 +24,7 @@
 //  
 
 #import "RZRegressionManager.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 @interface RZRegressionManager ()
 @property (nonatomic,retain) NSString * testName;
@@ -54,8 +54,8 @@
     return rv;
 }
 
--(id)retrieveReferenceObject:(NSObject<NSCoding>*)object
-                    forClass:(Class)cls
+-(id)retrieveReferenceObject:(NSObject<NSSecureCoding>*)object
+                    forClasses:(NSSet<Class>*)cls
                     selector:(SEL)sel
                   identifier:(NSString*)ident
                        error:(NSError**)error{
@@ -80,11 +80,7 @@
             }
             
             if( object ){
-                if (@available(iOS 12.0, *)) {
-                    success = [[NSKeyedArchiver archivedDataWithRootObject:object requiringSecureCoding:NO error:error] writeToFile:filepath atomically:YES];
-                } else {
-                    success = [NSKeyedArchiver archiveRootObject:object toFile:filepath];
-                }
+                success = [[NSKeyedArchiver archivedDataWithRootObject:object requiringSecureCoding:YES error:error] writeToFile:filepath atomically:YES];
                 if( success ){
                     rv = object;
                 }
@@ -105,28 +101,10 @@
     }else{
         if( [fileManager fileExistsAtPath:filepath] ){
             if( @available(iOS 12.0, *)){
-                NSData * data = [NSData dataWithContentsOfFile:filepath];
-                rv = [NSKeyedUnarchiver unarchivedObjectOfClass:cls fromData:data error:error];
                 
-                if( rv == nil && [cls isEqual:[NSDictionary class]]){
-                    rv = [NSKeyedUnarchiver unarchivedObjectOfClass:NSClassFromString(@"__NSDictionaryI") fromData:data error:error];
-                }
-                if( rv == nil && [cls isEqual:[NSDictionary class]]){
-                    rv = [NSKeyedUnarchiver unarchivedObjectOfClass:NSClassFromString(@"__NSDictionaryM") fromData:data error:error];
-                }
-                if( rv == nil && [cls isEqual:[NSArray class]]){
-                    rv = [NSKeyedUnarchiver unarchivedObjectOfClass:NSClassFromString(@"__NSArrayM") fromData:data error:error];
-                }
-                if( ! rv ){
-                    rv = [NSKeyedUnarchiver unarchiveObjectWithFile:filepath];
-                    if( ![[rv class] isEqual:cls]){
-                        NSLog(@"Diff class %@ %@", NSStringFromClass([rv class]), NSStringFromClass(cls));
-                    }
-                }else{
-                    NSLog(@"Got one!");
-                }
-            }else{
-                rv = [NSKeyedUnarchiver unarchiveObjectWithFile:filepath];
+                NSData * data = [NSData dataWithContentsOfFile:filepath];
+                
+                rv = [NSKeyedUnarchiver unarchivedObjectOfClasses:cls fromData:data error:error];
             }
 
         }else{
@@ -140,13 +118,18 @@
 }
 
 -(NSString*)filePathForSelector:(SEL)selector andIdentifier:(NSString*)identifier{
+    
+    NSCharacterSet *specialCharactersToRemove = [NSCharacterSet characterSetWithCharactersInString:@":'#%^&{}[]/~|?"];
+    NSString * filename = NSStringFromSelector(selector);
+    if (identifier && identifier.length > 0) {
+        filename = [filename stringByAppendingFormat:@"_%@.obj", identifier];
+    }
+
+    filename = [[filename componentsSeparatedByCharactersInSet:specialCharactersToRemove] componentsJoinedByString:@""];
+    
     NSString * rv = [self referenceDirectory];
     rv = [rv stringByAppendingPathComponent:self.testName];
-    rv = [rv stringByAppendingPathComponent:NSStringFromSelector(selector)];
-
-    if (identifier && identifier.length > 0) {
-        rv = [rv stringByAppendingFormat:@"_%@.obj", identifier];
-    }
+    rv = [rv stringByAppendingPathComponent:filename];
 
     return rv;
 }

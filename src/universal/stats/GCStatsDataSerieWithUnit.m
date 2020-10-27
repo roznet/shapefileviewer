@@ -23,21 +23,24 @@
 //  SOFTWARE.
 //  
 
-#import "GCStatsDataSerieWithUnit.h"
-#import "RZMacros.h"
+#import <RZUtils/GCStatsDataSerieWithUnit.h>
+#import <RZUtils/RZMacros.h>
 
 #define GC_CODER_SERIE @"serie"
 #define GC_CODER_UNIT @"unit"
 #define GC_CODER_XUNIT @"xunit"
 
 @implementation GCStatsDataSerieWithUnit
++(BOOL)supportsSecureCoding{
+    return YES;
+}
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
-        self.serie = [aDecoder decodeObjectForKey:GC_CODER_SERIE];
-        self.unit  = [GCUnit unitForKey:[aDecoder decodeObjectForKey:GC_CODER_UNIT]];
-        NSString * xKey = [aDecoder decodeObjectForKey:GC_CODER_XUNIT];
+        self.serie = [aDecoder decodeObjectOfClass:[GCStatsDataSerie class] forKey:GC_CODER_SERIE];
+        self.unit  = [GCUnit unitForKey:[aDecoder decodeObjectOfClass:[NSString class] forKey:GC_CODER_UNIT]];
+        NSString * xKey = [aDecoder decodeObjectOfClass:[NSString class] forKey:GC_CODER_XUNIT];
         self.xUnit = xKey ? [GCUnit unitForKey:xKey] : nil;
     }
     return self;
@@ -182,12 +185,14 @@
 
 }
 
--(void)convertToXUnit:(GCUnit*)xUnit{
+-(GCStatsDataSerieWithUnit*)convertToXUnit:(GCUnit*)xUnit{
     [self convertToUnit:nil andXUnit:xUnit];
+    return self;
 }
 
--(void)convertToUnit:(GCUnit *)unit{
+-(GCStatsDataSerieWithUnit*)convertToUnit:(GCUnit *)unit{
     [self convertToUnit:unit andXUnit:nil];
+    return self;
 }
 -(void)convertToCommonUnitWith:(GCUnit*)unit{
     if (![unit isEqualToUnit:self.unit]) {
@@ -317,7 +322,7 @@
     if (rv) {
         rv.unit = self.unit;
         rv.xUnit = self.xUnit;
-        rv.serie = [self.serie filledSerieForUnit:unit fillMethod:gcStatsZero];
+        rv.serie = [self.serie filledSerieForUnit:unit];
     }
     return rv;
 }

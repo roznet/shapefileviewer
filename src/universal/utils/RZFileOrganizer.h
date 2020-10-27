@@ -38,13 +38,14 @@ typedef BOOL (^FileOrganizerMatch)(NSString*fn);
  @param cls Class for the bundle.
  */
 +(NSString*)bundleFilePath:(nullable NSString*)aName forClass:(Class)cls;
++(nullable NSString*)bundleFilePathIfExists:(NSString*)aName forClass:(Class)cls;
 /**
  @brief path to a bundle file
  @param aName file name to add to path, if nil, it will return just the path to the sandbox
  */
 +(NSString*)bundleFilePath:(nullable NSString*)aName;
 +(nullable NSString*)bundleFilePathIfExists:(NSString*)aName;
-+(NSArray*)bundleFilesMatching:(nullable FileOrganizerMatch)match forClass:(Class)cls;
++(NSArray<NSString*>*)bundleFilesMatching:(nullable FileOrganizerMatch)match forClass:(Class)cls;
 
 
 /**
@@ -52,8 +53,10 @@ typedef BOOL (^FileOrganizerMatch)(NSString*fn);
  @param aName file name to add to path, if nil, it will return just the path to the sandbox
  */
 +(NSString*)writeableFilePath:(nullable NSString*)aName;
++(NSString*)writeableFilePathWithFormat:(nullable NSString*)fmt, ...;
 +(nullable NSString*)writeableFilePathIfExists:(NSString*)aName;
-+(NSArray*)writeableFilesMatching:(nullable FileOrganizerMatch)match;
++(nullable NSString*)writeableFilePathIfExistsWithFormat:(NSString*)fmt, ...;
++(NSArray<NSString*>*)writeableFilesMatching:(nullable FileOrganizerMatch)match;
 +(BOOL)ensureWriteableFilePath:(NSString*)aName;
 
 /**
@@ -66,6 +69,7 @@ typedef BOOL (^FileOrganizerMatch)(NSString*fn);
 
 +(void)createEditableCopyOfFile:(NSString*)aName;
 +(BOOL)createEditableCopyOfFileIfNeeded:(NSString*)aName;
++(void)createEditableCopyOfFile:(NSString*)aName forClass:(Class)cls;
 +(void)forceRebuildEditable:(NSString*)aName;
 +(void)removeEditableFile:(NSString*)aName;
 

@@ -75,10 +75,11 @@
     RZRegressionManager * manager = [RZRegressionManager managerForTestClass:[self class]];
     NSDictionary * sample = @{@"a":@1, @"b":@2};
     manager.recordMode = true;
-    [manager retrieveReferenceObject:sample selector:_cmd identifier:@"sampleDict" error:nil];
+    NSSet<Class>*classes =[NSSet setWithObjects:[NSDictionary class], nil];
+    [manager retrieveReferenceObject:sample forClasses:classes selector:_cmd identifier:@"sampleDict" error:nil];
     
     manager.recordMode =false;
-    NSDictionary * retrieve = [manager retrieveReferenceObject:sample selector:_cmd identifier:@"sampleDict" error:nil];
+    NSDictionary * retrieve = [manager retrieveReferenceObject:sample forClasses:classes selector:_cmd identifier:@"sampleDict" error:nil];
     
     XCTAssert([retrieve isEqualToDictionary:sample]);
     
@@ -170,11 +171,26 @@
     XCTAssertEqualObjects([@"testOneString" fromCamelCaseToSeparatedByString:@" "], @"test One String");
     XCTAssertEqualObjects([@"TestOneString" fromCamelCaseToSeparatedByString:@" "], @"Test One String");
     XCTAssertEqualObjects([@"T" fromCamelCaseToSeparatedByString:@" "], @"T");
+    XCTAssertEqualObjects([@"t" fromCamelCaseToSeparatedByString:@" "], @"t");
     XCTAssertEqualObjects([@"" fromCamelCaseToSeparatedByString:@" "], @"");
     XCTAssertEqualObjects([@"alllowercase" fromCamelCaseToSeparatedByString:@" "], @"alllowercase");
     XCTAssertEqualObjects([@"ALLUP" fromCamelCaseToSeparatedByString:@" "], @"ALLUP");
     XCTAssertEqualObjects([@" () " fromCamelCaseToSeparatedByString:@" "], @"() ");
     XCTAssertEqualObjects([@" (A) " fromCamelCaseToSeparatedByString:@" "], @"( A) ");
+    XCTAssertEqualObjects([@" (a) " fromCamelCaseToSeparatedByString:@" "], @"(a) ");
+
+    
+    XCTAssertEqualObjects([@"testOneString" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"Test One String");
+    XCTAssertEqualObjects([@"TestOneString" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"Test One String");
+    XCTAssertEqualObjects([@"T" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"T");
+    XCTAssertEqualObjects([@"t" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"T");
+    XCTAssertEqualObjects([@"" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"");
+    XCTAssertEqualObjects([@"alllowercase" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"Alllowercase");
+    XCTAssertEqualObjects([@"ALLUP" fromCamelCaseToCapitalizedSeparatedByString:@" "], @"Allup");
+    XCTAssertEqualObjects([@" () " fromCamelCaseToCapitalizedSeparatedByString:@" "], @"() ");
+    XCTAssertEqualObjects([@" (A) " fromCamelCaseToCapitalizedSeparatedByString:@" "], @"( A) ");
+    XCTAssertEqualObjects([@" (a) " fromCamelCaseToCapitalizedSeparatedByString:@" "], @"(A) ");
+
 }
 
 -(void)testStringEllipsis{

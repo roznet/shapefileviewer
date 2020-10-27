@@ -26,12 +26,12 @@
 #import "GCCellSimpleGraph.h"
 #import "GCSimpleGraphGestures.h"
 #import "GCSimpleGraphCachedDataSource.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 #import "GCSimpleGraphLegendView.h"
 
 @interface GCCellSimpleGraph ()
 @property (nonatomic,retain) GCSimpleGraphView * graphView;
-@property (nonatomic,retain) GCSimpleGraphLegendView * legendView;
+@property (nonatomic,retain) GCSimpleGraphLegendView * useLegendView;
 
 @end
 
@@ -47,23 +47,34 @@
     return rv;
 }
 
+-(GCSimpleGraphLegendView*)legendView{
+    return self.useLegendView;
+}
+
+-(void)setLegendView:(GCSimpleGraphLegendView*)lv{
+    if( self.useLegendView ){
+        [self.useLegendView removeFromSuperview];
+    }
+    self.useLegendView = lv;
+    
+    if( self.useLegendView ){
+        [self.contentView addSubview:self.useLegendView];
+    }
+}
+
 -(void)setLegend:(BOOL)legend{
     if (legend) {
         if (!self.legendView) {
             self.legendView = RZReturnAutorelease([[GCSimpleGraphLegendView alloc] initWithFrame:CGRectZero]);
             self.legendView.dataSource = self.graphView.dataSource;
             self.legendView.displayConfig = self.graphView.displayConfig;
-            [self.contentView addSubview:self.legendView];
         }
     }else{
-        if (self.legendView) {
-            [self.legendView removeFromSuperview];
-        }
         self.legendView = nil;
     }
 }
 -(BOOL)legend{
-    return self.legendView == nil;
+    return self.useLegendView != nil;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -83,6 +94,11 @@
         swipe = RZReturnAutorelease([[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeLeft:)]);
         swipe.direction = UISwipeGestureRecognizerDirectionLeft;
         [self.contentView addGestureRecognizer:swipe];
+        
+        UILongPressGestureRecognizer * longPress = nil;
+        
+        longPress = RZReturnAutorelease([[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)]);
+        [self.contentView addGestureRecognizer:longPress];
     }
     return self;
 }
@@ -94,9 +110,17 @@
 }
 
 -(void)swipeLeft:(UISwipeGestureRecognizer*)recognizer{
-    [self.cellDelegate swipeLeft:self];
+    if ([self.cellDelegate respondsToSelector:@selector(swipeLeft:)]) {
+        [self.cellDelegate swipeLeft:self];
+    }
 }
-
+-(void)longPress:(UILongPressGestureRecognizer*)recognizer{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+            if( [self.cellDelegate respondsToSelector:@selector(longPress:)]){
+            [self.cellDelegate longPress:self];
+        }
+    }
+}
 -(void)setDataSource:(id<GCSimpleGraphDataSource>)aSource andConfig:(id<GCSimpleGraphDisplayConfig>)aConfig{
     (self.graphView).dataSource = aSource;
     (self.graphView).displayConfig = aConfig;

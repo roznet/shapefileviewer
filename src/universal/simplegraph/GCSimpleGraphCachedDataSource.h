@@ -31,7 +31,7 @@
 #import <Cocoa/Cocoa.h>
 #endif
 #import <RZUtils/RZUtils.h>
-#import "GCSimpleGraphProtocol.h"
+#import <RZUtilsUniversal/GCSimpleGraphProtocol.h>
 
 @class GCViewGradientColors;
 
@@ -55,6 +55,7 @@
 @property (nonatomic,retain) GCUnit * yUnit;
 @property (nonatomic,assign) CGFloat lineWidth;
 @property (nonatomic,retain) GCViewGradientColors * gradientColors;
+@property (nonatomic,retain) GCViewGradientColors * gradientColorsFill;
 @property (nonatomic,retain) id<GCStatsFunction> gradientFunction;
 @property (nonatomic,retain) GCStatsDataSerie * gradientDataSerie;
 @property (nonatomic,assign) gcStatsRange range;
@@ -85,6 +86,7 @@
 @property (nonatomic,retain) RZColor * useForegroundColor;
 @property (nonatomic,retain) RZColor * axisColor;
 @property (nonatomic,assign) BOOL xAxisIsVertical;
+@property (nonatomic,readonly) BOOL requiresLegend;
 
 +(GCSimpleGraphCachedDataSource*)graphDataSourceWithTitle:(NSString*)title andXUnit:(GCUnit*)xUnit;
 
