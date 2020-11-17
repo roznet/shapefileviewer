@@ -24,7 +24,7 @@
 //  
 
 #import <Foundation/Foundation.h>
-#import "GCStatsDataPoint.h"
+#import <RZUtils/GCStatsDataPoint.h>
 
 
 @class GCStatsDataSerie;
@@ -53,13 +53,21 @@ NS_INLINE double STDDEV(double cnt, double sum, double ssq ){
 
 typedef NS_ENUM(NSUInteger, gcStatsFillMethod) {
     gcStatsZero,
-    gcStatsLast
+    gcStatsLast,
+    gcStatsLinear
 
 };
 
 typedef NS_ENUM(NSUInteger, gcStatsSelection) {
     gcStatsMax,
-    gcStatsMin
+    gcStatsMin,
+    gcStatsRatioMin,
+    gcStatsRatioMax
+};
+
+typedef NS_ENUM(NSUInteger, gcStats) {
+    gcStatsWeightedMean,
+    gcStatsSum,
 };
 
 typedef struct {
@@ -77,6 +85,7 @@ typedef struct {
 
 typedef NS_ENUM(NSUInteger, gcStatsOperand) {
     gcStatsOperandPlus,
+    gcStatsOperandMinus,
     gcStatsOperandMax,
     gcStatsOperandMin,
     gcStatsOperandMultiply
@@ -93,7 +102,7 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
 
 @end
 
-@interface GCStatsDataSerie : NSObject<NSCoding,NSFastEnumeration>
+@interface GCStatsDataSerie : NSObject<NSSecureCoding,NSFastEnumeration>
 
 
 // --- Constructions
@@ -109,7 +118,10 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
  */
 +(GCStatsDataSerie*)dataSerieWithArrayOfDouble:(NSArray<NSNumber*>*)doubles;
 
-
+/**
+ *  Adjust series points to only keep points for which x is common between serie1 and serie2
+ *  The resulting serie will have the same x and will be modified in place (destructive)
+ */
 +(void)reduceToCommonRange:(GCStatsDataSerie*)serie1 and:(GCStatsDataSerie*)serie2;
 /**
  Will reduce the two series to the set of points that they have in common.
@@ -125,6 +137,8 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
 -(void)addDataPointWithX:(double)x andY:(double)value;
 -(void)addDataPointWithX:(double)x y:(double)y andZ:(double)z;
 -(void)addDataPointNoValueWithX:(double)x;
+-(void)addDataPointNoValueWithDate:(NSDate*)aDate;
+-(void)addDataPointNoValueWithDate:(NSDate*)aDate since:(NSDate*)first;
 /**
  Add new point copy with same class and x_data as point and value
  */
@@ -140,6 +154,7 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
 // --- Access
 -(NSString*)description;
 -(NSString*)descriptionAllPoints;
+-(NSString*)descriptionFrom:(NSUInteger)from to:(NSUInteger)to;
 -(NSString*)asCSVString:(BOOL)asDate;
 
 -(NSUInteger)count;
@@ -175,6 +190,8 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
 -(GCStatsDataSerie*)movingAverageForUnit:(double)unit;
 -(GCStatsDataSerie*)movingSumForUnit:(double)unit;
 -(GCStatsDataSerie*)movingAverageOrSumOf:(GCStatsDataSerie*)rawother forUnit:(double)unit offset:(double)offset average:(BOOL)avg;
+-(GCStatsDataSerie*)movingFunctionForUnit:(double)unit function:(double(^)(NSArray<GCStatsDataPoint*>*))fct;
+
 /**
  Generate a serie for which x are bcukets spaning Ys with size spacing * k such that number of bucket is less than maxBucket
 
@@ -202,6 +219,12 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
  @param scaling multiplier do change unit dy/dx * scaling
  */
 -(GCStatsDataSerie*)deltaYSerieForDeltaX:(double)dx scalingFactor:(double)scaling;
+
+/**
+Compute difference serie
+@param dx in the minimum delta x required to compute difference. dx=0 compute between consecutive points
+*/
+-(GCStatsDataSerie*)differenceSerieForLag:(double)dx;
 
 /**
  Return a dictionary with aggregated series for different statistics.
@@ -263,9 +286,33 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
                       referenceDate:(NSDate*)refOrNil
                         andCalendar:(NSCalendar*)calendar;
 
--(GCStatsDataSerie*)movingBestByUnitOf:(double)unit fillMethod:(gcStatsFillMethod)fill select:(gcStatsSelection)select;
+/// Compute the best rolling value for the original serie. It will resample the serie such that
+/// each value is equally spaced by unit.
+/// @param unit size of the unit between best point
+/// @param fill Method to handle missing point, use Zero or last value
+/// @param select Method to select best of by Min or Max
+/// @param statistic what statistic to compute the best of, weightedmean or simple sum
+-(GCStatsDataSerie*)movingBestByUnitOf:(double)unit
+                            fillMethod:(gcStatsFillMethod)fill
+                                select:(gcStatsSelection)select
+                             statistic:(gcStats)statistic;
+
+/// Compute the best rolling value for the original serie. It will resample the serie such that
+/// each value is equally spaced by unit.
+/// @param unit size of the unit between best point
+/// @param fill Method to handle missing point, use Zero or last value
+/// @param select Method to select best of by Min or Max
+/// @param statistic what statistic to compute the best of, weightedmean or simple sum
+/// @param fillStatistic what statistic to fill the values
+-(GCStatsDataSerie*)movingBestByUnitOf:(double)unit
+                            fillMethod:(gcStatsFillMethod)fill
+                                select:(gcStatsSelection)select
+                             statistic:(gcStats)statistic
+                        fillStatistics:(gcStats)fillStatistic;
+
+
 -(GCStatsDataSerie*)histogramWith:(NSUInteger)buckets;
--(GCStatsDataSerie*)filledSerieForUnit:(double)unit fillMethod:(gcStatsFillMethod)fill;
+-(GCStatsDataSerie*)filledSerieForUnit:(double)unit;
 -(GCStatsDataSerie*)summedSerieByUnit:(double)unit fillMethod:(gcStatsFillMethod)fill;
 
 -(GCStatsDataSerie*)operate:(gcStatsOperand)operand with:(GCStatsDataSerie*)other;
@@ -273,4 +320,5 @@ gcStatsRange maxRangeXOnly( gcStatsRange range1, gcStatsRange range2);
 -(BOOL)isEqualToSerie:(GCStatsDataSerie*)other;
 
 -(void)removeAllPoints;
+-(void)removePointAtIndex:(NSUInteger)idx;
 @end

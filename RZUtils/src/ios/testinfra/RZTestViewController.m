@@ -66,9 +66,8 @@
 -(void)loadView{
 	[super loadView];
 
-
 	UIView *contentView				= [[UIView alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
-	[contentView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [contentView setBackgroundColor:[UIColor systemGroupedBackgroundColor]];
 	contentView.autoresizesSubviews = YES;
 	contentView.autoresizingMask	= (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 
@@ -79,16 +78,16 @@
 
 	CGFloat currentY	= 0.0 ;
     self.navigationItem.rightBarButtonItems = @[
-            RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:self.runTestOnStartup? NSLocalizedString(@"Rerun",nil):NSLocalizedString(@"RunAll",nil)
+            RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:self.runTestOnStartup? NSLocalizedString(@"Rerun",nil):NSLocalizedString(@"RunAll",@"Test Infra")
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(runTests:)]),
-            RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"RunSingle",nil)
+            RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"RunSingle",@"Test Infra")
                                                                  style:UIBarButtonItemStylePlain
                                                                 target:self
                                                                 action:@selector(runSingleTest:)])
                                                 ];
-    NSMutableArray * leftItems = [NSMutableArray arrayWithObject:RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear",nil)
+    NSMutableArray * leftItems = [NSMutableArray arrayWithObject:RZReturnAutorelease([[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Clear",@"Test Infra")
                                                                                                                       style:UIBarButtonItemStylePlain
                                                                                                                      target:self
                                                                                                                      action:@selector(clearResults:)])
@@ -109,7 +108,7 @@
 
 	_activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 32.0f, 32.0f)];
     [_activityIndicator setCenter:CGPointMake(160.0f, 208.0f)];
-    [_activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [_activityIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleLarge];
     [contentView addSubview:_activityIndicator];
     RZRelease(_activityIndicator);
 
@@ -249,7 +248,9 @@
 	[_resultsTableView reloadData];
 }
 -(void)notifyUpdate{
-    [_resultsTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [self.resultsTableView reloadData];
+    });
 }
 -(void)notifyCallBack:(id)theParent info:(RZDependencyInfo *)theInfo{
     if (!self.runner.running) {
@@ -281,7 +282,9 @@
 
 -(void)displayCurrentResults{
     self.displayResults = self.runner.collectedResults;
-    [self.resultsTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    dispatch_async(dispatch_get_main_queue(), ^(){
+        [self.resultsTableView reloadData];
+    });
 }
 
 -(void)testFinished{

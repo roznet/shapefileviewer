@@ -25,7 +25,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GCStatsDataPoint : NSObject<NSCoding>
+@interface GCStatsDataPoint : NSObject<NSSecureCoding>
 @property (nonatomic,assign) double x_data;
 @property (nonatomic,assign) double y_data;
 @property (nonatomic,readonly) BOOL hasValue;
@@ -34,6 +34,10 @@
 +(GCStatsDataPoint*)dataPointWithDate:(NSDate*)aDate sinceDate:(NSDate*)first andValue:(double)aValue;
 +(GCStatsDataPoint*)dataPointWithX:(double)aX andY:(double)aY;
 +(GCStatsDataPoint*)dataPointWithPoint:(GCStatsDataPoint*)aPoint andValue:(double)aValue;
+/**
+ * Will make copy
+ */
+-(GCStatsDataPoint*)duplicate;
 
 -(NSDate*)date;
 -(void)setDate:(NSDate*)aDate;
@@ -42,6 +46,7 @@
 -(NSString*)descriptionWithDate;
 
 -(void)addPoint:(GCStatsDataPoint*)otherPoint;
+-(void)minusPoint:(GCStatsDataPoint*)otherPoint;
 -(void)divideByDouble:(double)aDouble;
 -(BOOL)setToMax:(GCStatsDataPoint*)otherPoint;
 -(BOOL)setToMin:(GCStatsDataPoint*)otherPoint;

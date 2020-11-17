@@ -24,11 +24,11 @@
 //  
 
 #import <Foundation/Foundation.h>
-#import "GCUnit.h"
-#import "GCStatsDataSerie.h"
-#import "GCNumberWithUnit.h"
+#import <RZUtils/GCUnit.h>
+#import <RZUtils/GCStatsDataSerie.h>
+#import <RZUtils/GCNumberWithUnit.h>
 
-@interface GCStatsDataSerieWithUnit : NSObject<NSCoding,NSFastEnumeration>
+@interface GCStatsDataSerieWithUnit : NSObject<NSSecureCoding,NSFastEnumeration>
 
 @property (nonatomic,retain) GCStatsDataSerie * serie;
 @property (nonatomic,retain) GCUnit * unit;
@@ -42,12 +42,15 @@
 
 -(GCStatsDataSerieWithUnit*)dataSerieConvertedToUnit:(GCUnit*)unit;
 -(GCStatsDataSerieWithUnit*)dataSerieConvertedToXUnit:(GCUnit*)xUnit;
+/**
+ * Create a new serie from an other serie where every object is a duplicate
+ */
 +(GCStatsDataSerieWithUnit*)dataSerieWithOther:(GCStatsDataSerieWithUnit*)other;
 
 -(NSUInteger)count;
 -(GCStatsDataPoint*)dataPointAtIndex:(NSUInteger)idx;
--(void)convertToUnit:(GCUnit*)unit;
--(void)convertToXUnit:(GCUnit*)xUnit;
+-(GCStatsDataSerieWithUnit*)convertToUnit:(GCUnit*)unit;
+-(GCStatsDataSerieWithUnit*)convertToXUnit:(GCUnit*)xUnit;
 -(void)convertToCommonUnitWith:(GCUnit*)unit;
 -(void)convertToGlobalSystem;
 
@@ -62,7 +65,7 @@
 -(GCStatsDataSerieWithUnit*)bucketWith:(GCStatsDataSerieWithUnit*)buckets;
 -(GCStatsDataSerieWithUnit*)filterForNonZeroIn:(GCStatsDataSerie*)other;
 -(GCStatsDataSerieWithUnit*)summedBy:(double)unit;
--(GCStatsDataSerieWithUnit*)filledForUnit:(double)unit;
+-(GCStatsDataSerieWithUnit*)filledForUnit:(double)unit ;
 -(GCStatsDataSerieWithUnit*)cumulative;
 -(GCStatsDataSerieWithUnit*)cumulativeDifferenceWith:(GCStatsDataSerieWithUnit*)other;
 

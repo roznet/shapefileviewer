@@ -24,7 +24,7 @@
 //  
 
 #import "NSDate+RZHelper.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 
 @implementation NSDate (RZHelper)
@@ -97,6 +97,18 @@
 
 }
 
++(NSDateFormatter*)sqliteDateFormatter{
+    static NSDateFormatter * formatter = nil;
+    if (formatter==nil) {
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0.0];
+        formatter.dateFormat = @"yyyy'-'MM'-'dd' 'HH':'mm':'ss";
+    }
+    return formatter;
+
+}
+
 +(NSDateFormatter*)garminModernAlternateDateFormatter{
     static NSDateFormatter * formatter = nil;
     if (formatter==nil) {
@@ -133,6 +145,10 @@
 
 -(NSString*)YYYYdashMMdashDD{
     return [[NSDate dashedDateFormatter] stringFromDate:self];
+}
+
+-(NSString*)sqliteDateFormat{
+    return [[NSDate sqliteDateFormatter] stringFromDate:self];
 }
 
 -(NSString*)YYYYMMDDhhmm{
@@ -344,6 +360,11 @@
         formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
         formatter.dateFormat = @"yyyy";
         return [formatter stringFromDate:self];
+    }else if(aUnit == NSCalendarUnitDay){
+        NSDateFormatter * formatter = RZReturnAutorelease([[NSDateFormatter alloc] init]);
+        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+        formatter.dateFormat = @"MMM dd";
+        return [formatter stringFromDate:self];
     }else{
         NSDateFormatter * formatter = RZReturnAutorelease([[NSDateFormatter alloc] init]);
         formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
@@ -363,5 +384,13 @@
     return [_gregorianCalendar dateByAddingComponents:comp toDate:self options:0];
 }
 
+-(NSDate*)endOfDayForCalendar:(NSCalendar*)cal{
+    NSDateComponents * components = [cal components: (NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond)  fromDate:self];
+    [components setHour:23];
+    [components setMinute:59];
+    [components setSecond:59];
+    
+    return [cal dateFromComponents:components];
+}
 
 @end

@@ -24,7 +24,7 @@
 //  
 
 #import <Foundation/Foundation.h>
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 typedef NS_ENUM(NSUInteger, GCUnitNumberFormat) {
     GCUnitTimeFormat,
@@ -61,7 +61,8 @@ NS_ASSUME_NONNULL_BEGIN;
 @property (nonatomic,retain) NSString * key;
 @property (nonatomic,retain) NSString * display;
 @property (nonatomic,retain) NSString * abbr;
-@property (nonatomic,retain,nullable) NSString * referenceUnit;
+@property (nonatomic,retain,nullable) NSString * referenceUnitKey;
+@property (nonatomic,readonly,nullable) GCUnit * referenceUnit;
 @property (nonatomic,retain,nullable) GCUnit * fractionUnit;
 @property (nonatomic,retain,nullable) GCUnit * compoundUnit;
 @property (nonatomic,assign) GCUnitNumberFormat format;
@@ -75,6 +76,7 @@ NS_ASSUME_NONNULL_BEGIN;
 
 +(nullable GCUnit*)unitForKey:(NSString*)aKey;
 +(nullable GCUnit*)unitMatchingString:(NSString*)aStr;
++(nonnull GCUnit*)unitForAny:(nonnull NSString*)any;
 
 /**
  strideStyle can be SameFoot(2x) or BetweenFoot(1x)
@@ -254,12 +256,6 @@ NS_ASSUME_NONNULL_BEGIN;
 @property (nonatomic,retain) NSCalendar * calendar;
 @end
 
-@interface  GCUnitCalendarUnit : GCUnit
-@property (nonatomic,retain) NSDateFormatter * dateFormatter;
-@property (nonatomic,assign) NSCalendarUnit calendarUnit;
-@property (nonatomic,retain) NSCalendar * calendar;
-
-@end
 
 @interface GCUnitElapsedSince :GCUnit
 

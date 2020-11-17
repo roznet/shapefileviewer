@@ -31,8 +31,14 @@
 @property (nonatomic,retain) NSArray * choices;
 @property (nonatomic,retain) NSArray * subtext;
 @property (nonatomic,assign) NSUInteger selected;
-@property (nonatomic,retain)	id<GCEntryFieldDelegate> entryFieldDelegate;
+@property (nonatomic,retain)	NSObject<GCEntryFieldDelegate> * entryFieldDelegate;
+@property (nonatomic,copy)    GCCellEntryFieldCompletion entryFieldCompletion;
 @property						NSInteger identifierInt;
+
+@property (nonatomic,retain) UIColor * cellBackgroundColor;
+@property (nonatomic,retain) UIColor * textPrimaryColor;
+@property (nonatomic,retain) UIColor * textSecondaryColor;
+@property (nonatomic,retain) UIColor * selectedTextColor;
 
 +(GCCellEntryListViewController*)entryListViewController:(NSArray*)theChoices selected:(NSUInteger)achoice;
 -(void)setIndexPath:(NSIndexPath*)indexPath;

@@ -23,14 +23,16 @@
 //  SOFTWARE.
 //  
 
-#import "GCStatsDataPoint.h"
-#import "RZMacros.h"
+#import <RZUtils/GCStatsDataPoint.h>
+#import <RZUtils/RZMacros.h>
 
 #define GC_CODER_X_DATA     @"x_data"
 #define GC_CODER_Y_DATA     @"y_data"
 
 @implementation GCStatsDataPoint
-
++(BOOL)supportsSecureCoding{
+    return YES;
+}
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
@@ -75,12 +77,21 @@
 +(GCStatsDataPoint*)dataPointWithPoint:(GCStatsDataPoint*)aPoint andValue:(double)aValue{
     GCStatsDataPoint * rv = RZReturnAutorelease([[aPoint.class alloc] init]);
     if (rv) {
-        [rv setDate:[aPoint date]];
         rv.x_data = aPoint.x_data;
         rv.y_data = aValue;
     }
     return rv;
 }
+-(GCStatsDataPoint*)duplicate{
+    GCStatsDataPoint * rv = RZReturnAutorelease([[self.class alloc] init]);
+    if (rv) {
+        rv.x_data = self.x_data;
+        rv.y_data = self.y_data;
+        
+    }
+    return rv;
+}
+
 -(BOOL)hasValue{
     return true;
 }
@@ -108,6 +119,10 @@
 
 -(void)addPoint:(GCStatsDataPoint*)otherPoint{
     _y_data += otherPoint.y_data;
+}
+
+-(void)minusPoint:(GCStatsDataPoint*)otherPoint{
+    _y_data -= otherPoint.y_data;
 }
 
 -(void)multiplyPoint:(GCStatsDataPoint *)otherPoint{
@@ -153,6 +168,7 @@
 @end
 
 @implementation GCStatsDataPointNoValue
+
 -(BOOL)hasValue{
     return false;
 }

@@ -25,17 +25,18 @@
 
 #import "GCCellEntrySwitch.h"
 #import "RZViewConfig.h"
-#import "RZMacros.h"
+#import <RZUtils/RZMacros.h>
 
 @implementation GCCellEntrySwitch
-@synthesize toggle,label,gradientLayer;
-
 
 +(GCCellEntrySwitch*)switchCell:(UITableView*)tableView{
     GCCellEntrySwitch * cell = (GCCellEntrySwitch*)[tableView dequeueReusableCellWithIdentifier:@"GCSwitch"];
     if (cell == nil) {
-        cell = RZReturnAutorelease([[GCCellEntrySwitch alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"GCSwitch"]);
+        cell = RZReturnAutorelease([[GCCellEntrySwitch alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"GCSwitch"]);
     }
+    cell.detailTextLabel.text = nil;
+    cell.textLabel.text = nil;
+    
     return cell;
 }
 
@@ -44,29 +45,28 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-		label						= [[UILabel alloc] initWithFrame:CGRectZero];
-		label.backgroundColor		= [UIColor clearColor];
-		label.font					= [RZViewConfig boldSystemFontOfSize:16];
-		label.textColor				= [UIColor blackColor];
+        self.label						= RZReturnAutorelease([[UILabel alloc] initWithFrame:CGRectZero]);
+		self.label.backgroundColor		= [UIColor clearColor];
+		self.label.font					= [RZViewConfig boldSystemFontOfSize:16];
+		self.label.textColor				= [RZViewConfig colorForText:rzColorStylePrimaryText];
+		self.toggle						= RZReturnAutorelease([[UISwitch alloc] initWithFrame:CGRectZero]);
+		[self.toggle addTarget:self action:@selector(switchElement:) forControlEvents:UIControlEventValueChanged];
+        
+        self.gradientLayer               = [[CAGradientLayer alloc] init];
 
-		toggle						= [[UISwitch alloc] initWithFrame:CGRectZero];
-		[toggle addTarget:self action:@selector(switchElement:) forControlEvents:UIControlEventValueChanged];
+		[self.contentView addSubview:self.label];
+		[self.contentView addSubview:self.toggle];
 
-        gradientLayer               = [[CAGradientLayer alloc] init];
-
-		[self.contentView addSubview:label];
-		[self.contentView addSubview:toggle];
-
-        [self.contentView.layer insertSublayer:gradientLayer atIndex:0];
+        [self.contentView.layer insertSublayer:self.gradientLayer atIndex:0];
     }
     return self;
 }
 
 #if ! __has_feature(objc_arc)
 -(void)dealloc{
-    [label release];
-    [toggle release];
-    [gradientLayer release];
+    [_label release];
+    [_toggle release];
+    [_gradientLayer release];
 
     [super dealloc];
 }
@@ -85,23 +85,42 @@
 	// Rect that start at 5 from left bound x
 	CGRect baseRect = self.contentView.bounds;
 
-    CGSize labelSize = [label.text sizeWithAttributes:@{NSFontAttributeName:label.font}];
-    CGSize toggleSize = toggle.frame.size;
-
+    CGSize labelSize = self.label.attributedText.size;
+    CGSize detailLabelSize = CGSizeZero;
+    CGSize toggleSize = self.toggle.frame.size;
+    CGRect labelRect = CGRectZero;
+    CGRect detailLabelRect = CGRectZero;
+    
+    if( self.detailTextLabel.attributedText){
+        detailLabelSize = self.detailTextLabel.attributedText.size;
+        
+        CGFloat spacing = 1.;
+        CGFloat totalHeight = detailLabelSize.height + labelSize.height + spacing;
+        
+        labelRect  = CGRectMake(4., baseRect.size.height/2.-totalHeight/2., labelSize.width, labelSize.height);
+        detailLabelRect = CGRectMake(4., labelRect.origin.y + spacing + labelSize.height, detailLabelSize.width, detailLabelSize.height);
+    }else{
+        labelRect  = CGRectMake(4., baseRect.size.height/2.-labelSize.height/2., labelSize.width, labelSize.height);
+    }
+    
     CGRect toggleRect = CGRectMake(CGRectGetMaxX(baseRect)-5.-toggleSize.width, baseRect.size.height/2.-toggleSize.height/2.,
                                    toggleSize.width, toggleSize.height );
-    CGRect labelRect  = CGRectMake(2., baseRect.size.height/2.-labelSize.height/2., labelSize.width, labelSize.height);
 
-	label.frame			= labelRect;
-	toggle.frame		= toggleRect;
-    gradientLayer.frame = self.contentView.bounds;
+	self.label.frame			= labelRect;
+    self.detailTextLabel.frame = detailLabelRect;
+    
+	self.toggle.frame		= toggleRect;
+    self.gradientLayer.frame = self.contentView.bounds;
 }
 
 -(void)switchElement:(id)sender{
-	[entryFieldDelegate cellWasChanged:self];
+    [self.entryFieldDelegate cellWasChanged:self];
+    if( self.entryFieldCompletion){
+        self.entryFieldCompletion(self);
+    }
 }
 
 -(BOOL)on{
-    return toggle.on;
+    return self.toggle.on;
 }
 @end

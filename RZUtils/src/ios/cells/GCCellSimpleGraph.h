@@ -33,16 +33,19 @@
 -(void)swipeLeft:(GCCellSimpleGraph*)cell;
 @optional
 -(void)swipeRight:(GCCellSimpleGraph*)cell;
-
+-(void)longPress:(GCCellSimpleGraph*)cell;
 @end
 
 
 @class GCSimpleGraphGestures;
+@class GCSimpleGraphLegendView;
 
 @interface GCCellSimpleGraph : UITableViewCell
 
 @property (nonatomic,assign) NSObject<GCCellSimpleGraphDelegate> * cellDelegate;
 @property (nonatomic,assign) BOOL legend;
+@property (nonatomic,retain) GCSimpleGraphLegendView * legendView;
+@property (nonatomic,assign) NSInteger identifier;
 
 +(GCCellSimpleGraph*)graphCell:(UITableView*)tableView;
 -(void)setDataSource:(id<GCSimpleGraphDataSource>)aSource andConfig:(id<GCSimpleGraphDisplayConfig>)aConfig;

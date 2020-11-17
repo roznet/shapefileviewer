@@ -24,6 +24,7 @@
 //  
 
 #import "NSDictionary+RZHelper.h"
+#import "NSArray+Map.h"
 
 @implementation NSDictionary (RZHelper)
 
@@ -52,5 +53,92 @@
     }
     return [NSDictionary dictionaryWithDictionary:rv];
 }
+
+-(NSDictionary*)smartCompareDict:(NSDictionary*)other{
+    NSMutableDictionary * rv = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    for (NSObject<NSCopying>*key in self) {
+        NSObject * selfVal = self[key];
+        NSObject * otherVal = other[key];
+        if( otherVal == nil){
+            rv[key] = @{@"self":selfVal};
+        }else{
+            if( [selfVal isKindOfClass:[NSDictionary class]] && [otherVal isKindOfClass:[NSDictionary class]]){
+                NSDictionary * selfValDict = (NSDictionary*)selfVal;
+                NSDictionary * otherValDict = (NSDictionary*)otherVal;
+                NSDictionary * subSmartDict = [selfValDict smartCompareDict:otherValDict];
+                if( subSmartDict ){
+                    rv[key] = subSmartDict;
+                }
+            }else if( [selfVal isKindOfClass:[NSNumber class]] && [otherVal isKindOfClass:[NSNumber class]]){
+                NSNumber * selfValNum = (NSNumber*)selfVal;
+                NSNumber * otherValNum = (NSNumber*)otherVal;
+                
+                if( strcmp( selfValNum.objCType, @encode(double)) == 0) {
+                    double selfDouble = selfValNum.doubleValue;
+                    double otherDouble = otherValNum.doubleValue;
+                    if( fabs(selfDouble-otherDouble) > 1.0e-10 ){
+                        rv[key] = @{ @"self":selfValNum, @"other":otherValNum };
+                    }
+                }else{
+                    if( ![selfValNum isEqualToNumber:otherValNum] ){
+                        rv[key] = @{ @"self": selfValNum, @"other": otherValNum };
+                    }
+                }
+            }else{
+                if ([selfVal respondsToSelector:@selector(isEqual:)]){
+                    if( ![selfVal isEqual:otherVal]) {
+                        rv[key] = @{ @"self": selfVal, @"other": selfVal };
+                    }
+                }else{
+                    rv[key] = @{ @"unknownSelf": selfVal, @"unknownOther": selfVal };
+                }
+            }
+        }
+    }
+    if( rv.count ){
+        return rv;
+    }else{
+        return nil;
+    }
+}
+
+-(NSDictionary*)dictionaryWithJSONTypesOnly{
+    NSMutableDictionary * rv = [NSMutableDictionary dictionaryWithCapacity:self.count];
+    for (NSObject<NSCopying>*key in self) {
+        NSObject * obj = self[key];
+        
+        if( [obj isKindOfClass:[NSNumber class]] || [obj isKindOfClass:[NSString class]] || [obj isKindOfClass:[NSNull class]] ){
+            rv[key] = obj;
+        }else if( [obj isKindOfClass:[NSDictionary class]] ){
+            NSDictionary * dict = (NSDictionary*)obj;
+            rv[key] = [dict dictionaryWithJSONTypesOnly];
+        }else if( [obj isKindOfClass:[NSArray class]] ){
+            NSArray * array = (NSArray*)obj;
+            rv[key] = [array arrayWithJSONTypesOnly];
+        }else if( [obj respondsToSelector:@selector(description)] ){
+            rv[key] = [obj description];
+        }
+    }
+    return rv;
+}
+
+-(id)objectOfClass:(Class)cls forFirstmatchingKeyPaths:(NSArray<NSString*>*)keyPaths{
+    for (NSString * path in keyPaths) {
+        id val = [self valueForKeyPath:path];
+        if( [val isKindOfClass:cls] ){
+            return val;
+        }
+    }
+    return nil;
+}
+
+-(NSNumber*)numberForFirstMatchingKeyPaths:(NSArray<NSString*>*)keypaths{
+    return [self objectOfClass:[NSNumber class] forFirstmatchingKeyPaths:keypaths];
+}
+-(NSString*)stringForFirstMatchingKeyPaths:(NSArray<NSString*>*)keypaths{
+    return [self objectOfClass:[NSString class] forFirstmatchingKeyPaths:keypaths];
+}
+
+
 
 @end
