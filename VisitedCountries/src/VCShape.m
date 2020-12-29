@@ -24,7 +24,7 @@
 //  
 
 #import "VCShape.h"
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 /*
 * VCShape

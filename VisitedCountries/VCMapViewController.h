@@ -26,7 +26,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 @interface VCMapViewController : UIViewController<MKMapViewDelegate,RZChildObject>
 

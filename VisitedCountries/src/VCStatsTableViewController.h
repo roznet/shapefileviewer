@@ -24,8 +24,7 @@
 //  
 
 #import <UIKit/UIKit.h>
-#import "RZUtils/RZUtils.h"
-
+@import RZUtils;
 
 @interface VCStatsTableViewController : UITableViewController<RZChildObject>
 

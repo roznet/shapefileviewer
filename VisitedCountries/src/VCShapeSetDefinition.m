@@ -25,7 +25,7 @@
 
 #import "VCShapeSetDefinition.h"
 #import "VCShape.h"
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 /*
 * VCShapeSetDefinition

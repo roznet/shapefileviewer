@@ -23,7 +23,9 @@
 //  SOFTWARE.
 //  
 
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
+@import RZUtilsTouch;
+
 #import "VCStatsTableViewController.h"
 #import "VCShapeSetOrganizer.h"
 #import "VCAppGlobal.h"
@@ -135,7 +137,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GCCellGrid * cell = [GCCellGrid gridCell:tableView];
+    GCCellGrid * cell = [GCCellGrid cellGrid:tableView];
     [cell setupForRows:2 andCols:2];
 
     if (indexPath.section == VC_SECTION_ALL) {

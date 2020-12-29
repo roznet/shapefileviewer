@@ -24,7 +24,7 @@
 //  
 
 #import <Foundation/Foundation.h>
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 #import "VCShapeSetDefinition.h"
 
 

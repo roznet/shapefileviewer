@@ -23,7 +23,7 @@
 //  SOFTWARE.
 //  
 
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 #import "VCShapeSetSelection.h"
 #import "VCShapeSetDefinition.h"
 #import "VCShape.h"

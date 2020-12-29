@@ -24,7 +24,7 @@
 //  
 
 #import <UIKit/UIKit.h>
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 @interface VCCountriesTableViewController : UITableViewController<UITableViewDataSource, UISearchBarDelegate,RZChildObject>
 

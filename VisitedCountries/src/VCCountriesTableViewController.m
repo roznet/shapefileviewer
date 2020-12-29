@@ -27,7 +27,8 @@
 #import "VCAppGlobal.h"
 #import "VCViewConfig.h"
 #import "VCShape.h"
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
+@import RZUtilsTouch;
 
 @interface VCCountriesTableViewController ()
 @property (nonatomic,retain) UISearchBar * search;
@@ -115,7 +116,7 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GCCellGrid * cell = [GCCellGrid gridCell:tableView];
+    GCCellGrid * cell = [GCCellGrid cellGrid:tableView];
 
     [cell setupForRows:2 andCols:1];
     VCShape * one= self.array[indexPath.row];

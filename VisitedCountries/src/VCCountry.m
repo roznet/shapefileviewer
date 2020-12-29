@@ -25,7 +25,7 @@
 
 #import "VCCountry.h"
 #import <CoreLocation/CoreLocation.h>
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 @interface VCCountry ()
 @property (nonatomic,retain) NSNumber * regionCode;

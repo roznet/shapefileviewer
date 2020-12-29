@@ -25,7 +25,7 @@
 
 #import "VCAppDelegate.h"
 #import "VCTabBarViewController.h"
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 @interface VCAppDelegate ()
 @property (nonatomic,retain) VCTabBarViewController * tabBarController;

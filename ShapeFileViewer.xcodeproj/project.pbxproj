@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,22 +11,6 @@
 		4205E9CB1B07EF9500BA3EED /* GBR_adm1.shp in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C51B07EF9500BA3EED /* GBR_adm1.shp */; };
 		4205E9CC1B07EF9500BA3EED /* GBR_adm1.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 4205E9C61B07EF9500BA3EED /* GBR_adm1.dbf */; };
 		420A5A3B216BB0AA008A7C49 /* countries.db in Resources */ = {isa = PBXBuildFile; fileRef = 420A5A2E216BB0AA008A7C49 /* countries.db */; };
-		42248BEA2014DF84006ADC90 /* RZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; };
-		42248BEB2014DF84006ADC90 /* RZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248BEF2014E00E006ADC90 /* RZUtilsOSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489B12014DF52006ADC90 /* RZUtilsOSX.framework */; };
-		42248BF02014E00E006ADC90 /* RZUtilsOSX.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489B12014DF52006ADC90 /* RZUtilsOSX.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248BF32014E01C006ADC90 /* RZUtilsUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; };
-		42248BF42014E01C006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248C152014E1D9006ADC90 /* RZExternalUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; };
-		42248C162014E1D9006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248C192014E3E2006ADC90 /* RZExternalUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; };
-		42248C1A2014E3E2006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248C1D2014E3E2006ADC90 /* RZUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; };
-		42248C1E2014E3E2006ADC90 /* RZUtils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4224899D2014DF52006ADC90 /* RZUtils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248C212014E3E2006ADC90 /* RZUtilsUniversal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; };
-		42248C222014E3E2006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		42248C252014E3E2006ADC90 /* RZUtilsTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */; };
-		42248C262014E3E2006ADC90 /* RZUtilsTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		422637B21B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 422637A61B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf */; };
 		422637B31B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj in Resources */ = {isa = PBXBuildFile; fileRef = 422637A71B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj */; };
 		422637B41B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shp in Resources */ = {isa = PBXBuildFile; fileRef = 422637A81B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shp */; };
@@ -35,6 +19,15 @@
 		422637BB1B07820E005461E3 /* JPN_adm1.prj in Resources */ = {isa = PBXBuildFile; fileRef = 422637AF1B07820E005461E3 /* JPN_adm1.prj */; };
 		422637BC1B07820E005461E3 /* JPN_adm1.shp in Resources */ = {isa = PBXBuildFile; fileRef = 422637B01B07820E005461E3 /* JPN_adm1.shp */; };
 		422637BD1B07820E005461E3 /* JPN_adm1.shx in Resources */ = {isa = PBXBuildFile; fileRef = 422637B11B07820E005461E3 /* JPN_adm1.shx */; };
+		424767CB259B7BED00BABCCB /* RZUtilsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 424767CA259B7BED00BABCCB /* RZUtilsSwift */; };
+		424767CD259B7BED00BABCCB /* RZUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 424767CC259B7BED00BABCCB /* RZUtils */; };
+		424767CF259B7BED00BABCCB /* RZUtilsUniversal in Frameworks */ = {isa = PBXBuildFile; productRef = 424767CE259B7BED00BABCCB /* RZUtilsUniversal */; };
+		424767D4259B7C0500BABCCB /* RZExternal in Frameworks */ = {isa = PBXBuildFile; productRef = 424767D3259B7C0500BABCCB /* RZExternal */; };
+		424767D6259B7C0500BABCCB /* RZExternalUniversal in Frameworks */ = {isa = PBXBuildFile; productRef = 424767D5259B7C0500BABCCB /* RZExternalUniversal */; };
+		424767DB259B7C1C00BABCCB /* RZUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 424767DA259B7C1C00BABCCB /* RZUtils */; };
+		424767DD259B7C1C00BABCCB /* RZUtilsUniversal in Frameworks */ = {isa = PBXBuildFile; productRef = 424767DC259B7C1C00BABCCB /* RZUtilsUniversal */; };
+		424767DF259B7C1C00BABCCB /* RZExternalUniversal in Frameworks */ = {isa = PBXBuildFile; productRef = 424767DE259B7C1C00BABCCB /* RZExternalUniversal */; };
+		424767E8259B7CED00BABCCB /* RZUtilsTouch in Frameworks */ = {isa = PBXBuildFile; productRef = 424767E7259B7CED00BABCCB /* RZUtilsTouch */; };
 		424F92C81B0930D60075C5F1 /* regions-20140306-100m.shx in Resources */ = {isa = PBXBuildFile; fileRef = 424F92C21B0930D60075C5F1 /* regions-20140306-100m.shx */; };
 		424F92C91B0930D60075C5F1 /* regions-20140306-100m.shp in Resources */ = {isa = PBXBuildFile; fileRef = 424F92C31B0930D60075C5F1 /* regions-20140306-100m.shp */; };
 		424F92CA1B0930D60075C5F1 /* regions-20140306-100m.dbf in Resources */ = {isa = PBXBuildFile; fileRef = 424F92C41B0930D60075C5F1 /* regions-20140306-100m.dbf */; };
@@ -77,181 +70,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4224899C2014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 423829271EAB534100252217;
-			remoteInfo = RZUtils;
-		};
-		4224899E2014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 423829301EAB534100252217;
-			remoteInfo = RZUtilsTests;
-		};
-		422489A02014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382A451EAB584600252217;
-			remoteInfo = RZUtilsSwift;
-		};
-		422489A22014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382A4D1EAB584600252217;
-			remoteInfo = RZUtilsSwiftTests;
-		};
-		422489A42014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382A6C1EABA4AC00252217;
-			remoteInfo = RZUtilsUniversal;
-		};
-		422489A62014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382A741EABA4AC00252217;
-			remoteInfo = RZUtilsUniversalTests;
-		};
-		422489A82014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382AAA1EAC824900252217;
-			remoteInfo = RZUtilsHealthkit;
-		};
-		422489AA2014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382AB21EAC824900252217;
-			remoteInfo = RZUtilsHealthkitTests;
-		};
-		422489AC2014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382AD01EAC9BC700252217;
-			remoteInfo = RZUtilsTouch;
-		};
-		422489AE2014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382AD81EAC9BC700252217;
-			remoteInfo = RZUtilsTouchTests;
-		};
-		422489B02014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382B6A1EAC9DBD00252217;
-			remoteInfo = RZUtilsOSX;
-		};
-		422489B22014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42382B721EAC9DBD00252217;
-			remoteInfo = RZUtilsOSXTests;
-		};
-		422489B42014DF52006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 428BE85420013D4200E14A61;
-			remoteInfo = RZUtilsTestInfra;
-		};
-		42248BE02014DF6D006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42B263CF1FF8309700E891A1;
-			remoteInfo = RZExternal;
-		};
-		42248BE22014DF6D006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42EBC0201FFAC18A0009B385;
-			remoteInfo = RZExternalTestUtils;
-		};
-		42248BE42014DF6D006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42A007BF20012ADC00019CB3;
-			remoteInfo = RZExternalCpp;
-		};
-		42248BEC2014DF84006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 423829261EAB534100252217;
-			remoteInfo = RZUtils;
-		};
-		42248BF12014E00E006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 42382B691EAC9DBD00252217;
-			remoteInfo = RZUtilsOSX;
-		};
-		42248BF52014E01C006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 42382A6B1EABA4AC00252217;
-			remoteInfo = RZUtilsUniversal;
-		};
-		42248C132014E1D4006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 42248C022014E16A006ADC90;
-			remoteInfo = RZExternalUniversal;
-		};
-		42248C172014E1D9006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 42248C012014E16A006ADC90;
-			remoteInfo = RZExternalUniversal;
-		};
-		42248C1B2014E3E2006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 42248C012014E16A006ADC90;
-			remoteInfo = RZExternalUniversal;
-		};
-		42248C1F2014E3E2006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 423829261EAB534100252217;
-			remoteInfo = RZUtils;
-		};
-		42248C232014E3E2006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 42382A6B1EABA4AC00252217;
-			remoteInfo = RZUtilsUniversal;
-		};
-		42248C272014E3E2006ADC90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 42382ACF1EAC9BC700252217;
-			remoteInfo = RZUtilsTouch;
-		};
 		42792C851AC8328E00555013 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 42C875661AB785BF00ED1B9B /* Project object */;
@@ -275,10 +93,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				42248BF42014E01C006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */,
-				42248C162014E1D9006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */,
-				42248BEB2014DF84006ADC90 /* RZUtils.framework in Embed Frameworks */,
-				42248BF02014E00E006ADC90 /* RZUtilsOSX.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,10 +103,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				42248C1E2014E3E2006ADC90 /* RZUtils.framework in Embed Frameworks */,
-				42248C1A2014E3E2006ADC90 /* RZExternalUniversal.framework in Embed Frameworks */,
-				42248C262014E3E2006ADC90 /* RZUtilsTouch.framework in Embed Frameworks */,
-				42248C222014E3E2006ADC90 /* RZUtilsUniversal.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,8 +114,6 @@
 		4205E9C51B07EF9500BA3EED /* GBR_adm1.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.shp; path = shapefiles/GBR_adm1.shp; sourceTree = "<group>"; };
 		4205E9C61B07EF9500BA3EED /* GBR_adm1.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = GBR_adm1.dbf; path = shapefiles/GBR_adm1.dbf; sourceTree = "<group>"; };
 		420A5A2E216BB0AA008A7C49 /* countries.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = countries.db; sourceTree = "<group>"; };
-		4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RZUtils.xcodeproj; path = RZUtils/RZUtils.xcodeproj; sourceTree = "<group>"; };
-		42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RZExternal.xcodeproj; path = RZExternal/RZExternal.xcodeproj; sourceTree = "<group>"; };
 		422637A61B07820E005461E3 /* TM_WORLD_BORDERS-0.2.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TM_WORLD_BORDERS-0.2.dbf"; path = "shapefiles/TM_WORLD_BORDERS-0.2.dbf"; sourceTree = "<group>"; };
 		422637A71B07820E005461E3 /* TM_WORLD_BORDERS-0.2.prj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "TM_WORLD_BORDERS-0.2.prj"; path = "shapefiles/TM_WORLD_BORDERS-0.2.prj"; sourceTree = "<group>"; };
 		422637A81B07820E005461E3 /* TM_WORLD_BORDERS-0.2.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = "TM_WORLD_BORDERS-0.2.shp"; path = "shapefiles/TM_WORLD_BORDERS-0.2.shp"; sourceTree = "<group>"; };
@@ -389,10 +197,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42248BF32014E01C006ADC90 /* RZUtilsUniversal.framework in Frameworks */,
-				42248C152014E1D9006ADC90 /* RZExternalUniversal.framework in Frameworks */,
-				42248BEA2014DF84006ADC90 /* RZUtils.framework in Frameworks */,
-				42248BEF2014E00E006ADC90 /* RZUtilsOSX.framework in Frameworks */,
+				424767DF259B7C1C00BABCCB /* RZExternalUniversal in Frameworks */,
+				424767DD259B7C1C00BABCCB /* RZUtilsUniversal in Frameworks */,
+				424767DB259B7C1C00BABCCB /* RZUtils in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,11 +214,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42248C212014E3E2006ADC90 /* RZUtilsUniversal.framework in Frameworks */,
+				424767D4259B7C0500BABCCB /* RZExternal in Frameworks */,
+				424767CD259B7BED00BABCCB /* RZUtils in Frameworks */,
+				424767CB259B7BED00BABCCB /* RZUtilsSwift in Frameworks */,
+				424767D6259B7C0500BABCCB /* RZExternalUniversal in Frameworks */,
+				424767CF259B7BED00BABCCB /* RZUtilsUniversal in Frameworks */,
 				42C876381AB8DB2800ED1B9B /* libsqlite3.dylib in Frameworks */,
-				42248C252014E3E2006ADC90 /* RZUtilsTouch.framework in Frameworks */,
-				42248C1D2014E3E2006ADC90 /* RZUtils.framework in Frameworks */,
-				42248C192014E3E2006ADC90 /* RZExternalUniversal.framework in Frameworks */,
+				424767E8259B7CED00BABCCB /* RZUtilsTouch in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,35 +234,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4224898D2014DF52006ADC90 /* Products */ = {
+		424767D9259B7C1C00BABCCB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4224899D2014DF52006ADC90 /* RZUtils.framework */,
-				4224899F2014DF52006ADC90 /* RZUtilsTests.xctest */,
-				422489A12014DF52006ADC90 /* RZUtilsSwift.framework */,
-				422489A32014DF52006ADC90 /* RZUtilsSwiftTests.xctest */,
-				422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */,
-				422489A72014DF52006ADC90 /* RZUtilsUniversalTests.xctest */,
-				422489A92014DF52006ADC90 /* RZUtilsHealthkit.framework */,
-				422489AB2014DF52006ADC90 /* RZUtilsHealthkitTests.xctest */,
-				422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */,
-				422489AF2014DF52006ADC90 /* RZUtilsTouchTests.xctest */,
-				422489B12014DF52006ADC90 /* RZUtilsOSX.framework */,
-				422489B32014DF52006ADC90 /* RZUtilsOSXTests.xctest */,
-				422489B52014DF52006ADC90 /* RZUtilsTestInfra.framework */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		42248BDB2014DF6C006ADC90 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				42248BE12014DF6D006ADC90 /* RZExternal.framework */,
-				42248BE32014DF6D006ADC90 /* RZExternalTestUtils.framework */,
-				42248BE52014DF6D006ADC90 /* RZExternalCpp.framework */,
-				42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */,
-			);
-			name = Products;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		42792C731AC8328E00555013 /* shapeview */ = {
@@ -514,13 +299,12 @@
 		42C875651AB785BF00ED1B9B = {
 			isa = PBXGroup;
 			children = (
-				42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */,
-				4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */,
 				42C875701AB785BF00ED1B9B /* VisitedCountries */,
 				42C8758A1AB785BF00ED1B9B /* VisitedCountriesTests */,
 				42792C731AC8328E00555013 /* shapeview */,
 				42792C871AC8328E00555013 /* shapeviewTests */,
 				42C8756F1AB785BF00ED1B9B /* Products */,
+				424767D9259B7C1C00BABCCB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -679,12 +463,13 @@
 			buildRules = (
 			);
 			dependencies = (
-				42248BED2014DF84006ADC90 /* PBXTargetDependency */,
-				42248BF22014E00E006ADC90 /* PBXTargetDependency */,
-				42248BF62014E01C006ADC90 /* PBXTargetDependency */,
-				42248C182014E1D9006ADC90 /* PBXTargetDependency */,
 			);
 			name = shapeview;
+			packageProductDependencies = (
+				424767DA259B7C1C00BABCCB /* RZUtils */,
+				424767DC259B7C1C00BABCCB /* RZUtilsUniversal */,
+				424767DE259B7C1C00BABCCB /* RZExternalUniversal */,
+			);
 			productName = shapeview;
 			productReference = 42792C721AC8328E00555013 /* Shapefile Explorer.app */;
 			productType = "com.apple.product-type.application";
@@ -719,12 +504,16 @@
 			buildRules = (
 			);
 			dependencies = (
-				42248C1C2014E3E2006ADC90 /* PBXTargetDependency */,
-				42248C202014E3E2006ADC90 /* PBXTargetDependency */,
-				42248C242014E3E2006ADC90 /* PBXTargetDependency */,
-				42248C282014E3E2006ADC90 /* PBXTargetDependency */,
 			);
 			name = VisitedCountries;
+			packageProductDependencies = (
+				424767CA259B7BED00BABCCB /* RZUtilsSwift */,
+				424767CC259B7BED00BABCCB /* RZUtils */,
+				424767CE259B7BED00BABCCB /* RZUtilsUniversal */,
+				424767D3259B7C0500BABCCB /* RZExternal */,
+				424767D5259B7C0500BABCCB /* RZExternalUniversal */,
+				424767E7259B7CED00BABCCB /* RZUtilsTouch */,
+			);
 			productName = VisitedCountries;
 			productReference = 42C8756E1AB785BF00ED1B9B /* VisitedCountries.app */;
 			productType = "com.apple.product-type.application";
@@ -812,18 +601,13 @@
 				ca,
 			);
 			mainGroup = 42C875651AB785BF00ED1B9B;
+			packageReferences = (
+				424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */,
+				424767D2259B7C0500BABCCB /* XCRemoteSwiftPackageReference "rzexternal" */,
+				424767E6259B7CED00BABCCB /* XCRemoteSwiftPackageReference "rzutils-touch" */,
+			);
 			productRefGroup = 42C8756F1AB785BF00ED1B9B /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 42248BDB2014DF6C006ADC90 /* Products */;
-					ProjectRef = 42248BDA2014DF6C006ADC90 /* RZExternal.xcodeproj */;
-				},
-				{
-					ProductGroup = 4224898D2014DF52006ADC90 /* Products */;
-					ProjectRef = 4224898C2014DF52006ADC90 /* RZUtils.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				42C8756D1AB785BF00ED1B9B /* VisitedCountries */,
@@ -833,128 +617,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		4224899D2014DF52006ADC90 /* RZUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtils.framework;
-			remoteRef = 4224899C2014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4224899F2014DF52006ADC90 /* RZUtilsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RZUtilsTests.xctest;
-			remoteRef = 4224899E2014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489A12014DF52006ADC90 /* RZUtilsSwift.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtilsSwift.framework;
-			remoteRef = 422489A02014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489A32014DF52006ADC90 /* RZUtilsSwiftTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RZUtilsSwiftTests.xctest;
-			remoteRef = 422489A22014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489A52014DF52006ADC90 /* RZUtilsUniversal.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtilsUniversal.framework;
-			remoteRef = 422489A42014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489A72014DF52006ADC90 /* RZUtilsUniversalTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RZUtilsUniversalTests.xctest;
-			remoteRef = 422489A62014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489A92014DF52006ADC90 /* RZUtilsHealthkit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtilsHealthkit.framework;
-			remoteRef = 422489A82014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489AB2014DF52006ADC90 /* RZUtilsHealthkitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RZUtilsHealthkitTests.xctest;
-			remoteRef = 422489AA2014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489AD2014DF52006ADC90 /* RZUtilsTouch.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtilsTouch.framework;
-			remoteRef = 422489AC2014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489AF2014DF52006ADC90 /* RZUtilsTouchTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RZUtilsTouchTests.xctest;
-			remoteRef = 422489AE2014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489B12014DF52006ADC90 /* RZUtilsOSX.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtilsOSX.framework;
-			remoteRef = 422489B02014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489B32014DF52006ADC90 /* RZUtilsOSXTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = RZUtilsOSXTests.xctest;
-			remoteRef = 422489B22014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		422489B52014DF52006ADC90 /* RZUtilsTestInfra.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZUtilsTestInfra.framework;
-			remoteRef = 422489B42014DF52006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42248BE12014DF6D006ADC90 /* RZExternal.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZExternal.framework;
-			remoteRef = 42248BE02014DF6D006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42248BE32014DF6D006ADC90 /* RZExternalTestUtils.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZExternalTestUtils.framework;
-			remoteRef = 42248BE22014DF6D006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42248BE52014DF6D006ADC90 /* RZExternalCpp.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZExternalCpp.framework;
-			remoteRef = 42248BE42014DF6D006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		42248C142014E1D4006ADC90 /* RZExternalUniversal.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = RZExternalUniversal.framework;
-			remoteRef = 42248C132014E1D4006ADC90 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		42792C701AC8328E00555013 /* Resources */ = {
@@ -1069,46 +731,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		42248BED2014DF84006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZUtils;
-			targetProxy = 42248BEC2014DF84006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248BF22014E00E006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZUtilsOSX;
-			targetProxy = 42248BF12014E00E006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248BF62014E01C006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZUtilsUniversal;
-			targetProxy = 42248BF52014E01C006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248C182014E1D9006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZExternalUniversal;
-			targetProxy = 42248C172014E1D9006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248C1C2014E3E2006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZExternalUniversal;
-			targetProxy = 42248C1B2014E3E2006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248C202014E3E2006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZUtils;
-			targetProxy = 42248C1F2014E3E2006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248C242014E3E2006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZUtilsUniversal;
-			targetProxy = 42248C232014E3E2006ADC90 /* PBXContainerItemProxy */;
-		};
-		42248C282014E3E2006ADC90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RZUtilsTouch;
-			targetProxy = 42248C272014E3E2006ADC90 /* PBXContainerItemProxy */;
-		};
 		42792C861AC8328E00555013 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 42792C711AC8328E00555013 /* shapeview */;
@@ -1156,7 +778,10 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = shapeview/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Shapefile Explorer";
@@ -1177,7 +802,10 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = shapeview/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Shapefile Explorer";
@@ -1200,7 +828,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = shapeviewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1220,7 +852,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = shapeviewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1277,7 +913,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1326,7 +962,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1341,7 +977,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = VisitedCountries/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1355,7 +994,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = VisitedCountries/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1375,7 +1017,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = VisitedCountriesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VisitedCountries.app/VisitedCountries";
@@ -1391,7 +1037,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = VisitedCountriesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VisitedCountries.app/VisitedCountries";
@@ -1447,6 +1097,81 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roznet/rzutils.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		424767D2259B7C0500BABCCB /* XCRemoteSwiftPackageReference "rzexternal" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roznet/rzexternal.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		424767E6259B7CED00BABCCB /* XCRemoteSwiftPackageReference "rzutils-touch" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roznet/rzutils-touch.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		424767CA259B7BED00BABCCB /* RZUtilsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */;
+			productName = RZUtilsSwift;
+		};
+		424767CC259B7BED00BABCCB /* RZUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */;
+			productName = RZUtils;
+		};
+		424767CE259B7BED00BABCCB /* RZUtilsUniversal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */;
+			productName = RZUtilsUniversal;
+		};
+		424767D3259B7C0500BABCCB /* RZExternal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767D2259B7C0500BABCCB /* XCRemoteSwiftPackageReference "rzexternal" */;
+			productName = RZExternal;
+		};
+		424767D5259B7C0500BABCCB /* RZExternalUniversal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767D2259B7C0500BABCCB /* XCRemoteSwiftPackageReference "rzexternal" */;
+			productName = RZExternalUniversal;
+		};
+		424767DA259B7C1C00BABCCB /* RZUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */;
+			productName = RZUtils;
+		};
+		424767DC259B7C1C00BABCCB /* RZUtilsUniversal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */;
+			productName = RZUtilsUniversal;
+		};
+		424767DE259B7C1C00BABCCB /* RZExternalUniversal */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767D2259B7C0500BABCCB /* XCRemoteSwiftPackageReference "rzexternal" */;
+			productName = RZExternalUniversal;
+		};
+		424767E7259B7CED00BABCCB /* RZUtilsTouch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 424767E6259B7CED00BABCCB /* XCRemoteSwiftPackageReference "rzutils-touch" */;
+			productName = RZUtilsTouch;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 42C875661AB785BF00ED1B9B /* Project object */;
 }

@@ -23,8 +23,9 @@
 //  SOFTWARE.
 //  
 
-#import "RZUtils/RZUtils.h"
-#import "RZUtilsTouch/RZUtilsTouch.h"
+@import RZUtils;
+@import RZUtilsUniversal;
+
 @interface VCViewConfig : RZViewConfig
 
 +(RZFont*)systemFontOfSize:(CGFloat)size;

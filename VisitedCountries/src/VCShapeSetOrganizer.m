@@ -64,7 +64,7 @@
  }
  */
 
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 #import "VCShapeSetOrganizer.h"
 #import "VCCountry.h"
 #import "VCShapeBundleDefinitions.h"
