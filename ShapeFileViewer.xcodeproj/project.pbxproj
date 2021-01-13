@@ -126,6 +126,7 @@
 		422637B11B07820E005461E3 /* JPN_adm1.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = JPN_adm1.shx; path = shapefiles/JPN_adm1.shx; sourceTree = "<group>"; };
 		4247647225AEF34300A9E377 /* VisitedCountries-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisitedCountries-Bridging-Header.h"; sourceTree = "<group>"; };
 		4247647325AEF34300A9E377 /* VCAppGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VCAppGlobal.swift; path = src/VCAppGlobal.swift; sourceTree = "<group>"; };
+		4247647925AEF57300A9E377 /* rzexternal */ = {isa = PBXFileReference; lastKnownFileType = folder; name = rzexternal; path = ../rzexternal; sourceTree = "<group>"; };
 		424F92C21B0930D60075C5F1 /* regions-20140306-100m.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = "regions-20140306-100m.shx"; path = "shapefiles/regions-20140306-100m.shx"; sourceTree = "<group>"; };
 		424F92C31B0930D60075C5F1 /* regions-20140306-100m.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = "regions-20140306-100m.shp"; path = "shapefiles/regions-20140306-100m.shp"; sourceTree = "<group>"; };
 		424F92C41B0930D60075C5F1 /* regions-20140306-100m.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "regions-20140306-100m.dbf"; path = "shapefiles/regions-20140306-100m.dbf"; sourceTree = "<group>"; };
@@ -304,6 +305,7 @@
 		42C875651AB785BF00ED1B9B = {
 			isa = PBXGroup;
 			children = (
+				4247647925AEF57300A9E377 /* rzexternal */,
 				42C875701AB785BF00ED1B9B /* VisitedCountries */,
 				42C8758A1AB785BF00ED1B9B /* VisitedCountriesTests */,
 				42792C731AC8328E00555013 /* shapeview */,

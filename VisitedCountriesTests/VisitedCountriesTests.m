@@ -96,8 +96,6 @@
     FMDatabase * db = [FMDatabase databaseWithPath:[RZFileOrganizer writeableFilePath:@"test_sets.db"]];
     [db open];
     [VCShapeSetOrganizer ensureDbStructure:db];
-    
-    
 
     VCShapeSetOrganizer * organizer = [VCShapeSetOrganizer organizerWithDatabase:db andThread:nil];
     NSUInteger startChoicesCount = [organizer validChoices].count;
@@ -166,18 +164,25 @@
     
             NSArray * split = [location componentsSeparatedByString:@", "];
             NSString * dbLocation = split.lastObject;
-            NSIndexSet * set = [file indexSetForShapeContaining:coord];
-            NSArray * found = [info objectsAtIndexes:set];
-            XCTAssertGreaterThan(found.count, 0, @"%@", location);
-            if( found.count > 0){
-                NSString * foundName = found[0][@"ISO2"];
+            //[file indexSetForShapeContaining:coord]
+            NSIndexSet * closest_set = [file indexSetForShapeContainingOrClosest:coord];
+            NSArray * closest_found = [info objectsAtIndexes:closest_set];
+            if( closest_found.count == 0){
+                closest_set = [file indexSetForShapeContainingOrClosest:coord];
+                closest_found = [info objectsAtIndexes:closest_set];
+                NSLog(@"not containing %@ but closest %@", dbLocation, closest_found[0][@"ISO2"]);
+            }
+            XCTAssertGreaterThan(closest_found.count, 0, @"%@", location);
+            
+            if( closest_found.count > 0){
+                NSString * foundName = closest_found[0][@"NAME"];
                 NSNumber * prev = map[foundName];
                 if( prev ){
                     map[foundName] = @( prev.doubleValue+1);
                 }else{
                     map[foundName] = @1;
                 }
-                XCTAssertEqualObjects(dbLocation, found[0][@"ISO2"], @"%@", location);
+                XCTAssertEqualObjects(dbLocation, closest_found[0][@"ISO2"], @"%@", location);
             }else{
                 failed ++;
                 NSNumber * prev = mis[location];
@@ -193,15 +198,8 @@
         NSLog( @"Failed %@/%@", @(failed),@(total) );
         NSLog(@"%@", mis);
     }
+    NSLog(@"Total: %@", @(total));
     NSLog(@"%@", map);
-}
-
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
 }
 
 
