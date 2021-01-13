@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "RZUtils/RZUtils.h"
+@import RZUtils;
 
 @interface VCFilteredArrayTests : XCTestCase
 

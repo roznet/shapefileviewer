@@ -27,9 +27,9 @@
 @import RZExternalUniversal;
 #import <MapKit/MapKit.h>
 #import "SVPreferenceViewController.h"
-#import "RZUtils/RZUtils.h"
-#import "RZUtilsOSX/RZUtilsOSX.h"
-#import "RZUtilsUniversal/RZUtilsUniversal.h"
+@import RZUtils;
+@import RZUtilsMacOS;
+@import RZUtilsUniversal;
 
 @interface SVShapeTableViewController ()
 @property (weak) IBOutlet NSTableView *shapesTable;
@@ -290,12 +290,12 @@
     textField.stringValue = [NSString stringWithFormat:@"%@", val ? val : @""];
 
     if ([val isKindOfClass:[NSString class]]) {
-        textField.alignment = NSLeftTextAlignment;
+        textField.alignment = NSTextAlignmentLeft;
         textField.editable = YES;
         [textField setDelegate:self];
         textField.identifier = [NSString stringWithFormat:@"%@|%@", @(row),key];
     }else{
-        textField.alignment = NSRightTextAlignment;
+        textField.alignment = NSTextAlignmentRight;
         textField.editable = NO;
     }
 

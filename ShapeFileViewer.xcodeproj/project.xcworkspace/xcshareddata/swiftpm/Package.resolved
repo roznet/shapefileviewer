@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "RZUtilsMacOS",
+        "repositoryURL": "https://github.com/roznet/rzutils-macos.git",
+        "state": {
+          "branch": "main",
+          "revision": "9b567821a8113338f75c9fb83da469d07eb5e233",
+          "version": null
+        }
+      },
+      {
         "package": "RZUtilsTouch",
         "repositoryURL": "https://github.com/roznet/rzutils-touch.git",
         "state": {

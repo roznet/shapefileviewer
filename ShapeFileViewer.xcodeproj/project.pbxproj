@@ -19,6 +19,7 @@
 		422637BB1B07820E005461E3 /* JPN_adm1.prj in Resources */ = {isa = PBXBuildFile; fileRef = 422637AF1B07820E005461E3 /* JPN_adm1.prj */; };
 		422637BC1B07820E005461E3 /* JPN_adm1.shp in Resources */ = {isa = PBXBuildFile; fileRef = 422637B01B07820E005461E3 /* JPN_adm1.shp */; };
 		422637BD1B07820E005461E3 /* JPN_adm1.shx in Resources */ = {isa = PBXBuildFile; fileRef = 422637B11B07820E005461E3 /* JPN_adm1.shx */; };
+		4247647425AEF34300A9E377 /* VCAppGlobal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4247647325AEF34300A9E377 /* VCAppGlobal.swift */; };
 		424767CB259B7BED00BABCCB /* RZUtilsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 424767CA259B7BED00BABCCB /* RZUtilsSwift */; };
 		424767CD259B7BED00BABCCB /* RZUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 424767CC259B7BED00BABCCB /* RZUtils */; };
 		424767CF259B7BED00BABCCB /* RZUtilsUniversal in Frameworks */ = {isa = PBXBuildFile; productRef = 424767CE259B7BED00BABCCB /* RZUtilsUniversal */; };
@@ -63,6 +64,7 @@
 		42C876441ABD703000ED1B9B /* VCAppGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C876431ABD703000ED1B9B /* VCAppGlobal.m */; };
 		42C876471ABD748900ED1B9B /* VCCountriesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C876461ABD748900ED1B9B /* VCCountriesTableViewController.m */; };
 		42C8764A1ABD769700ED1B9B /* VCTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C876491ABD769700ED1B9B /* VCTabBarViewController.m */; };
+		42D24AAD25AEEE5A00B22158 /* RZUtilsMacOS in Frameworks */ = {isa = PBXBuildFile; productRef = 42D24AAC25AEEE5A00B22158 /* RZUtilsMacOS */; };
 		42F132B31AC3FDC300510A34 /* VCShapeSetOrganizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F132B21AC3FDC300510A34 /* VCShapeSetOrganizer.m */; };
 		42F132B61AC3FE1200510A34 /* VCCountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F132B51AC3FE1200510A34 /* VCCountry.m */; };
 		42F75E562159410400A567FE /* VCShapeSetChoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F75E552159410400A567FE /* VCShapeSetChoice.m */; };
@@ -122,6 +124,8 @@
 		422637AF1B07820E005461E3 /* JPN_adm1.prj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = JPN_adm1.prj; path = shapefiles/JPN_adm1.prj; sourceTree = "<group>"; };
 		422637B01B07820E005461E3 /* JPN_adm1.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = JPN_adm1.shp; path = shapefiles/JPN_adm1.shp; sourceTree = "<group>"; };
 		422637B11B07820E005461E3 /* JPN_adm1.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = JPN_adm1.shx; path = shapefiles/JPN_adm1.shx; sourceTree = "<group>"; };
+		4247647225AEF34300A9E377 /* VisitedCountries-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VisitedCountries-Bridging-Header.h"; sourceTree = "<group>"; };
+		4247647325AEF34300A9E377 /* VCAppGlobal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VCAppGlobal.swift; path = src/VCAppGlobal.swift; sourceTree = "<group>"; };
 		424F92C21B0930D60075C5F1 /* regions-20140306-100m.shx */ = {isa = PBXFileReference; lastKnownFileType = file; name = "regions-20140306-100m.shx"; path = "shapefiles/regions-20140306-100m.shx"; sourceTree = "<group>"; };
 		424F92C31B0930D60075C5F1 /* regions-20140306-100m.shp */ = {isa = PBXFileReference; lastKnownFileType = file; name = "regions-20140306-100m.shp"; path = "shapefiles/regions-20140306-100m.shp"; sourceTree = "<group>"; };
 		424F92C41B0930D60075C5F1 /* regions-20140306-100m.dbf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "regions-20140306-100m.dbf"; path = "shapefiles/regions-20140306-100m.dbf"; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				42D24AAD25AEEE5A00B22158 /* RZUtilsMacOS in Frameworks */,
 				424767DF259B7C1C00BABCCB /* RZExternalUniversal in Frameworks */,
 				424767DD259B7C1C00BABCCB /* RZUtilsUniversal in Frameworks */,
 				424767DB259B7C1C00BABCCB /* RZUtils in Frameworks */,
@@ -393,6 +398,8 @@
 				42C875761AB785BF00ED1B9B /* VCAppDelegate.m */,
 				42C876421ABD703000ED1B9B /* VCAppGlobal.h */,
 				42C876431ABD703000ED1B9B /* VCAppGlobal.m */,
+				4247647325AEF34300A9E377 /* VCAppGlobal.swift */,
+				4247647225AEF34300A9E377 /* VisitedCountries-Bridging-Header.h */,
 			);
 			name = AppDelegate;
 			sourceTree = "<group>";
@@ -469,6 +476,7 @@
 				424767DA259B7C1C00BABCCB /* RZUtils */,
 				424767DC259B7C1C00BABCCB /* RZUtilsUniversal */,
 				424767DE259B7C1C00BABCCB /* RZExternalUniversal */,
+				42D24AAC25AEEE5A00B22158 /* RZUtilsMacOS */,
 			);
 			productName = shapeview;
 			productReference = 42792C721AC8328E00555013 /* Shapefile Explorer.app */;
@@ -564,6 +572,7 @@
 					42C8756D1AB785BF00ED1B9B = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = M7QSSF3624;
+						LastSwiftMigration = 1230;
 					};
 					42C875861AB785BF00ED1B9B = {
 						CreatedOnToolsVersion = 6.2;
@@ -572,7 +581,7 @@
 				};
 			};
 			buildConfigurationList = 42C875691AB785BF00ED1B9B /* Build configuration list for PBXProject "ShapeFileViewer" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 11.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -605,6 +614,7 @@
 				424767C9259B7BED00BABCCB /* XCRemoteSwiftPackageReference "rzutils" */,
 				424767D2259B7C0500BABCCB /* XCRemoteSwiftPackageReference "rzexternal" */,
 				424767E6259B7CED00BABCCB /* XCRemoteSwiftPackageReference "rzutils-touch" */,
+				42D24AAB25AEEE5A00B22158 /* XCRemoteSwiftPackageReference "rzutils-macos" */,
 			);
 			productRefGroup = 42C8756F1AB785BF00ED1B9B /* Products */;
 			projectDirPath = "";
@@ -712,6 +722,7 @@
 				42C875771AB785BF00ED1B9B /* VCAppDelegate.m in Sources */,
 				42C875741AB785BF00ED1B9B /* main.m in Sources */,
 				42866FF51B0696EF003C99FB /* VCShapeCountry.m in Sources */,
+				4247647425AEF34300A9E377 /* VCAppGlobal.swift in Sources */,
 				42792C1B1AC80FCB00555013 /* VCViewConfig.m in Sources */,
 				42F75E562159410400A567FE /* VCShapeSetChoice.m in Sources */,
 				42C876471ABD748900ED1B9B /* VCCountriesTableViewController.m in Sources */,
@@ -782,7 +793,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Shapefile Explorer";
 				PROVISIONING_PROFILE = "";
@@ -806,7 +816,6 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "Shapefile Explorer";
 				PROVISIONING_PROFILE = "";
@@ -819,6 +828,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = M7QSSF3624;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -833,11 +843,10 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shapeview.app/Contents/MacOS/shapeview";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shapefile Explorer.app/Contents/MacOS/Shapefile Explorer";
 			};
 			name = Debug;
 		};
@@ -847,6 +856,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = M7QSSF3624;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
@@ -857,11 +867,10 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/shapeview.app/Contents/MacOS/shapeview";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shapefile Explorer.app/Contents/MacOS/Shapefile Explorer";
 			};
 			name = Release;
 		};
@@ -914,6 +923,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -963,6 +973,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -974,6 +985,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = VisitedCountries/Info.plist;
@@ -984,6 +996,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VisitedCountries/VisitedCountries-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -991,6 +1006,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = VisitedCountries/Info.plist;
@@ -1001,12 +1017,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "net.ro-z.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VisitedCountries/VisitedCountries-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
 		42C875951AB785BF00ED1B9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1031,6 +1050,7 @@
 		42C875961AB785BF00ED1B9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -1123,6 +1143,14 @@
 				kind = branch;
 			};
 		};
+		42D24AAB25AEEE5A00B22158 /* XCRemoteSwiftPackageReference "rzutils-macos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/roznet/rzutils-macos.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1170,6 +1198,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 424767E6259B7CED00BABCCB /* XCRemoteSwiftPackageReference "rzutils-touch" */;
 			productName = RZUtilsTouch;
+		};
+		42D24AAC25AEEE5A00B22158 /* RZUtilsMacOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 42D24AAB25AEEE5A00B22158 /* XCRemoteSwiftPackageReference "rzutils-macos" */;
+			productName = RZUtilsMacOS;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

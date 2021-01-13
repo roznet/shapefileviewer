@@ -24,8 +24,9 @@
 //  
 
 #import "SVPreferenceViewController.h"
-#import "RZUtilsOSX/RZUtilsOSX.h"
-#import "RZUtilsUniversal/RZUtilsUniversal.h"
+@import RZUtils;
+@import RZUtilsMacOS;
+@import RZUtilsUniversal;
 
 NSString * SVPrefShapeColor = @"SVPrefShapeColor";
 NSString * SVPrefShapeTransparency = @"SVPrefShapeTransparency";
@@ -77,7 +78,7 @@ NSString * SVNotifyPreferenceChanged = @"SVNotifyPreferenceChanged";
         self.shapeColor.color = color;
     }
     self.shapeTransparency.doubleValue = [[NSUserDefaults standardUserDefaults] doubleForKey:SVPrefShapeTransparency]*100.0;
-    self.lineButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:SVPrefDrawLine] ? NSOnState : NSOffState;
+    self.lineButton.state = [[NSUserDefaults standardUserDefaults] boolForKey:SVPrefDrawLine] ? NSControlStateValueOn : NSControlStateValueOff;
     color = [NSColor colorWithRgbComponents:[[NSUserDefaults standardUserDefaults] objectForKey:SVPrefLineColor] andAlpha:1.0];
     if (color) {
         self.lineColor.color = color;
@@ -87,7 +88,7 @@ NSString * SVNotifyPreferenceChanged = @"SVNotifyPreferenceChanged";
 
 - (IBAction)preferenceChanged:(id)sender {
 
-    if (self.lineButton.state == NSOnState) {
+    if (self.lineButton.state == NSControlStateValueOn) {
         self.lineWidth.enabled = true;
         self.lineColor.enabled = true;
 
@@ -99,7 +100,7 @@ NSString * SVNotifyPreferenceChanged = @"SVNotifyPreferenceChanged";
 
     [[NSUserDefaults standardUserDefaults] setObject:[self.shapeColor.color rgbComponents] forKey:SVPrefShapeColor];
     [[NSUserDefaults standardUserDefaults] setDouble:self.shapeTransparency.doubleValue/100.0  forKey:SVPrefShapeTransparency];
-    [[NSUserDefaults standardUserDefaults] setBool:self.lineButton.state == NSOnState forKey:SVPrefDrawLine];
+    [[NSUserDefaults standardUserDefaults] setBool:self.lineButton.state == NSControlStateValueOn forKey:SVPrefDrawLine];
     [[NSUserDefaults standardUserDefaults] setObject:[self.lineColor.color rgbComponents] forKey:SVPrefLineColor];
     [[NSUserDefaults standardUserDefaults] setDouble:self.lineWidth.doubleValue forKey:SVPrefLineWidth];
     [[NSNotificationCenter defaultCenter] postNotificationName:SVNotifyPreferenceChanged object:self];

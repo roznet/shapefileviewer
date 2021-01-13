@@ -8,9 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
-#import "RZShapeFile.h"
-#import "RZUtils/RZUtils.h"
-#import "RZUtilsOSX/RZUtilsOSX.h"
+@import RZExternalUniversal;
+@import RZUtils;
+@import RZUtilsMacOS;
+@import RZUtilsUniversal;
 
 @interface shapeviewTests : XCTestCase
 
