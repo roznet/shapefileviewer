@@ -14,9 +14,9 @@
         "package": "RZExternal",
         "repositoryURL": "https://github.com/roznet/rzexternal.git",
         "state": {
-          "branch": "master",
-          "revision": "0508fcb2d0e16326f149e263ef4d573b32ace205",
-          "version": null
+          "branch": null,
+          "revision": "8196de67f9481c7f2a1ba2d5bf7886fe89f63ce4",
+          "version": "1.0.3"
         }
       },
       {
